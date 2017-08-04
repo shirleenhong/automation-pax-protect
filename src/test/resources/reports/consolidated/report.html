@@ -1,0 +1,1203 @@
+<?xml version="1.0" encoding="iso-8859-1"?><html>
+<head>
+<title>R3 Report Manager Testing</title>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js">//</script>
+<script>
+	$( document ).ready(function() {
+
+		function expandContent(element) {
+			element.parent().nextAll(".box, .line").show();
+			element.attr("class","collapse");
+			element.unbind("click");
+			element.text("[-]");
+			element.click(function( event ) {
+				collapseContent($(this));
+			});
+		};
+		
+		function collapseContent(element) {
+			element.parent().nextAll(".box, .line").hide();
+			element.attr("class","expand");
+			element.unbind("click");
+			element.text("[+]");
+			element.click(function( event ) {
+				expandContent($(this));
+			});
+		};
+		
+		$( "span.expand" ).click(function( event ) {
+			expandContent($(this));
+		});
+		
+		$( "span.collapse" ).click(function( event ) {
+			collapseContent($(this));
+		});
+		
+		$( "span.collapse-all" ).click(function( event ) {
+			$( "span.collapse" ).click();
+		});
+		
+		$( "span.expand-all" ).click(function( event ) {
+			$( "span.expand" ).click();
+		});
+		
+		$( "span.collapse" ).click();
+		
+		$( "div.box[id='summary']" ).find("span.expand:first").click();
+		
+	});
+    </script>
+<style>
+		h1 {
+			font-size: 16pt;
+			margin: 10px 0px 0px 0px;
+		}
+		div.box {
+			font-family:"Calibri";
+			font-size: 9pt;
+			display: block;
+			width: inherit;
+			border: none;
+			margin: 0px 5px 6px 5px;
+			padding-bottom: 0px;
+		}
+		div.line {
+			font-family:"Calibri";
+			font-size: 9pt;
+			display: block;
+			width: inherit;
+			border: solid #aaa 1px;
+			margin: 4px 5px 4px 5px;
+			padding: 0px 3px 0px 3px;
+		}
+		div.header1 {
+			font-family:"Calibri";
+			font-size: 10pt;
+			color: white;
+			background-color: #333;
+			width: inherit;
+			border: solid #aaa 1px;
+			min-height: 19px;
+			padding: 0px 3px 1px 3px;
+			margin: 5px 0px 5px 0px;
+		}
+		div.header2 {
+			font-family:"Calibri";
+			font-size: 10pt;
+			color: black;
+			background-color: #cfcfcf;
+			width: inherit;
+			border: solid #bfbfbf 1px;
+			min-height: 19px;
+			padding: 0px 3px 1px 3px;
+			margin: 5px 0px 5px 0px;
+		}
+		table.metrics {
+			font-family:"Calibri";
+			font-size: 9pt;
+			border: solid gray 1px;
+		}
+		table.metrics td{
+			text-align:center;
+			border: solid #aaa 1px;
+		}
+		span.label {
+			font-family:"Calibri";
+			color: black;
+			font-weight: bold;
+		}
+		span.passed {
+			color: green;
+		}
+		span.failed {
+			color: red;
+		}
+		span.warning {
+			color: orange;
+		}
+		span.norun, span.incomplete {
+			color: grey;
+		}
+		span.info {
+			color: #3377ff;
+		}
+		span.done {
+			color: green;
+		}
+		span.status {
+			color: grey;
+		}
+		span.expand, span.collapse {
+			font-family:"Courier";
+			font-size: 10pt;
+			color: grey;
+			font-weight: bold;
+		}
+		a:link {
+			color: #3377ff;
+		}
+		
+		div.footer {
+		   position: fixed;
+		   right: 0;
+		   bottom: 0;
+		   left: 0;
+		   padding: 1rem;
+		   background-color: #efefef;
+		   text-align: left;
+		}
+		
+	</style>
+</head>
+<body>
+<center>
+<table class="metrics">
+<tr>
+<th width="105px">Level</th>
+<th width="75px">
+<span class="passed">Passed</span>
+</th>
+<th width="75px">
+<span class="failed">Failed</span>
+</th>
+<th width="75px">
+<span class="warning">Warning</span>
+</th>
+<th width="75px">
+<span class="incomplete">Incomplete</span>
+</th>
+<th width="75px">
+<span class="norun">No Run</span>
+</th>
+<th width="75px">Total</th>
+</tr>
+<tr>
+<td>Test Scenario</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Test Case</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Test Steps</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+</tr>
+</table>
+</center>
+<h1>Test Scenario: PAX Protection - Home Page</h1>
+<div id="test-summary" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span>Test Execution Summary<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span class="label">Time Started</span> : 07/28/2017 11:23 AM</div>
+<div class="line">
+<span class="label">Time Ended</span> : 07/28/2017 11:31 AM</div>
+<div class="line">
+<span class="label">Time Elapsed</span> : 7.64 mins</div>
+<div class="line">
+<span class="label">Browser</span> : chrome 59.0.3071.115</div>
+</div>
+<div id="test-case" class="box">
+<div class="header1">
+<span href="#" class="collapse">[-]</span>Test Case: PAX Protection HomePage<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Go to this URL: https://aviation-in-pax-protect-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io/ <span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:23 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Clear data</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Navigate to https://aviation-in-pax-protect-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Username/SSO ID Input] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Username/SSO ID Input] Type "502388092"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Password Input] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Password Input] Type "Gerald0607S"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Login - Shared Computer] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Login - Shared Computer] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | not in GE - SSO Authentication Page page</div>
+</div>
+</div>
+<div id="test-case" class="box">
+<div class="header1">
+<span href="#" class="collapse">[-]</span>Test Case: Filter validation [FR12.0, FR107.0, FR145.0, FR146.0, FR147.0, FR152.0, FR154.0, FR155.0, FR157.0]<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR12.0, FR107.0 &amp; FR152.0 scenarios<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter icon] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter icon] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter icon] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter icon] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Selected Filter Icon] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Selected Filter Icon] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigfilter dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigfilter dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigfilter dropdown] Verify that text equals Origin</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigfilter dropdown icon] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigfilter dropdown icon] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:24 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpOrig] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpOrig] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Text inside the search box is correct</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Type "ORF"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Same filter dropdown option as we are searching</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Type "&#57353;a&#57344;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Type "&#8;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Type "@BC"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | No options after searching an invalid option</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Type "&#57353;a&#57344;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrigSearch box] Type "&#8;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Equal no. of dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Same filter dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDest dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDest dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestfilter dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestfilter dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestfilter dropdown] Verify that text equals Destination</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestfilter dropdown icon] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestfilter dropdown icon] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDest dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDest dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpDest] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpDest] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Text inside the search box is correct</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Type "LAX"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Same filter dropdown option as we are searching</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:25 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Type "&#57353;a&#57344;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Type "&#8;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Type "@BC"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | No options after searching an invalid option</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Type "&#57353;a&#57344;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDestSearch box] Type "&#8;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Equal no. of dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Same filter dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDest dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpDest dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightfilter dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightfilter dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightfilter dropdown] Verify that text equals Flight #</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightfilter dropdown icon] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightfilter dropdown icon] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpFlight] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpFlight] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Text inside the search box is correct</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Type "662"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Same filter dropdown option as we are searching</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Type "&#57353;a&#57344;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Type "&#8;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Type "@BC"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | No options after searching an invalid option</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Type "&#57353;a&#57344;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:26 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlightSearch box] Type "&#8;"</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Equal no. of dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Same filter dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpact dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpact dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpactfilter dropdown] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpactfilter dropdown] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpactfilter dropdown] Verify that text equals Impact Type</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpactfilter dropdown icon] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpactfilter dropdown icon] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpact dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpact dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpImpact] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Dropdown details for dpImpact] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Equal no. of dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Same filter dropdown options</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpact dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpImpact dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Clear All] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Clear All] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is enabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Apply] Wait for element to display (5)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Apply] Verify that displayed equals true</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is disabled</div>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR154.0 scenarios - deselecting all options<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is enabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | All options are not selected</div>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR154.0 scenarios - selecting a single option<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:27 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is enabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | ORF option is selected</div>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR154.0 scenarios - selecting multiple options<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is enabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | ORF option is selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | ATL option is selected</div>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR154.0 scenarios - reverting to defaults in closing filter section<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Disruption Window Filter Icon] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Disruption Window Filter Icon] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter icon] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Filter icon] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | All options are selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is enabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is disabled</div>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR145.0 &amp; FR147.0 scenarios - clearing before applying<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:28 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Clear All] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Clear All] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is disabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | All options are selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | All options are selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR145.0 &amp; FR147.0 scenarios - applying filters<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:29 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Apply] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Apply] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | ORF option is selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | ATL option is selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | 662 option is selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | 2 option is selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is enabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is disabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | # of flights in the PDS &amp; # of impacted pax are equal</div>
+</div>
+<div id="test-step" class="box">
+<div class="header2">
+<span href="#" class="collapse">[-]</span> Step: Verifying FR145.0 &amp; FR147.0 scenarios - clearing applied filters<span class="status"> | <span class="passed">Passed</span>
+</span>
+</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Clear All] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Clear All] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Apply] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [Apply] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | All options are selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpOrig dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:30 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:31 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | All options are selected</div>
+<div class="line">
+<span width="100px">07/28/2017 11:31 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Wait for element to display (10)</div>
+<div class="line">
+<span width="100px">07/28/2017 11:31 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | [dpFlight dropdown] Click element</div>
+<div class="line">
+<span width="100px">07/28/2017 11:31 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is enabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:31 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | Element is disabled</div>
+<div class="line">
+<span width="100px">07/28/2017 11:31 AM</span> | <b>
+<span class="passed">Passed</span>
+</b> | # of flights in the PDS &amp; # of impacted pax are equal</div>
+</div>
+</div>
+</body>
+<div class="footer">
+<strong>© 2016 Accenture TCoE Capability. </strong>All Rights Reserved.</div>
+</html>
