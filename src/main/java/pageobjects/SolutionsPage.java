@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import auto.framework.web.Element;
 import auto.framework.web.Page;
 import common.GlobalPage;
+import pageobjects.HomePage.PDSSection.Filter.DropDown;
+import pageobjects.HomePage.PDSSection.Filter.DropDown.DropDownDetails;
 
 public class SolutionsPage extends GlobalPage
 {
@@ -36,13 +38,13 @@ public class SolutionsPage extends GlobalPage
         public static class FlightPane extends Element
         {
             public static SelectedFlight selectedFlight;
-            public final Element closeSolution;
+            public final Element         closeSolution;
 
             public FlightPane(
                 Element parent)
             {
                 super("Flight pane", By.xpath(".//div[@id='flights-pane']"), parent);
-                
+
                 closeSolution = new Element("Close current solution", By.xpath(".//i[@id='closeSolution']"), this);
             }
 
@@ -78,6 +80,8 @@ public class SolutionsPage extends GlobalPage
             public final Element commitAll;
             public final Element notifyAll;
             public final Element filterPNR;
+            public final Element selectedFilterPNR;
+            public PNRFilter     pnrFilter;
 
             public SolutionHeader(
                 Element parent)
@@ -90,6 +94,61 @@ public class SolutionsPage extends GlobalPage
                 commitAll = new Element("Commit All button", By.xpath(".//button[contains(text(),'Commit')]"), this);
                 notifyAll = new Element("Notify All button", By.xpath(".//button[contains(text(),'Notify')]"), this);
                 filterPNR = new Element("Filter PNR icon", By.xpath(".//i[contains(@class,'fa fa-filter fa-stack-1x style-scope px-inbox-content')]"));
+                selectedFilterPNR = new Element("Selected filter icon", By.xpath(".//i[@class='fa fa-filter fa-stack-1x filter-icon-white style-scope px-inbox-content']"), this);
+                pnrFilter = new PNRFilter(this);
+            }
+
+            public static class PNRFilter extends Element
+            {
+                public final Element clearButton;
+                public final Element applyButton;
+                public static DropDown pnrDropdown;
+                
+                public PNRFilter(
+                    Element parent)
+                {
+                    super("PNR filter drop-down", By.xpath(".//div[@id='solution-filter']"), parent);
+                    
+                    clearButton = new Element("Clear All button", By.xpath(".//button[contains(text(),'Clear All')]"), this);
+                    applyButton = new Element("Apply button", By.xpath(".//button[contains(text(),'Apply')]"), this);
+                }
+                
+                public DropDown pnrDropdown(String id)
+                {
+                    return new DropDown(this, id);
+                }
+
+                public static class DropDown extends Element
+                {
+                    public final Element   dropdownName;
+                    public final Element   dropDownIcon;
+                    public DropDownDetails dropdownDetails;
+
+                    public DropDown(
+                        Element parent,
+                        String id)
+                    {
+                        super(id + " dropdown", By.xpath(".//px-dropdown[@id='" + id + "']/div[@id='dropcell']"), parent);
+
+                        dropdownName = new Element(id + " filter dropdown", By.xpath(".//span[@id='textWrap']"), this);
+                        dropDownIcon = new Element(id + " filter dropdown icon", By.xpath(".//iron-icon[@icon='fa:fa-angle-down']"), this);
+                        dropdownDetails = new DropDownDetails(this, id);
+                    }
+
+                    public static class DropDownDetails extends Element
+                    {
+                        public final Element searchBox;
+
+                        public DropDownDetails(
+                            Element parent,
+                            String id)
+                        {
+                            super("Dropdown details for " + id, By.xpath("..//px-dropdown-content[@id='" + id + "']/div[@class='px-dropdown--content style-scope px-dropdown-content']"), parent);
+
+                            searchBox = new Element(id + "Search box", By.xpath(".//input[@class='text-input input--search u-ml-- u-mb-- u-p-- style-scope px-dropdown-content']"), this);
+                        }
+                    }
+                }
             }
         }
 
@@ -407,4 +466,5 @@ public class SolutionsPage extends GlobalPage
         }
 
     }
+
 }

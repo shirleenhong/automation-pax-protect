@@ -38,12 +38,12 @@ public class HomePageTest extends TestBase
         testFilterInputHandler = TestDataHandler.setFilterDataSet("Filter", "RowSelection='FilterInput'");
 
         TestCases.PreRequisiteStep();
-        // TestCases.OpenPAXProtectSite();
-        // TestCases.CheckPDSSection();
-        // TestCases.DisruptionWindowFilter();
-        TestCases.Filter();
-        // TestCases.SolveDisruptions();
-        Thread.sleep(10000);
+        TestCases.OpenPAXProtectSite();
+        //TestCases.CheckPDSSection();
+        //TestCases.DisruptionWindowFilter();
+        //TestCases.Filter();
+        TestCases.SolveDisruptions();
+        Thread.sleep(5000);
     }
 
     public static class TestCases
@@ -69,30 +69,24 @@ public class HomePageTest extends TestBase
             ReportLog.setTestCase("Validate Header Section");
 
             HomePage.paperToast.verifyDisplayed(true, 1);
-            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), getUpdatedDisruptedFlightCount(), Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
+            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), 
+                    getListCount(HomePage.pdsSection.rootElement, By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]")), 
+                    Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
 
-            ReportLog.setTestStep("PAX Protection tab is selected and highlighted");
-            HomePage.navigationSection.mainNavigationOptions().waitForDisplay(true, 60);
+            ReportLog.setTestStep("Verify navigation pane");
+            HomePage.navigationSection.toggleButton.verifyDisplayed(true, 5);
+            
             HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Protection").highlight();
+            HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Protection").verifyText("Pax Protection");
+            HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Protection").icon.verifyDisplayed(true, 5);
+            HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Config").highlight();
+            HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Config").verifyText("Pax Config");
+            HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Config").icon.verifyDisplayed(true, 5);
             WebControl.takeScreenshot();
 
-            String home = GlobalPage.navigationSection.mainNavigationOptions().navigateToLink("Pax Protection").getAttribute("class");
-            if (home.contains("selected"))
-            {
-                ReportLog.logEvent("Passed", "Pax Protection is selected");
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "Pax Protection is not selected");
-            }
-            GlobalPage.navigationSection.mainNavigationOptions().navigateToLink("Pax Protection").verifyText("Pax Protection", true);
-
-            ReportLog.setTestStep("Pax Protect icon is present");
-            HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Protection").icon.verifyDisplayed(true, 10);
-
-            ReportLog.setTestStep("'PAX Protection' text is displayed on the tab and on the header");
+            ReportLog.setTestStep("Verify 'PAX Protection' header");
+            HomePage.mainHeader.headerTitle.verifyDisplayed(true, 5);
             HomePage.mainHeader.headerTitle.verifyText("PAX Protection", true);
-            HomePage.navigationSection.mainNavigationOptions().navigateToLink("Pax Protection").verifyText("Pax Protection", true);
 
             ReportLog.setTestStep("'> Hide Flights' is displayed");
             HomePage.mainHeader.showHideFlights.verifyDisplayed(true, 3);
@@ -265,21 +259,16 @@ public class HomePageTest extends TestBase
             HomePage.pdsSection.disruptionFilter.hoursText.verifyDisplayed(true, 5);
             HomePage.pdsSection.disruptionFilter.hoursText.verifyText("Hours");
             HomePage.pdsSection.disruptionFilter.applyButton.verifyDisplayed(true, 5);
-            if (!isDisabled(HomePage.pdsSection.disruptionFilter.applyButton.getAttribute("class")))
-            {
-                ReportLog.logEvent("Passed", "Disruption time filter's elements are properly implemented.");
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "Some or all of the disruption time filter's elements are not properly implemented.");
-            }
+            isElementDisabled(HomePage.pdsSection.disruptionFilter.applyButton, false);
 
             ReportLog.setTestStep("Input '1' (minimum value) and apply it.");
             HomePage.pdsSection.disruptionFilter.disruptionTextBox.typeKeys("1");
             HomePage.pdsSection.disruptionFilter.applyButton.click();
             Thread.sleep(3000);
             HomePage.paperToast.verifyDisplayed(true, 5);
-            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), getUpdatedDisruptedFlightCount(), Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
+            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), 
+                    getListCount(HomePage.pdsSection.rootElement, By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]")), 
+                    Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
             Thread.sleep(10000);
 
             ReportLog.setTestStep("Input '99999' (maximum value) and apply it.");
@@ -288,7 +277,9 @@ public class HomePageTest extends TestBase
             HomePage.pdsSection.disruptionFilter.applyButton.click();
             Thread.sleep(3000);
             HomePage.paperToast.verifyDisplayed(true, 5);
-            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), getUpdatedDisruptedFlightCount(), Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
+            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), 
+                    getListCount(HomePage.pdsSection.rootElement, By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]")), 
+                    Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
             Thread.sleep(10000);
 
             ReportLog.setTestStep("Input '50000' (middle value) and apply it.");
@@ -297,7 +288,9 @@ public class HomePageTest extends TestBase
             HomePage.pdsSection.disruptionFilter.applyButton.click();
             Thread.sleep(3000);
             HomePage.paperToast.verifyDisplayed(true, 5);
-            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), getUpdatedDisruptedFlightCount(), Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
+            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), 
+                    getListCount(HomePage.pdsSection.rootElement, By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]")), 
+                    Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
             Thread.sleep(10000);
 
             ReportLog.setTestStep("Input '24' (default) and apply it.");
@@ -306,7 +299,9 @@ public class HomePageTest extends TestBase
             HomePage.pdsSection.disruptionFilter.applyButton.click();
             Thread.sleep(3000);
             HomePage.paperToast.verifyDisplayed(true, 5);
-            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), getUpdatedDisruptedFlightCount(), Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
+            extractPaperToastText(HomePage.paperToast.paperStatus.getText(), 
+                    getListCount(HomePage.pdsSection.rootElement, By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]")), 
+                    Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()));
             Thread.sleep(10000);
 
             ReportLog.setTestStep("Remove the value in the text box");
@@ -317,14 +312,7 @@ public class HomePageTest extends TestBase
             Thread.sleep(2000);
             HomePage.pdsSection.disruptionFilter.errorTextMessage.verifyText("Invalid input");
             HomePage.pdsSection.disruptionFilter.errorTextMessage.getAttribute("style").equalsIgnoreCase("color:red");
-            if (isDisabled(HomePage.pdsSection.disruptionFilter.applyButton.getAttribute("class")))
-            {
-                ReportLog.logEvent("Passed", "Error message is correct and 'Apply' button is disabled.");
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "Error message is incorrect or 'Apply' button is not disabled.");
-            }
+            isElementDisabled(HomePage.pdsSection.disruptionFilter.applyButton, true);
             Thread.sleep(3000);
 
             ReportLog.setTestStep("Input negative value");
@@ -332,14 +320,7 @@ public class HomePageTest extends TestBase
             Thread.sleep(2000);
             HomePage.pdsSection.disruptionFilter.errorTextMessage.verifyText("Accepts only numbers from 1 to 99999");
             HomePage.pdsSection.disruptionFilter.errorTextMessage.getAttribute("style").equalsIgnoreCase("color:red");
-            if (isDisabled(HomePage.pdsSection.disruptionFilter.applyButton.getAttribute("class")))
-            {
-                ReportLog.logEvent("Passed", "Error message is correct and 'Apply' button is disabled.");
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "Error message is incorrect or 'Apply' button is not disabled.");
-            }
+            isElementDisabled(HomePage.pdsSection.disruptionFilter.applyButton, true);
             Thread.sleep(3000);
 
             ReportLog.setTestStep("Input non-integer value");
@@ -347,14 +328,7 @@ public class HomePageTest extends TestBase
             Thread.sleep(2000);
             HomePage.pdsSection.disruptionFilter.errorTextMessage.verifyText("Accepts only numbers from 1 to 99999");
             HomePage.pdsSection.disruptionFilter.errorTextMessage.getAttribute("style").equalsIgnoreCase("color:red");
-            if (isDisabled(HomePage.pdsSection.disruptionFilter.applyButton.getAttribute("class")))
-            {
-                ReportLog.logEvent("Passed", "Error message is correct and 'Apply' button is disabled.");
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "Error message is incorrect or 'Apply' button is not disabled.");
-            }
+            isElementDisabled(HomePage.pdsSection.disruptionFilter.applyButton, true);
             Thread.sleep(3000);
 
             ReportLog.setTestStep("Input 0 value");
@@ -362,14 +336,7 @@ public class HomePageTest extends TestBase
             Thread.sleep(2000);
             HomePage.pdsSection.disruptionFilter.errorTextMessage.verifyText("Minimum value should be 1 hour");
             HomePage.pdsSection.disruptionFilter.errorTextMessage.getAttribute("style").equalsIgnoreCase("color:red");
-            if (isDisabled(HomePage.pdsSection.disruptionFilter.applyButton.getAttribute("class")))
-            {
-                ReportLog.logEvent("Passed", "Error message is correct and 'Apply' button is disabled.");
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "Error message is incorrect or 'Apply' button is not disabled.");
-            }
+            isElementDisabled(HomePage.pdsSection.disruptionFilter.applyButton, true);
             Thread.sleep(3000);
 
             ReportLog.setTestStep("Input float value");
@@ -377,14 +344,7 @@ public class HomePageTest extends TestBase
             Thread.sleep(2000);
             HomePage.pdsSection.disruptionFilter.errorTextMessage.verifyText("Accepts only numbers from 1 to 99999");
             HomePage.pdsSection.disruptionFilter.errorTextMessage.getAttribute("style").equalsIgnoreCase("color:red");
-            if (isDisabled(HomePage.pdsSection.disruptionFilter.applyButton.getAttribute("class")))
-            {
-                ReportLog.logEvent("Passed", "Error message is correct and 'Apply' button is disabled.");
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "Error message is incorrect or 'Apply' button is not disabled.");
-            }
+            isElementDisabled(HomePage.pdsSection.disruptionFilter.applyButton, true);
             Thread.sleep(3000);
 
             HomePage.pdsSection.disruptionFilter.disruptionTextBox.typeKeys("24");
@@ -411,9 +371,9 @@ public class HomePageTest extends TestBase
             verifyDropdown("dpFlight");
             verifyDropdown("dpImpact");
             HomePage.pdsSection.filter.clearAllButton.verifyDisplayed(true, 5);
-            isElementDisabled(HomePage.pdsSection.filter.clearAllButton.getAttribute("class"), false);
+            isElementDisabled(HomePage.pdsSection.filter.clearAllButton, false);
             HomePage.pdsSection.filter.applyButton.verifyDisplayed(true, 5);
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), true);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, true);
 
             Thread.sleep(3000);
             ReportLog.setTestStep("Verifying FR154.0 scenarios - deselecting all options");
@@ -422,7 +382,7 @@ public class HomePageTest extends TestBase
             getElement(HomePage.pdsSection.filter.dropDown("dpOrig").dropdownDetails, by, "All").click();
             Thread.sleep(2000);
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), false);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, false);
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
             boolean isOptionSelected = false;
             for (int i = 0; i < originOptions.length; i++)
@@ -447,7 +407,7 @@ public class HomePageTest extends TestBase
             getElement(HomePage.pdsSection.filter.dropDown("dpOrig").dropdownDetails, by, searchOriginOptions[0]).click();
             Thread.sleep(2000);
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), false);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, false);
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
             if (getElement(HomePage.pdsSection.filter.dropDown("dpOrig").dropdownDetails, by, searchOriginOptions[0]).findElement(By.xpath(".//input[@type='checkbox']")).isSelected())
             {
@@ -463,7 +423,7 @@ public class HomePageTest extends TestBase
             getElement(HomePage.pdsSection.filter.dropDown("dpOrig").dropdownDetails, by, searchOriginOptions[1]).click();
             Thread.sleep(2000);
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), false);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, false);
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
             for (int j = 0; j < searchOriginOptions.length; j++)
             {
@@ -501,8 +461,8 @@ public class HomePageTest extends TestBase
                 ReportLog.logEvent("Failed", "There is an option that is still not selected");
             }
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
-            isElementDisabled(HomePage.pdsSection.filter.clearAllButton.getAttribute("class"), false);
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), true);
+            isElementDisabled(HomePage.pdsSection.filter.clearAllButton, false);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, true);
             Thread.sleep(3000);
 
             ReportLog.setTestStep("Verifying FR145.0 & FR147.0 scenarios - clearing before applying");
@@ -523,7 +483,7 @@ public class HomePageTest extends TestBase
             }
             HomePage.pdsSection.filter.dropDown("dpFlight").click();
             HomePage.pdsSection.filter.clearAllButton.click();
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), true);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, true);
             HomePage.pdsSection.filter.dropDown("dpOrig").click();
             isSelectedAll = true;
             for (int i = 0; i < originOptions.length; i++)
@@ -609,10 +569,11 @@ public class HomePageTest extends TestBase
                 }
             }
             HomePage.pdsSection.filter.dropDown("dpFlight").click();
-            isElementDisabled(HomePage.pdsSection.filter.clearAllButton.getAttribute("class"), false);
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), true);
+            isElementDisabled(HomePage.pdsSection.filter.clearAllButton, false);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, true);
             Thread.sleep(2000);
-            if (getUpdatedDisruptedFlightCount() == Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()))
+            if (getListCount(HomePage.pdsSection.rootElement, By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]"))
+                    == Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()))
             {
                 ReportLog.logEvent(true, "# of flights in the PDS & # of impacted pax are equal");
             }
@@ -663,10 +624,11 @@ public class HomePageTest extends TestBase
                 ReportLog.logEvent("Failed", "There is an option that is still not selected");
             }
             HomePage.pdsSection.filter.dropDown("dpFlight").click();
-            isElementDisabled(HomePage.pdsSection.filter.clearAllButton.getAttribute("class"), false);
-            isElementDisabled(HomePage.pdsSection.filter.applyButton.getAttribute("class"), true);
+            isElementDisabled(HomePage.pdsSection.filter.clearAllButton, false);
+            isElementDisabled(HomePage.pdsSection.filter.applyButton, true);
             Thread.sleep(2000);
-            if (getUpdatedDisruptedFlightCount() == Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()))
+            if (getListCount(HomePage.pdsSection.rootElement, By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]"))
+                    == Integer.parseInt(HomePage.pdsSection.impactedFlightsCount.getText().trim()))
             {
                 ReportLog.logEvent(true, "# of flights in the PDS & # of impacted pax are equal");
             }
@@ -679,99 +641,98 @@ public class HomePageTest extends TestBase
 
         public static void SolveDisruptions() throws InterruptedException
         {
-            ReportLog.setTestCase("Solve Flight Disruptions multiple disrupted flights are selected");
-
-            boolean solveButtonDisabled = isDisabled(HomePage.pdsSection.solveButton.getAttribute("class"));
-
-            if (solveButtonDisabled == true)
-            {
-                ReportLog.logEvent("Passed", "The Solve button is disabled before selecting any flights");
-                HomePage.pdsSection.checkAll.click();
-                if (isDisabled(HomePage.pdsSection.solveButton.getAttribute("class")) == false)
-                {
-                    ReportLog.logEvent("Passed", "The Solve button is enabled after selecting all flights");
-                    Thread.sleep(2000);
-                    HomePage.pdsSection.checkAll.click();
-                    if (isDisabled(HomePage.pdsSection.solveButton.getAttribute("class")) == true)
-                    {
-                        ReportLog.logEvent("Passed", "The Solve button is disabled after unselecting all flights");
-                        Thread.sleep(2000);
-                        String[] multipleDisruptedFlights = extractByComma(testDisruptionHandler.multipleDisruptedFlights);
-                        for (int i = 0; i < multipleDisruptedFlights.length; i++)
-                        {
-                            HomePage.pdsSection.disruptedFlight(multipleDisruptedFlights[i]).checkBox.click();
-                        }
-
-                        Thread.sleep(2000);
-                        HomePage.pdsSection.solveButton.click();
-                        verifyProgressBar();
-                        HomePage.pdsSection.progressBarSection().cancelButton.click();
-                        verifyCancelConfirmation();
-                        HomePage.cancelPopUp.yesButton.click();
-                        if (HomePage.pdsSection.getAttribute("class").contains("showPDS"))
-                        {
-                            ReportLog.logEvent("Passed", "PDS section is visible");
-                        }
-                        else
-                        {
-                            ReportLog.logEvent("Failed", "PDS section is not visible");
-                        }
-
-                        boolean isRehighlighted = true;
-                        for (int i = 0; i < multipleDisruptedFlights.length; i++)
-                        {
-                            if (!HomePage.pdsSection.disruptedFlight(multipleDisruptedFlights[i]).getAttribute("class").contains("selected"))
-                            {
-                                ReportLog.logEvent("Failed", "Flight was not re-highlighted after cancelling a solving task");
-                                isRehighlighted = false;
-                                break;
-                            }
-                        }
-
-                        if (isRehighlighted)
-                        {
-                            ReportLog.logEvent("Passed", "All flights were re-highlighted after cancelling a solving task");
-                        }
-                        Thread.sleep(3000);
-                    }
-                    else
-                    {
-                        ReportLog.logEvent("Failed", "The Solve button is enabled after unselecting all flights");
-                    }
-                }
-                else
-                {
-                    ReportLog.logEvent("Failed", "The Solve button is disabled after selecting all flights");
-                }
-            }
-            else
-            {
-                ReportLog.logEvent("Failed", "The Solve button is enabled before selecting any flights");
-            }
+            Thread.sleep(10000);
+//            ReportLog.setTestCase("Solve Flight Disruptions multiple disrupted flights are selected");
+//
+//            if (isDisabled(HomePage.pdsSection.solveButton))
+//            {
+//                ReportLog.logEvent("Passed", "The Solve button is disabled before selecting any flights");
+//                HomePage.pdsSection.checkAll.click();
+//                if (!isDisabled(HomePage.pdsSection.solveButton))
+//                {
+//                    ReportLog.logEvent("Passed", "The Solve button is enabled after selecting all flights");
+//                    Thread.sleep(2000);
+//                    HomePage.pdsSection.checkAll.click();
+//                    if (isDisabled(HomePage.pdsSection.solveButton))
+//                    {
+//                        ReportLog.logEvent("Passed", "The Solve button is disabled after unselecting all flights");
+//                        Thread.sleep(2000);
+//                        String[] multipleDisruptedFlights = extractByComma(testDisruptionHandler.multipleDisruptedFlights);
+//                        for (int i = 0; i < multipleDisruptedFlights.length; i++)
+//                        {
+//                            HomePage.pdsSection.disruptedFlight(multipleDisruptedFlights[i]).checkBox.click();
+//                        }
+//
+//                        Thread.sleep(2000);
+//                        HomePage.pdsSection.solveButton.click();
+//                        verifyProgressBar();
+//                        HomePage.pdsSection.progressBarSection().cancelButton.click();
+//                        verifyCancelConfirmation();
+//                        HomePage.cancelPopUp.yesButton.click();
+//                        if (HomePage.pdsSection.getAttribute("class").contains("showPDS"))
+//                        {
+//                            ReportLog.logEvent("Passed", "PDS section is visible");
+//                        }
+//                        else
+//                        {
+//                            ReportLog.logEvent("Failed", "PDS section is not visible");
+//                        }
+//
+//                        boolean isRehighlighted = true;
+//                        for (int i = 0; i < multipleDisruptedFlights.length; i++)
+//                        {
+//                            if (!HomePage.pdsSection.disruptedFlight(multipleDisruptedFlights[i]).getAttribute("class").contains("selected"))
+//                            {
+//                                ReportLog.logEvent("Failed", "Flight was not re-highlighted after cancelling a solving task");
+//                                isRehighlighted = false;
+//                                break;
+//                            }
+//                        }
+//
+//                        if (isRehighlighted)
+//                        {
+//                            ReportLog.logEvent("Passed", "All flights were re-highlighted after cancelling a solving task");
+//                        }
+//                        Thread.sleep(3000);
+//                    }
+//                    else
+//                    {
+//                        ReportLog.logEvent("Failed", "The Solve button is enabled after unselecting all flights");
+//                    }
+//                }
+//                else
+//                {
+//                    ReportLog.logEvent("Failed", "The Solve button is disabled after selecting all flights");
+//                }
+//            }
+//            else
+//            {
+//                ReportLog.logEvent("Failed", "The Solve button is enabled before selecting any flights");
+//            }
 
             ReportLog.setTestCase("Solve Flight Disruptions one disrupted flight is selected");
 
             String disruptedFlight = testDisruptionHandler.disruptedFlight;
 
-            if (solveButtonDisabled == true)
+            if (isDisabled(HomePage.pdsSection.solveButton))
             {
                 ReportLog.logEvent("Passed", "The Solve button is disabled before selecting any flights");
                 HomePage.pdsSection.disruptedFlight(disruptedFlight).checkBox.click();
-                if (isDisabled(HomePage.pdsSection.solveButton.getAttribute("class")) == false)
+                if (!isDisabled(HomePage.pdsSection.solveButton))
                 {
                     ReportLog.logEvent("Passed", "The Solve button is enabled after selecting one flight");
                     Thread.sleep(2000);
                     HomePage.pdsSection.disruptedFlight(disruptedFlight).checkBox.click();
-                    if (isDisabled(HomePage.pdsSection.solveButton.getAttribute("class")) == true)
+                    if (isDisabled(HomePage.pdsSection.solveButton))
                     {
                         ReportLog.logEvent("Passed", "The Solve button is disabled after unselecting one flight");
                         Thread.sleep(2000);
                         HomePage.pdsSection.disruptedFlight(disruptedFlight).checkBox.click();
                         Thread.sleep(2000);
                         HomePage.pdsSection.solveButton.click();
-                        HomePage.pdsSection.progressBarSection().cancelButton.click();
-                        Thread.sleep(2000);
-                        HomePage.cancelPopUp.noButton.click();
+//                        HomePage.pdsSection.progressBarSection().cancelButton.click();
+//                        Thread.sleep(2000);
+//                        HomePage.cancelPopUp.noButton.click();
                     }
                     else
                     {
@@ -900,9 +861,9 @@ public class HomePageTest extends TestBase
         }
 
         HomePage.pdsSection.filter.dropDown(dropdownID).click();
+       
     }
 
-    // OPTIMIZED METHODS
     public static WebElement getElement(Element rootElement, By by, String textToBeLocated)
     {
         WebElement locatedElement = null;
@@ -971,6 +932,7 @@ public class HomePageTest extends TestBase
                 {
                     if (disruptions[counter].equalsIgnoreCase(rowElement.findElement(By.xpath(".//input")).getAttribute("id")))
                     {
+                        System.out.println("\t\t\t\t" + rowElement.findElement(By.xpath(".//input")).getAttribute("id").trim() + " is equal to ID " + disruptions[counter]);
                         counter++;
                     }
                     else
@@ -1029,6 +991,13 @@ public class HomePageTest extends TestBase
 
         return extractedList;
     }
+    
+    public static String[] extractByColon(String list)
+    {
+        String[] extractedList = list.split(":");
+
+        return extractedList;
+    }
 
     public static void extractPaperToastText(String paperStat, int numDisruptedFlight, int impactedNum)
     {
@@ -1059,6 +1028,16 @@ public class HomePageTest extends TestBase
         }
 
         if (dropdownID.equalsIgnoreCase("dpFlight") && placeholder.equalsIgnoreCase("Enter Flight #"))
+        {
+            isEqual = true;
+        }
+        
+        if (dropdownID.equalsIgnoreCase("dpPNR") && placeholder.equalsIgnoreCase("Enter PNR"))
+        {
+            isEqual = true;
+        }
+        
+        if (dropdownID.equalsIgnoreCase("dpFreqFly") && placeholder.equalsIgnoreCase("Enter Frequent Flyer"))
         {
             isEqual = true;
         }
@@ -1107,8 +1086,10 @@ public class HomePageTest extends TestBase
         return isTrue;
     }
 
-    public static boolean isDisabled(String classAttribute)
+    public static boolean isDisabled(Element element)
     {
+        String classAttribute = element.getAttribute("class");
+        
         if (classAttribute.contains("disabled"))
         {
             ReportLog.logEvent(true, "Element is disabled");
@@ -1121,9 +1102,10 @@ public class HomePageTest extends TestBase
         }
     }
 
-    // OPTIMZED METHODS
-    public static void isElementDisabled(String classAttribute, boolean isDisabledAtDefault)
+    public static void isElementDisabled(Element element, boolean isDisabledAtDefault)
     {
+        String classAttribute = element.getAttribute("class");
+        
         if (classAttribute.contains("disabled"))
         {
             if (isDisabledAtDefault)
@@ -1148,15 +1130,6 @@ public class HomePageTest extends TestBase
         }
     }
 
-    public static int getUpdatedDisruptedFlightCount()
-    {
-        WebElement rootElement = HomePage.pdsSection.rootElement.toWebElement();
-        List<WebElement> webEl = rootElement.findElements(By.xpath(".//li[contains(@class, 'list-ui__item disruption-items old mobile-margin-bottom style-scope px-inbox')]"));
-
-        return webEl.size();
-    }
-
-    // OPTIMZED METHODS
     public static int getListCount(Element rootElement, By by)
     {
         WebElement webEl = rootElement.toWebElement();

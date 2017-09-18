@@ -5,6 +5,7 @@
     <classes>
       <class name="scenarios.HomePageTest"></class>
       <class name="scenarios.SolutionsPageTest"></class>
+      <!-- <class name="scenarios.ConfigPageTest"></class> -->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

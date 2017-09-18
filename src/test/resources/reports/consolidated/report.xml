@@ -1,260 +1,391 @@
 <?xml version="1.0" encoding="UTF-8"?><root>
     <test-scenario name="PAX Protection - Home Page">
         <summary>
-            <info desc="07/28/2017 11:23 AM" name="Time Started"/>
-            <info desc="07/28/2017 11:31 AM" name="Time Ended"/>
-            <info desc="7.64 mins" name="Time Elapsed"/>
-            <info desc="chrome 59.0.3071.115" name="Browser"/>
+            <info desc="09/13/2017 04:28 PM" name="Time Started"/>
+            <info desc="09/13/2017 04:31 PM" name="Time Ended"/>
+            <info desc="2.47 mins" name="Time Elapsed"/>
+            <info desc="chrome 61.0.3163.79" name="Browser"/>
         </summary>
         <test-case name="PAX Protection HomePage">
             <test-step name="Go to this URL: https://aviation-in-pax-protect-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io/ ">
-                <report desc="Clear data" status="Passed" timestamp="07/28/2017 11:23 AM"/>
-                <report desc="Navigate to https://aviation-in-pax-protect-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Username/SSO ID Input] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Username/SSO ID Input] Type &quot;502388092&quot;" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Password Input] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Password Input] Type &quot;Gerald0607S&quot;" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Login - Shared Computer] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Login - Shared Computer] Click element" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="not in GE - SSO Authentication Page page" status="Passed" timestamp="07/28/2017 11:24 AM"/>
+                <report desc="Clear data" status="Passed" timestamp="09/13/2017 04:29 PM"/>
+                <report desc="Navigate to https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io" status="Passed" timestamp="09/13/2017 04:29 PM"/>
+                <report desc="[Username/SSO ID Input] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:29 PM"/>
+                <report desc="[Username/SSO ID Input] Type &quot;502388092&quot;" status="Passed" timestamp="09/13/2017 04:29 PM"/>
+                <report desc="[Password Input] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:29 PM"/>
+                <report desc="[Password Input] Type &quot;Gerald0607S&quot;" status="Passed" timestamp="09/13/2017 04:29 PM"/>
+                <report desc="[Login - Shared Computer] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:29 PM"/>
+                <report desc="[Login - Shared Computer] Click element" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="not in GE - SSO Authentication Page page" status="Passed" timestamp="09/13/2017 04:30 PM"/>
             </test-step>
         </test-case>
-        <test-case name="Filter validation [FR12.0, FR107.0, FR145.0, FR146.0, FR147.0, FR152.0, FR154.0, FR155.0, FR157.0]">
-            <test-step name="Verifying FR12.0, FR107.0 &amp; FR152.0 scenarios">
-                <report desc="[Filter icon] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Filter icon] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Filter icon] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Filter icon] Click element" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Filter dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Filter dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Selected Filter Icon] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Selected Filter Icon] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrig dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrigfilter dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrigfilter dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrigfilter dropdown] Verify that text equals Origin" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrigfilter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrigfilter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Dropdown details for dpOrig] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:24 AM"/>
-                <report desc="[Dropdown details for dpOrig] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="Text inside the search box is correct" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Type &quot;ORF&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Type &quot;a&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Type &quot;@BC&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="No options after searching an invalid option" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Type &quot;a&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrigSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="Equal no. of dropdown options" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="Same filter dropdown options" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDest dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDest dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestfilter dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestfilter dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestfilter dropdown] Verify that text equals Destination" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestfilter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestfilter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[Dropdown details for dpDest] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[Dropdown details for dpDest] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestSearch box] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestSearch box] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="Text inside the search box is correct" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestSearch box] Type &quot;LAX&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestSearch box] Type &quot;a&quot;" status="Passed" timestamp="07/28/2017 11:25 AM"/>
-                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDestSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDestSearch box] Type &quot;@BC&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="No options after searching an invalid option" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDestSearch box] Type &quot;a&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDestSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="Equal no. of dropdown options" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="Same filter dropdown options" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlight dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightfilter dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightfilter dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightfilter dropdown] Verify that text equals Flight #" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightfilter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightfilter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[Dropdown details for dpFlight] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[Dropdown details for dpFlight] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="Text inside the search box is correct" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Type &quot;662&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Type &quot;a&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Type &quot;@BC&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="No options after searching an invalid option" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Type &quot;a&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="[dpFlightSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="07/28/2017 11:26 AM"/>
-                <report desc="Equal no. of dropdown options" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="Same filter dropdown options" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpact dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpact dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpactfilter dropdown] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpactfilter dropdown] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpactfilter dropdown] Verify that text equals Impact Type" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpactfilter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpactfilter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpact dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpact dropdown] Click element" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[Dropdown details for dpImpact] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[Dropdown details for dpImpact] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="Equal no. of dropdown options" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="Same filter dropdown options" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpact dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpImpact dropdown] Click element" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[Clear All] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[Clear All] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="Element is enabled" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[Apply] Wait for element to display (5)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[Apply] Verify that displayed equals true" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="Element is disabled" status="Passed" timestamp="07/28/2017 11:27 AM"/>
+        <test-case name="Validate Header Section">
+            <test-step>
+                <report desc="[Paper toast] Wait for element to display (1)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Paper toast] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="# of flights in the paper toast is equal to the # of flights in the PDS &amp; # of impacted pax" status="Passed" timestamp="09/13/2017 04:30 PM"/>
             </test-step>
-            <test-step name="Verifying FR154.0 scenarios - deselecting all options">
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="Element is enabled" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="All options are not selected" status="Passed" timestamp="07/28/2017 11:27 AM"/>
+            <test-step name="Verify navigation pane">
+                <report desc="[Toggle icon button] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Toggle icon button] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Navigate To: Pax Protection] Verify that text contains Pax Protection" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Navigate To: Pax Protection / Icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Navigate To: Pax Protection / Icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Navigate To: Pax Config] Verify that text contains Pax Config" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Navigate To: Pax Config / Icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Navigate To: Pax Config / Icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
             </test-step>
-            <test-step name="Verifying FR154.0 scenarios - selecting a single option">
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:27 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="Element is enabled" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="ORF option is selected" status="Passed" timestamp="07/28/2017 11:28 AM"/>
+            <test-step name="Verify 'PAX Protection' header">
+                <report desc="[PAX Protect -- Main Header] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[PAX Protect -- Main Header] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[PAX Protect -- Main Header] Verify that text contains PAX Protection" status="Passed" timestamp="09/13/2017 04:30 PM"/>
             </test-step>
-            <test-step name="Verifying FR154.0 scenarios - selecting multiple options">
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="Element is enabled" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="ORF option is selected" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="ATL option is selected" status="Passed" timestamp="07/28/2017 11:28 AM"/>
+            <test-step name="'&gt; Hide Flights' is displayed">
+                <report desc="[Show Hide Flights] Wait for element to display (3)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Show Hide Flights] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="['&lt;'] Wait for element to display (3)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="['&lt;'] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Hide Flights] Wait for element to display (3)" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Hide Flights] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:30 PM"/>
+                <report desc="[Hide Flights] Verify that text contains Hide Flights" status="Passed" timestamp="09/13/2017 04:30 PM"/>
             </test-step>
-            <test-step name="Verifying FR154.0 scenarios - reverting to defaults in closing filter section">
-                <report desc="[Disruption Window Filter Icon] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[Disruption Window Filter Icon] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[Filter icon] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[Filter icon] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="All options are selected" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="Element is enabled" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="Element is disabled" status="Passed" timestamp="07/28/2017 11:28 AM"/>
+        </test-case>
+        <test-case name="Solve Flight Disruptions one disrupted flight is selected">
+            <test-step>
+                <report desc="Element is disabled" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="The Solve button is disabled before selecting any flights" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Check box per disrupted flight] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Check box per disrupted flight] Click element" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="Element is not disabled" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="The Solve button is enabled after selecting one flight" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Check box per disrupted flight] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Check box per disrupted flight] Click element" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="Element is disabled" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="The Solve button is disabled after unselecting one flight" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Check box per disrupted flight] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Check box per disrupted flight] Click element" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Solve button] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Solve button] Click element" status="Passed" timestamp="09/13/2017 04:31 PM"/>
             </test-step>
-            <test-step name="Verifying FR145.0 &amp; FR147.0 scenarios - clearing before applying">
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:28 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[Clear All] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[Clear All] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="Element is disabled" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="All options are selected" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="All options are selected" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
+        </test-case>
+    </test-scenario>
+    <test-scenario name="PAX Protection - Solutions Window">
+        <summary>
+            <info desc="09/13/2017 04:31 PM" name="Time Started"/>
+            <info desc="09/13/2017 04:36 PM" name="Time Ended"/>
+            <info desc="5.42 mins" name="Time Elapsed"/>
+            <info desc="chrome 61.0.3163.79" name="Browser"/>
+        </summary>
+        <test-case name="Verify PNR Filter">
+            <test-step>
+                <report desc="[Filter PNR icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Filter PNR icon] Click element" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Selected filter icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Selected filter icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[PNR filter drop-down] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[PNR filter drop-down] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight filter dropdown] Verify that text contains Flight #" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlight filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Dropdown details for dpFlight] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[Dropdown details for dpFlight] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlightSearch box] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="[dpFlightSearch box] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:31 PM"/>
+                <report desc="Text inside the search box is correct" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Type &quot;431&quot;" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Type &quot;@BC&quot;" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="No options after searching an invalid option" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlightSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="Equal no. of PNR dropdown options" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="Same PNR filter dropdown options" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig filter dropdown] Verify that text contains Origin" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrig filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[Dropdown details for dpOrig] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[Dropdown details for dpOrig] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrigSearch box] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrigSearch box] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="Text inside the search box is correct" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:32 PM"/>
+                <report desc="[dpOrigSearch box] Type &quot;RNO&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Type &quot;@BC&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="No options after searching an invalid option" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrigSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="Equal no. of PNR dropdown options" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="Same PNR filter dropdown options" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest filter dropdown] Verify that text contains Destination" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[Dropdown details for dpDest] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[Dropdown details for dpDest] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="Text inside the search box is correct" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Type &quot;PDX&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Type &quot;@BC&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="No options after searching an invalid option" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDestSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="Equal no. of PNR dropdown options" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="Same PNR filter dropdown options" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss filter dropdown] Verify that text contains Booking Class" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:33 PM"/>
+                <report desc="[dpBkClss filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpBkClss filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpBkClss] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpBkClss] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Equal no. of PNR dropdown options" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Different PNR filter dropdown options" status="Failed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpBkClss dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpBkClss dropdown] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat filter dropdown] Verify that text contains Notification Status" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpNotifStat] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpNotifStat] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Equal no. of PNR dropdown options" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Same PNR filter dropdown options" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpNotifStat dropdown] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR filter dropdown] Verify that text contains SSR" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpSSR] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpSSR] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Equal no. of PNR dropdown options" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Different PNR filter dropdown options" status="Failed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpSSR dropdown] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR filter dropdown] Verify that text contains PNR" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpPNR] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpPNR] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Text inside the search box is correct" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Type &quot;LXVPLB&quot;" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Type &quot;@BC&quot;" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="No options after searching an invalid option" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNRSearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Not equal no. of PNR dropdown options" status="Failed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpPNR dropdown] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly filter dropdown] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly filter dropdown] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly filter dropdown] Verify that text contains Frequent Flyer" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly filter dropdown icon] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly filter dropdown icon] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFly filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpFreqFly] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[Dropdown details for dpFreqFly] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFlySearch box] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFlySearch box] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="Text inside the search box is correct" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFlySearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:34 PM"/>
+                <report desc="[dpFreqFlySearch box] Type &quot;ZZ&quot;" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Same filter dropdown option as we are searching" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Type &quot;@BC&quot;" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="No options after searching an invalid option" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Type &quot;a&quot;" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFlySearch box] Type &quot;&#8;&quot;" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Equal no. of PNR dropdown options" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Same PNR filter dropdown options" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFly dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpFreqFly dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[Clear All button] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[Clear All button] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Element is enabled" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[Apply button] Wait for element to display (5)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[Apply button] Verify that displayed equals true" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Element is disabled" status="Passed" timestamp="09/13/2017 04:35 PM"/>
             </test-step>
-            <test-step name="Verifying FR145.0 &amp; FR147.0 scenarios - applying filters">
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:29 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[Apply] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[Apply] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="ORF option is selected" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="ATL option is selected" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="662 option is selected" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="2 option is selected" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="Element is enabled" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="Element is disabled" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="# of flights in the PDS &amp; # of impacted pax are equal" status="Passed" timestamp="07/28/2017 11:30 AM"/>
+            <test-step name="Verifying FR171.0 scenarios - deselecting all options">
+                <report desc="[dpDest filter dropdown icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest filter dropdown icon] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Element is enabled" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="All options are not selected" status="Passed" timestamp="09/13/2017 04:35 PM"/>
             </test-step>
-            <test-step name="Verifying FR145.0 &amp; FR147.0 scenarios - clearing applied filters">
-                <report desc="[Clear All] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[Clear All] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[Apply] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[Apply] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="All options are selected" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:30 AM"/>
-                <report desc="All options are selected" status="Passed" timestamp="07/28/2017 11:31 AM"/>
-                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="07/28/2017 11:31 AM"/>
-                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="07/28/2017 11:31 AM"/>
-                <report desc="Element is enabled" status="Passed" timestamp="07/28/2017 11:31 AM"/>
-                <report desc="Element is disabled" status="Passed" timestamp="07/28/2017 11:31 AM"/>
-                <report desc="# of flights in the PDS &amp; # of impacted pax are equal" status="Passed" timestamp="07/28/2017 11:31 AM"/>
+            <test-step name="Verifying FR171.0 scenarios - selecting a single option">
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Element is enabled" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="PDX option is selected" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+            </test-step>
+            <test-step name="Verifying FR171.0 scenarios - selecting multiple options">
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Element is enabled" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="PDX option is selected" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="SLC option is selected" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+            </test-step>
+            <test-step name="Verifying FR171.0 scenarios - reverting to defaults in closing filter section">
+                <report desc="[Selected filter icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[Selected filter icon] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[Filter PNR icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[Filter PNR icon] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="All options are selected" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Element is enabled" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+                <report desc="Element is disabled" status="Passed" timestamp="09/13/2017 04:35 PM"/>
+            </test-step>
+            <test-step name="Verifying FR174.0 scenarios - clearing before applying">
+                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Clear All button] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Clear All button] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="Element is disabled" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpOrig dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpOrig dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="All options are selected" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+            </test-step>
+            <test-step name="Verifying FR174.0 scenarios - applying filters">
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Apply button] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Apply button] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="PDX option is selected" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="SLC option is selected" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="431 option is selected" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpFlight dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="Element is enabled" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="Element is disabled" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+            </test-step>
+            <test-step name="Verifying FR174.0 scenarios - clearing applied filters">
+                <report desc="[Clear All button] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Clear All button] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Apply button] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Apply button] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="All options are selected" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[dpDest dropdown] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="Element is enabled" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="Element is disabled" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Selected filter icon] Wait for element to display (10)" status="Passed" timestamp="09/13/2017 04:36 PM"/>
+                <report desc="[Selected filter icon] Click element" status="Passed" timestamp="09/13/2017 04:36 PM"/>
             </test-step>
         </test-case>
     </test-scenario>

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -23,6 +24,8 @@ public class SolutionsPageTest extends TestBase
     public static TestDataHandler testDataHandler;
     public static TestDataHandler testDisruptionHandler;
     public static TestDataHandler testPNRHandler;
+    public static TestDataHandler testPNRFilterHandler;
+    public static TestDataHandler testPNRFilterInputHandler;
     public static String          lastFlightSTA;
     public static String          lastFlightETA;
     public static String          firstCurrentFlight;
@@ -37,8 +40,11 @@ public class SolutionsPageTest extends TestBase
         testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='PaxProtect'");
         testDisruptionHandler = TestDataHandler.setDisruptionDataSet("Disruptions", "RowSelection='PaxProtect'");
         testPNRHandler = TestDataHandler.setPNRDataSet("PNRs", "RowSelection='PaxProtect'");
+        testPNRFilterHandler = TestDataHandler.setPNRFilterDataSet("PNRFilter", "RowSelection='PaxProtect'");
+        testPNRFilterInputHandler = TestDataHandler.setPNRFilterDataSet("PNRFilter", "RowSelection='FilterInput'");
         // TestCases.PreRequisiteStep(testDataHandler);
-        TestCases.ItinerarySection();
+        TestCases.PNRFilter();
+        // TestCases.ItinerarySection();
         // TestCases.CommitStatusDropDown();
         // TestCases.SelectFromStatus();
         // TestCases.ValidateCommitAndNotifyButton();
@@ -402,6 +408,271 @@ public class SolutionsPageTest extends TestBase
             }
         }
 
+        public static void PNRFilter() throws InterruptedException
+        {
+            ReportLog.setTestCase("Verify PNR Filter");
+
+            By by = By.xpath(".//li[contains(@class,'px-dropdown--listitem style-scope px-dropdown-content')]");
+            String[] destOptions = HomePageTest.extractByComma(testPNRFilterHandler.destinationList);
+            String[] searchDestOptions = HomePageTest.extractByComma(testPNRFilterInputHandler.destinationList);
+            String[] origOptions = HomePageTest.extractByComma(testPNRFilterHandler.originList);
+            String[] searchOriginOptions = HomePageTest.extractByComma(testPNRFilterInputHandler.originList);
+            String[] searchFlightOptions = HomePageTest.extractByComma(testPNRFilterInputHandler.flightList);
+
+//            ReportLog.setTestStep("Verifying FR99.0"); // To move in ItinerarySection method eventually
+//            String[] pnrToSelect = HomePageTest.extractByComma(testPNRHandler.multiplePNRs);
+//            for (int i = 0; i < pnrToSelect.length; i++)
+//            {
+//                SolutionsPage.solutionSection.itineraryRow(pnrToSelect[i]).checkBox.click();
+//            }
+//            SolutionsPage.solutionSection.solutionHeader.commitAll.click();
+//            HomePage.pdsSection.progressBarSection().progressStatus.verifyDisplayed(true);
+//            HomePage.pdsSection.progressBarSection().progressBar.verifyDisplayed(true);
+//            Thread.sleep(3000);
+
+            SolutionsPage.solutionSection.solutionHeader.filterPNR.click();
+            SolutionsPage.solutionSection.solutionHeader.selectedFilterPNR.verifyDisplayed(true, 5);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.verifyDisplayed(true, 5);
+            verifyDropdown("dpFlight");
+            verifyDropdown("dpOrig");
+            verifyDropdown("dpDest");
+            verifyDropdown("dpBkClss");
+            verifyDropdown("dpNotifStat");
+            verifyDropdown("dpSSR");
+            verifyDropdown("dpPNR");
+            verifyDropdown("dpFreqFly");
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.clearButton.verifyDisplayed(true, 5);
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.clearButton, false);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton.verifyDisplayed(true, 5);
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, true);
+            Thread.sleep(3000);
+
+            ReportLog.setTestStep("Verifying FR171.0 scenarios - deselecting all options");
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropDownIcon.click();
+            HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, "All").click();
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, false);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            boolean isOptionSelected = false;
+            for (int i = 0; i < destOptions.length; i++)
+            {
+                if (HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, "All").isSelected())
+                {
+                    isOptionSelected = true;
+                    break;
+                }
+            }
+            if (!isOptionSelected)
+            {
+                ReportLog.logEvent("Passed", "All options are not selected");
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", "There is an option that is still selected");
+            }
+
+            Thread.sleep(3000);
+            ReportLog.setTestStep("Verifying FR171.0 scenarios - selecting a single option");
+            HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, searchDestOptions[0]).click();
+            Thread.sleep(2000);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, false);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            if (HomePageTest
+                    .getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, searchDestOptions[0])
+                    .findElement(By.xpath(".//input[@type='checkbox']"))
+                    .isSelected())
+            {
+                ReportLog.logEvent("Passed", searchDestOptions[0] + " option is selected");
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", searchDestOptions[0] + " option is not selected");
+            }
+
+            Thread.sleep(3000);
+            ReportLog.setTestStep("Verifying FR171.0 scenarios - selecting multiple options");
+            HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, searchDestOptions[1]).click();
+            Thread.sleep(2000);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, false);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            for (int j = 0; j < searchDestOptions.length; j++)
+            {
+                if (HomePageTest
+                        .getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, searchDestOptions[j])
+                        .findElement(By.xpath(".//input[@type='checkbox']"))
+                        .isSelected())
+                {
+                    ReportLog.logEvent("Passed", searchDestOptions[j] + " option is selected");
+                }
+                else
+                {
+                    ReportLog.logEvent("Passed", searchDestOptions[j] + " option is not selected");
+                }
+            }
+
+            Thread.sleep(3000);
+            ReportLog.setTestStep("Verifying FR171.0 scenarios - reverting to defaults in closing filter section");
+            SolutionsPage.solutionSection.solutionHeader.selectedFilterPNR.click();
+            Thread.sleep(2000);
+            SolutionsPage.solutionSection.solutionHeader.filterPNR.click();
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            boolean isSelectedAll = true;
+            for (int i = 0; i < destOptions.length; i++)
+            {
+                if (!HomePageTest
+                        .getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, destOptions[i])
+                        .findElement(By.xpath(".//input[@type='checkbox']"))
+                        .isSelected())
+                {
+                    isSelectedAll = false;
+                    break;
+                }
+            }
+            if (isSelectedAll)
+            {
+                ReportLog.logEvent("Passed", "All options are selected");
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", "There is an option that is still not selected");
+            }
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.clearButton, false);
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, true);
+            Thread.sleep(3000);
+
+            ReportLog.setTestStep("Verifying FR174.0 scenarios - clearing before applying");
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpOrig").click();
+            HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpOrig").dropdownDetails, by, "All").click();
+            Thread.sleep(2000);
+            for (int i = 0; i < searchOriginOptions.length; i++)
+            {
+                HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpOrig").dropdownDetails, by, searchOriginOptions[i]).click();
+            }
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpOrig").click();
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.clearButton.click();
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, true);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpOrig").click();
+            isSelectedAll = true;
+            for (int i = 0; i < origOptions.length; i++)
+            {
+                if (!HomePageTest
+                        .getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpOrig").dropdownDetails, by, origOptions[i])
+                        .findElement(By.xpath(".//input[@type='checkbox']"))
+                        .isSelected())
+                {
+                    isSelectedAll = false;
+                    break;
+                }
+            }
+            if (isSelectedAll)
+            {
+                ReportLog.logEvent("Passed", "All options are selected");
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", "There is an option that is still not selected");
+            }
+
+            Thread.sleep(3000);
+            ReportLog.setTestStep("Verifying FR174.0 scenarios - applying filters");
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, "All").click();
+            for (int i = 0; i < searchDestOptions.length; i++)
+            {
+                HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, searchDestOptions[i]).click();
+            }
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            
+            //INSERT fr172 here - 
+            Thread.sleep(3000);
+            //ReportLog.setTestStep("Verifying FR172.0 scenarios - ");
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpFlight").click();
+            HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpFlight").dropdownDetails, by, "All").click();
+            
+            HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpFlight").dropdownDetails, by, searchFlightOptions[0]).click();
+            
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpFlight").click();
+            //FR172 end
+            
+            //user clicks Apply
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton.click();
+            
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            for (int j = 0; j < searchDestOptions.length; j++)
+            {
+                if (HomePageTest
+                        .getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, searchDestOptions[j])
+                        .findElement(By.xpath(".//input[@type='checkbox']"))
+                        .isSelected())
+                {
+                    ReportLog.logEvent("Passed", searchDestOptions[j] + " option is selected");
+                }
+                else
+                {
+                    ReportLog.logEvent("Passed", searchDestOptions[j] + " option is not selected");
+                }
+            }
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            
+            //assertFr172
+            Thread.sleep(3000);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpFlight").click();
+                if (HomePageTest
+                        .getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpFlight").dropdownDetails, by, searchFlightOptions[0])
+                        .findElement(By.xpath(".//input[@type='checkbox']"))
+                        .isSelected())
+                {
+                    ReportLog.logEvent("Passed", searchFlightOptions[0] + " option is selected");
+                }
+                else
+                {
+                    ReportLog.logEvent("Failed", searchFlightOptions[0] + " option is not selected");
+                }
+            
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpFlight").click();
+            //endAssertFr172
+            
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.clearButton, false);
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, true);
+            Thread.sleep(2000);
+
+            ReportLog.setTestStep("Verifying FR174.0 scenarios - clearing applied filters");
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.clearButton.click();
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton.click();
+            
+            
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            isSelectedAll = true;
+            for (int i = 0; i < destOptions.length; i++)
+            {
+                if (!HomePageTest
+                        .getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").dropdownDetails, by, destOptions[i])
+                        .findElement(By.xpath(".//input[@type='checkbox']"))
+                        .isSelected())
+                {
+                    isSelectedAll = false;
+                    break;
+                }
+            }
+            if (isSelectedAll)
+            {
+                ReportLog.logEvent("Passed", "All options are selected");
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", "There is an option that is still not selected");
+            }
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown("dpDest").click();
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.clearButton, false);
+            HomePageTest.isElementDisabled(SolutionsPage.solutionSection.solutionHeader.pnrFilter.applyButton, true);
+            SolutionsPage.solutionSection.solutionHeader.selectedFilterPNR.click();
+            Thread.sleep(2000);
+
+        }
+
         public static void CommitStatusDropDown() throws InterruptedException
         {
             ReportLog.setTestCase("Verify Commit Status");
@@ -698,11 +969,138 @@ public class SolutionsPageTest extends TestBase
     /*
      * - Methods that will aide in the automation testing methods.
      */
+    public static void verifyDropdown(String dropdownID) throws InterruptedException
+    {
+        String testFilterHandlerList = "";
+        String testFilterInputHandlerList = "";
+        String selectAll = Keys.chord(Keys.CONTROL, "a");
+        String backspace = "\u0008";
+        By by = By.xpath(".//li[contains(@class,'px-dropdown--listitem style-scope px-dropdown-content')]");
+
+        SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).verifyDisplayed(true, 5);
+        SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyDisplayed(true, 5);
+        if (dropdownID.equalsIgnoreCase("dpFlight"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.flightList;
+            testFilterInputHandlerList = testPNRFilterInputHandler.flightList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("Flight #");
+        }
+        if (dropdownID.equalsIgnoreCase("dpOrig"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.originList;
+            testFilterInputHandlerList = testPNRFilterInputHandler.originList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("Origin");
+        }
+        if (dropdownID.equalsIgnoreCase("dpDest"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.destinationList;
+            testFilterInputHandlerList = testPNRFilterInputHandler.destinationList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("Destination");
+        }
+        if (dropdownID.equalsIgnoreCase("dpBkClss"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.bookingClassList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("Booking Class");
+        }
+        if (dropdownID.equalsIgnoreCase("dpNotifStat"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.notifStatusList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("Notification Status");
+        }
+        if (dropdownID.equalsIgnoreCase("dpSSR"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.ssrList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("SSR");
+        }
+        if (dropdownID.equalsIgnoreCase("dpPNR"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.pnrList;
+            testFilterInputHandlerList = testPNRFilterInputHandler.pnrList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("PNR");
+        }
+        if (dropdownID.equalsIgnoreCase("dpFreqFly"))
+        {
+            testFilterHandlerList = testPNRFilterHandler.ffList;
+            testFilterInputHandlerList = testPNRFilterInputHandler.ffList;
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownName.verifyText("Frequent Flyer");
+        }
+
+        SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropDownIcon.verifyDisplayed(true, 5);
+        SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropDownIcon.click();
+        SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.verifyDisplayed(true, 5);
+
+        if (!(dropdownID.equalsIgnoreCase("dpBkClss") || dropdownID.equalsIgnoreCase("dpNotifStat") || dropdownID.equalsIgnoreCase("dpSSR")))
+        {
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.verifyDisplayed(true, 5);
+            if (HomePageTest.checkTextInsideSearchBox(dropdownID, SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.getAttribute("placeholder")))
+            {
+                ReportLog.logEvent("Passed", "Text inside the search box is correct");
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", "Text inside the search box is incorrect");
+            }
+
+            String[] filterInput = HomePageTest.extractByComma(testFilterInputHandlerList);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.sendKeys(filterInput[0]);
+            if (HomePageTest.getListCount(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails, by) == 1)
+            {
+                if (filterInput[0].equalsIgnoreCase(HomePageTest.getElement(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails, by, filterInput[0]).getText().trim()))
+                {
+                    ReportLog.logEvent("Passed", "Same filter dropdown option as we are searching");
+                }
+                else
+                {
+                    ReportLog.logEvent("Failed", "Different filter dropdown option as we are searching");
+                }
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", "Text we are searching is invalid");
+            }
+
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.sendKeys(selectAll);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.sendKeys(backspace);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.sendKeys("@BC");
+
+            if (HomePageTest.getListCount(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails, by) == 0)
+            {
+                ReportLog.logEvent("Passed", "No options after searching an invalid option");
+            }
+            else
+            {
+                ReportLog.logEvent("Failed", "Has option(s) after searching an invalid option");
+            }
+
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.sendKeys(selectAll);
+            SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.searchBox.sendKeys(backspace);
+            Thread.sleep(2000);
+        }
+
+        if (HomePageTest.getListCount(SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails, by) == HomePageTest.extractByComma(testFilterHandlerList).length)
+        {
+	        ReportLog.logEvent("Passed", "Equal no. of PNR dropdown options");
+	        String[] pnrFilterOptions = HomePageTest.extractByComma(testFilterHandlerList);
+	        if (checkPNRFilterOptions(dropdownID, pnrFilterOptions))
+	        {
+	        	ReportLog.logEvent("Passed", "Same PNR filter dropdown options");
+	        }
+	        else
+	        {
+	        	ReportLog.logEvent("Failed", "Different PNR filter dropdown options");
+	        }
+	    }
+	    else
+	    {
+	        ReportLog.logEvent("Failed", "Not equal no. of PNR dropdown options");
+        }
+
+        SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).click();
+    }
+
     public static void reSolve() throws InterruptedException
     {
-        boolean isDisabled = HomePageTest.isDisabled(HomePage.pdsSection.solveButton.getAttribute("class"));
-
-        if (isDisabled == true)
+        if (HomePageTest.isDisabled(HomePage.pdsSection.solveButton))
         {
             String[] resolve = extractResolveFlights(testDisruptionHandler.resolve);
 
@@ -1085,5 +1483,38 @@ public class SolutionsPageTest extends TestBase
         }
 
         return (attr.contains("disabled")) ? true : false;
+    }
+    
+    public static boolean checkPNRFilterOptions(String dropdownID, String[] filterOptions)
+    {
+        WebElement rootElement = SolutionsPage.solutionSection.solutionHeader.pnrFilter.pnrDropdown(dropdownID).dropdownDetails.toWebElement();
+        List<WebElement> webEl = rootElement.findElements(By.xpath(".//li[contains(@class,'px-dropdown--listitem style-scope px-dropdown-content')]"));
+        int counter = 0;
+        boolean isComplete = true;
+
+        if (webEl.size() >= 1)
+        {
+            for (WebElement optionElement : webEl)
+            {
+                if (counter != filterOptions.length)
+                {
+                    if (filterOptions[counter].equalsIgnoreCase(optionElement.getText().trim()))
+                    {
+                        counter++;
+                    }
+                    else
+                    {
+                        isComplete = false;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            isComplete = false;
+        }
+
+        return isComplete;
     }
 }

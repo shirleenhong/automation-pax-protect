@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="470701" started-at="2017-07-28T03:23:39Z" finished-at="2017-07-28T03:31:29Z">
+  <suite name="Suite" duration-ms="509518" started-at="2017-09-13T08:28:24Z" finished-at="2017-09-13T08:36:54Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="470701" started-at="2017-07-28T03:23:39Z" finished-at="2017-07-28T03:31:29Z">
+    <test name="Test" duration-ms="509518" started-at="2017-09-13T08:28:24Z" finished-at="2017-09-13T08:36:54Z">
+      <class name="scenarios.SolutionsPageTest">
+        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[SolutionsPageTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="325403" started-at="2017-09-13T16:31:25Z" finished-at="2017-09-13T16:36:51Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestScenarios -->
+      </class> <!-- scenarios.SolutionsPageTest -->
       <class name="scenarios.HomePageTest">
-        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="9464" started-at="2017-07-28T11:23:39Z" finished-at="2017-07-28T11:23:48Z">
+        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="27192" started-at="2017-09-13T16:28:25Z" finished-at="2017-09-13T16:28:52Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@483b0690]]>
+                <![CDATA[org.testng.TestRunner@34a6d9db]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startTest -->
-        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="458642" started-at="2017-07-28T11:23:48Z" finished-at="2017-07-28T11:31:27Z">
+        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="148108" started-at="2017-09-13T16:28:52Z" finished-at="2017-09-13T16:31:20Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestScenarios -->
-        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="1869" started-at="2017-07-28T11:31:28Z" finished-at="2017-07-28T11:31:29Z">
+        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="3217" started-at="2017-09-13T16:36:51Z" finished-at="2017-09-13T16:36:54Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@483b0690]]>
+                <![CDATA[org.testng.TestRunner@34a6d9db]]>
               </value>
             </param>
           </params>
@@ -34,6 +40,6 @@
           </reporter-output>
         </test-method> <!-- endTest -->
       </class> <!-- scenarios.HomePageTest -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

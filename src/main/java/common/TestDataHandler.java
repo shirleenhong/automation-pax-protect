@@ -28,10 +28,17 @@ public class TestDataHandler
     public String              disruptedFlight;
     public String              resolve;
     public String              pnrList;
+    public String              multiplePNRs;
     public String              originList;
     public String              destinationList;
     public String              flightList;
     public String              impactTypeList;
+    public String              bookingClassList;
+    public String              notifStatusList;
+    public String              ssrList;
+    public String              ffList;
+    public String              availableParameters;
+    public String              hierarchyLevels;
 
     public static int          start, last, numRow, temp = 0;
     public static int[]        selectedRows;
@@ -78,15 +85,16 @@ public class TestDataHandler
     {
         TestDataHandler testDataHandler = new TestDataHandler();
         testDataHandler.pnrList = record.getField("PNRList");
+        testDataHandler.multiplePNRs = record.getField("MultiplePNRs");
         return testDataHandler;
     }
-    
+
     public static TestDataHandler setFilterDataSet(String sheet, String... where) throws Exception
     {
         Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
         return setFilterDataSet(record);
     }
-    
+
     public static TestDataHandler setFilterDataSet(Recordset record) throws Exception
     {
         TestDataHandler testDataHandler = new TestDataHandler();
@@ -94,6 +102,40 @@ public class TestDataHandler
         testDataHandler.destinationList = record.getField("Destination");
         testDataHandler.flightList = record.getField("Flight");
         testDataHandler.impactTypeList = record.getField("ImpactType");
+        return testDataHandler;
+    }
+
+    public static TestDataHandler setPNRFilterDataSet(String sheet, String... where) throws Exception
+    {
+        Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
+        return setPNRFilterDataSet(record);
+    }
+
+    public static TestDataHandler setPNRFilterDataSet(Recordset record) throws Exception
+    {
+        TestDataHandler testDataHandler = new TestDataHandler();
+        testDataHandler.originList = record.getField("Origin");
+        testDataHandler.destinationList = record.getField("Destination");
+        testDataHandler.flightList = record.getField("Flight");
+        testDataHandler.bookingClassList = record.getField("BookingClass");
+        testDataHandler.notifStatusList = record.getField("NotifStatus");
+        testDataHandler.ssrList = record.getField("SSR");
+        testDataHandler.pnrList = record.getField("PNR");
+        testDataHandler.ffList = record.getField("FrequentFlyer");
+        return testDataHandler;
+    }
+
+    public static TestDataHandler setParametersDataSet(String sheet, String... where) throws Exception
+    {
+        Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
+        return setParametersDataSet(record);
+    }
+
+    public static TestDataHandler setParametersDataSet(Recordset record) throws Exception
+    {
+        TestDataHandler testDataHandler = new TestDataHandler();
+        testDataHandler.availableParameters = record.getField("Parameters");
+        testDataHandler.hierarchyLevels = record.getField("HierarchyLevel");
         return testDataHandler;
     }
 
