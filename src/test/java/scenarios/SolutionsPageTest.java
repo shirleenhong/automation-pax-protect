@@ -49,7 +49,7 @@ public class SolutionsPageTest extends TestBase
         // TestCases.SelectFromStatus();
         // TestCases.ValidateCommitAndNotifyButton();
         // TestCases.NotifyStatus();
-        //kamote
+        //kamote123
     }
 
     public static class TestCases
