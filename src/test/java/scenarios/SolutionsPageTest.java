@@ -50,6 +50,7 @@ public class SolutionsPageTest extends TestBase
         // TestCases.ValidateCommitAndNotifyButton();
         // TestCases.NotifyStatus();
         //kamote123a
+        //testing
     }
 
     public static class TestCases
