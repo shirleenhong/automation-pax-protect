@@ -19,31 +19,36 @@ public class TestDataHandler
     public static XSSFRow      Row;
 
     // SSO Authentication
-
     public String              url;
     public String              username;
     public String              password;
+    
+    // PDS Window
     public String              disruptionList;
     public String              multipleDisruptedFlights;
     public String              disruptedFlight;
     public String              resolve;
+    
+    // Solution Window
     public String              pnrList;
     public String              multiplePNRs;
     public String              originList;
     public String              destinationList;
     public String              flightList;
-    public String              impactTypeList;
-    public String              bookingClassList;
-    public String              notifStatusList;
-    public String              ssrList;
-    public String              ffList;
-    public String              availableParameters;
-    public String              hierarchyLevels;
+    //public String              impactTypeList;
+    //public String              bookingClassList;
+    //public String              notifStatusList;
+    //public String              ssrList;
+    //public String              ffList;
+    
+    // Config page
+    public String              maxOverbook;
+    public String              maxLateness;
 
     public static int          start, last, numRow, temp = 0;
     public static int[]        selectedRows;
 
-    // Load Test Data
+    // Load Test Data, login user
     public static TestDataHandler loadTestData(String sheet, String... where) throws Exception
     {
         Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
@@ -53,12 +58,15 @@ public class TestDataHandler
     public static TestDataHandler loadTestData(Recordset record) throws Exception
     {
         TestDataHandler testDataHandler = new TestDataHandler();
+//        String recordSet = record.getField("URL");
+        
         testDataHandler.url = record.getField("URL");
         testDataHandler.username = record.getField("Username");
         testDataHandler.password = record.getField("Password");
         return testDataHandler;
     }
-
+    
+    // Set Flight Disruption List
     public static TestDataHandler setDisruptionDataSet(String sheet, String... where) throws Exception
     {
         Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
@@ -68,27 +76,16 @@ public class TestDataHandler
     public static TestDataHandler setDisruptionDataSet(Recordset record) throws Exception
     {
         TestDataHandler testDataHandler = new TestDataHandler();
-        testDataHandler.disruptionList = record.getField("DisruptionList");
-        testDataHandler.multipleDisruptedFlights = record.getField("MultipleDisruptedFlights");
-        testDataHandler.disruptedFlight = record.getField("DisruptedFlight");
-        testDataHandler.resolve = record.getField("Resolve");
+        String recordSet = record.getField("Disruptions");
+        
+        testDataHandler.disruptionList = DataRepository.testDataToBeUsed().getRowData("Disruptions", recordSet).getField("DisruptionList");
+        testDataHandler.multipleDisruptedFlights = DataRepository.testDataToBeUsed().getRowData("Disruptions", recordSet).getField("MultipleDisruptedFlights");
+        testDataHandler.disruptedFlight = DataRepository.testDataToBeUsed().getRowData("Disruptions", recordSet).getField("DisruptedFlight");
+        testDataHandler.resolve = DataRepository.testDataToBeUsed().getRowData("Disruptions", recordSet).getField("Resolve");
         return testDataHandler;
     }
 
-    public static TestDataHandler setPNRDataSet(String sheet, String... where) throws Exception
-    {
-        Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
-        return setPNRDataSet(record);
-    }
-
-    public static TestDataHandler setPNRDataSet(Recordset record) throws Exception
-    {
-        TestDataHandler testDataHandler = new TestDataHandler();
-        testDataHandler.pnrList = record.getField("PNRList");
-        testDataHandler.multiplePNRs = record.getField("MultiplePNRs");
-        return testDataHandler;
-    }
-
+    // Set PDS Filter
     public static TestDataHandler setFilterDataSet(String sheet, String... where) throws Exception
     {
         Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
@@ -98,13 +95,33 @@ public class TestDataHandler
     public static TestDataHandler setFilterDataSet(Recordset record) throws Exception
     {
         TestDataHandler testDataHandler = new TestDataHandler();
-        testDataHandler.originList = record.getField("Origin");
-        testDataHandler.destinationList = record.getField("Destination");
-        testDataHandler.flightList = record.getField("Flight");
-        testDataHandler.impactTypeList = record.getField("ImpactType");
+        String recordSet = record.getField("PDSFilter");
+        
+        testDataHandler.originList = DataRepository.testDataToBeUsed().getRowData("PDSFilter", recordSet).getField("Origin");
+        testDataHandler.destinationList = DataRepository.testDataToBeUsed().getRowData("PDSFilter", recordSet).getField("Destination");
+        testDataHandler.flightList = DataRepository.testDataToBeUsed().getRowData("PDSFilter", recordSet).getField("Flight");
+
         return testDataHandler;
     }
 
+    // Set PNR list after solving a Disrupted Flight
+    public static TestDataHandler setPNRDataSet(String sheet, String... where) throws Exception
+    {
+        Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
+        return setPNRDataSet(record);
+    }
+
+    public static TestDataHandler setPNRDataSet(Recordset record) throws Exception
+    {
+        TestDataHandler testDataHandler = new TestDataHandler();
+        String recordSet = record.getField("PNR");
+        
+        testDataHandler.pnrList = DataRepository.testDataToBeUsed().getRowData("PNR", recordSet).getField("PNRList");
+        testDataHandler.multiplePNRs = DataRepository.testDataToBeUsed().getRowData("PNR", recordSet).getField("MultiplePNRs");
+        return testDataHandler;
+    }
+    
+    // Set PNR Filters in the Solution Window
     public static TestDataHandler setPNRFilterDataSet(String sheet, String... where) throws Exception
     {
         Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
@@ -114,28 +131,29 @@ public class TestDataHandler
     public static TestDataHandler setPNRFilterDataSet(Recordset record) throws Exception
     {
         TestDataHandler testDataHandler = new TestDataHandler();
-        testDataHandler.originList = record.getField("Origin");
-        testDataHandler.destinationList = record.getField("Destination");
-        testDataHandler.flightList = record.getField("Flight");
-        testDataHandler.bookingClassList = record.getField("BookingClass");
-        testDataHandler.notifStatusList = record.getField("NotifStatus");
-        testDataHandler.ssrList = record.getField("SSR");
-        testDataHandler.pnrList = record.getField("PNR");
-        testDataHandler.ffList = record.getField("FrequentFlyer");
+        String recordSet = record.getField("PNRFilter");
+        
+        testDataHandler.originList = DataRepository.testDataToBeUsed().getRowData("PNRFilter", recordSet).getField("Origin");
+        testDataHandler.destinationList = DataRepository.testDataToBeUsed().getRowData("PNRFilter", recordSet).getField("Destination");
+        testDataHandler.flightList = DataRepository.testDataToBeUsed().getRowData("PNRFilter", recordSet).getField("Flight");
+        testDataHandler.pnrList = DataRepository.testDataToBeUsed().getRowData("PNRFilter", recordSet).getField("PNR");
         return testDataHandler;
     }
-
-    public static TestDataHandler setParametersDataSet(String sheet, String... where) throws Exception
+    
+    // Set Configuration Data
+    public static TestDataHandler setConfigDataSet(String sheet, String... where) throws Exception
     {
         Recordset record = DataRepository.testDataToBeUsed().getRowData(sheet, where);
-        return setParametersDataSet(record);
+        return setConfigDataSet(record);
     }
 
-    public static TestDataHandler setParametersDataSet(Recordset record) throws Exception
+    public static TestDataHandler setConfigDataSet(Recordset record) throws Exception
     {
         TestDataHandler testDataHandler = new TestDataHandler();
-        testDataHandler.availableParameters = record.getField("Parameters");
-        testDataHandler.hierarchyLevels = record.getField("HierarchyLevel");
+        String recordSet = record.getField("Config");
+        
+        testDataHandler.maxOverbook = DataRepository.testDataToBeUsed().getRowData("PNRFilter", recordSet).getField("MaxOverbook");
+        testDataHandler.maxLateness = DataRepository.testDataToBeUsed().getRowData("PNRFilter", recordSet).getField("MaxLateness");
         return testDataHandler;
     }
 

@@ -18,6 +18,7 @@ public class ConfigPage extends GlobalPage
         public PriorityBody   priorityBody;
         public AdvanceHeader  advanceHeader;
         public AdvanceBody    advanceBody;
+        public AdvanceBodyMessage    advanceBodyMessage;
 
         public ConfigSection(
             Element parent)
@@ -29,6 +30,7 @@ public class ConfigPage extends GlobalPage
             priorityBody = new PriorityBody(this);
             advanceHeader = new AdvanceHeader(this);
             advanceBody = new AdvanceBody(this);
+            advanceBodyMessage = new AdvanceBodyMessage(this);
         }
 
         public static class CurrentProfile extends Element
@@ -43,7 +45,7 @@ public class ConfigPage extends GlobalPage
                 super("Current Profile header", By.xpath(".//div[@id='currentProfile']"), parent);
 
                 currentProfileText = new Element("Current Profile text", By.xpath(".//div[contains(text(), 'Current Profile')]"), this);
-                applyButton = new Element("Apply button", By.xpath(".//button[contains(text(), 'Apply')]"), this);
+                applyButton = new Element("Apply button", By.xpath(".//div[@id='currentProfile']"), this);
                 resetDefaultButton = new Element("Reset to DEfault button", By.xpath(".//button[contains(text(), 'Reset to Default')]"), this);
             }
         }
@@ -195,6 +197,8 @@ public class ConfigPage extends GlobalPage
             public final Element advanceHeaderText;
             public final Element downArrow;
             public final Element leftArrow;
+            
+            public final Element advanceApplyButton;
 
             public AdvanceHeader(
                 Element parent)
@@ -204,6 +208,8 @@ public class ConfigPage extends GlobalPage
                 advanceHeaderText = new Element("Advance Options Header Text", By.xpath(".//div[contains(text(), 'Advance Options')]"), this);
                 downArrow = new Element("Down Arrow", By.xpath(".//i[@class='pull-right config-icon fa fa-chevron-down']"), this);
                 leftArrow = new Element("Left Arrow", By.xpath(".//i[@class='pull-right config-icon fa fa-chevron-left']"), this);
+                
+                advanceApplyButton = new Element("Advance Options Apply Button", By.xpath("//*[@id='applyAdvanceOptions']"), this);
             }
         }
 
@@ -213,7 +219,15 @@ public class ConfigPage extends GlobalPage
             public final Element allowLatenessText;
             public final Element maxLatenessText;
             public final Element maxLatenessBox;
+            
+            public final Element allowOverbookingText;
+            public final Element allowOverbooking;
+            public final Element maxOverbookingText;
+            public final Element maxOverbookingBox;
+            
             public final Element toolTip;
+            
+
             
             public AdvanceBody(
                 Element parent)
@@ -224,7 +238,31 @@ public class ConfigPage extends GlobalPage
                 allowLateness = new Element("Allow Lateness", By.xpath(".//label[@for='allowLateness']"), this);
                 maxLatenessText = new Element("Max Lateness Text", By.xpath(".//label[contains(text(),'Max Lateness')]"), this);
                 maxLatenessBox = new Element("Max Lateness Input box", By.xpath(".//input[@id='maxLateness']"), this);
+                
+                allowOverbookingText = new Element("Allow Overbooking Text", By.xpath(".//label[contains(text(),'Allow Overbooking')]"), this);
+                allowOverbooking = new Element("Allow Overbooking", By.xpath(".//label[@for='allowOverbooking']"), this);
+                maxOverbookingText = new Element("Allowable Booking Capacity Text", By.xpath(".//label[contains(text(),'Allowable Booking Capacity')]"), this);
+                maxOverbookingBox = new Element("Allowable Booking Capacity Input box", By.xpath(".//input[@id='maxOverbooking']"), this);
+                
                 toolTip = new Element("Tool tip", By.xpath(".//span[@class='tooltiptext']"), this);
+                
+                
+            }
+        }
+        
+        public static class AdvanceBodyMessage extends Element
+        {
+        	public final Element advancedOptionsHeader;
+        	public final Element advancedOptionsOk;
+            
+            public AdvanceBodyMessage(
+                Element parent)
+            {
+                super("Advance Options Message", By.xpath("//*[@id='myModal']/section"), parent);
+                
+                advancedOptionsHeader = new Element("Advance Options Header", By.xpath(".//h3[@id='myModal-title']"), this);
+                advancedOptionsOk = new Element("Advance Options OK Button", By.xpath(".//*[@id='btnModalPositive']"), this);
+                
             }
         }
     }

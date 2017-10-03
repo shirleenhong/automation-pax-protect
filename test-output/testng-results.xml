@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="509518" started-at="2017-09-13T08:28:24Z" finished-at="2017-09-13T08:36:54Z">
+  <suite name="Default suite" duration-ms="162866" started-at="2017-09-28T09:07:44Z" finished-at="2017-09-28T09:10:26Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="509518" started-at="2017-09-13T08:28:24Z" finished-at="2017-09-13T08:36:54Z">
-      <class name="scenarios.SolutionsPageTest">
-        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[SolutionsPageTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="325403" started-at="2017-09-13T16:31:25Z" finished-at="2017-09-13T16:36:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TestScenarios -->
-      </class> <!-- scenarios.SolutionsPageTest -->
-      <class name="scenarios.HomePageTest">
-        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="27192" started-at="2017-09-13T16:28:25Z" finished-at="2017-09-13T16:28:52Z">
+    <test name="Default test" duration-ms="162866" started-at="2017-09-28T09:07:44Z" finished-at="2017-09-28T09:10:26Z">
+      <class name="scenarios.Sprint19.BookingCapacityTest">
+        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="25625" started-at="2017-09-28T17:07:44Z" finished-at="2017-09-28T17:08:10Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@34a6d9db]]>
+                <![CDATA[org.testng.TestRunner@234a8f27]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startTest -->
-        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="148108" started-at="2017-09-13T16:28:52Z" finished-at="2017-09-13T16:31:20Z">
+        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="134035" started-at="2017-09-28T17:08:10Z" finished-at="2017-09-28T17:10:24Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestScenarios -->
-        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[HomePageTest passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="3217" started-at="2017-09-13T16:36:51Z" finished-at="2017-09-13T16:36:54Z">
+        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="2050" started-at="2017-09-28T17:10:24Z" finished-at="2017-09-28T17:10:26Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@34a6d9db]]>
+                <![CDATA[org.testng.TestRunner@234a8f27]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endTest -->
-      </class> <!-- scenarios.HomePageTest -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+      </class> <!-- scenarios.Sprint19.BookingCapacityTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

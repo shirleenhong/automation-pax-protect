@@ -27,5 +27,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/shirleen.c.hong/Desktop/ECLIPSE/selenium-server-standalone-2.53.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

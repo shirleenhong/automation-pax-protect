@@ -24,18 +24,12 @@ import pageobjects.HomePage;
 public class HomePageTest extends TestBase
 {
     public static TestDataHandler testDataHandler;
-    public static TestDataHandler testDisruptionHandler;
-    public static TestDataHandler testFilterHandler;
-    public static TestDataHandler testFilterInputHandler;
 
     @Test
     public void TestScenarios() throws Exception
     {
         ReportLog.setTestName("PAX Protection - Home Page");
         testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='PaxProtect'");
-        testDisruptionHandler = TestDataHandler.setDisruptionDataSet("Disruptions", "RowSelection='PaxProtect'");
-        testFilterHandler = TestDataHandler.setFilterDataSet("Filter", "RowSelection='PaxProtect'");
-        testFilterInputHandler = TestDataHandler.setFilterDataSet("Filter", "RowSelection='FilterInput'");
 
         TestCases.PreRequisiteStep();
         TestCases.OpenPAXProtectSite();
@@ -48,7 +42,7 @@ public class HomePageTest extends TestBase
 
     public static class TestCases
     {
-        public static void PreRequisiteStep() throws InterruptedException
+        public static void PreRequisiteStep() throws InterruptedException 
         {
             ReportLog.setTestCase("PAX Protection HomePage");
             ReportLog.setTestStep("Go to this URL: https://aviation-in-pax-protect-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io/ ");

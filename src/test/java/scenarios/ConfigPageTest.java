@@ -169,12 +169,7 @@ public class ConfigPageTest extends TestBase
         String selectAll = Keys.chord(Keys.CONTROL, "a");
         String backspace = "\u0008";
         ConfigPage.configSection.advanceBody.allowLateness.click();
-        Thread.sleep(2000);
-        ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys(selectAll);
-        ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys(backspace);
         ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys("1");
-        ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys(selectAll);
-        ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys(backspace);
         ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys("99999");
         ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys(selectAll);
         ConfigPage.configSection.advanceBody.maxLatenessBox.typeKeys(backspace);

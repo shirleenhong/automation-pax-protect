@@ -4,15 +4,18 @@ import org.openqa.selenium.By;
 
 import auto.framework.PageBase;
 import auto.framework.web.Element;
+import pageobjects.ConfigPage;
 
 public class GlobalPage extends PageBase
 {
     public static NavigationSection navigationSection = new NavigationSection();
+    public static MainNavigationOptions mainNavigationOptions = new MainNavigationOptions();
     public static MainHeader        mainHeader        = new MainHeader();
 
     public static class NavigationSection extends Element
     {
         public final Element toggleButton;
+
 
         public NavigationSection()
         {
@@ -20,39 +23,38 @@ public class GlobalPage extends PageBase
             toggleButton = new Element("Toggle icon button", By.xpath(".//*[@class='pxh-drawer-toggle']/a"), this);
         }
 
-        public MainNavigationOptions mainNavigationOptions()
+    }
+    
+    public static class MainNavigationOptions extends Element
+    {
+		public final Element configPageButton;
+		
+        public MainNavigationOptions()
         {
-            return new MainNavigationOptions();
+            super("Main Navigation Options", By.xpath("//*[contains(@class,'pxh-navigation')]"));
+            configPageButton = new Element("Pax Config Button", By.xpath(".//a[contains(@title,'Pax Config')]"), this);
         }
 
-        public static class MainNavigationOptions extends Element
+        public NavigateTo navigateToLink(String name)
         {
-            public MainNavigationOptions()
-            {
-                super("Main Navigation Options", By.xpath("//*[contains(@class,'pxh-navigation')]"));
-            }
+            return new NavigateTo("Navigate To: " + name, By.xpath(".//a[contains(@title,'" + name + "')]"), this);
+        }
 
-            public NavigateTo navigateToLink(String name)
-            {
-                return new NavigateTo("Navigate To: " + name, By.xpath(".//a[contains(@title,'" + name + "')]"), this);
-            }
+        public static class NavigateTo extends Element
+        {
+            public final Element icon;
+            public final Element navText;
+            public final Element tooltipMessage;
 
-            public static class NavigateTo extends Element
+            public NavigateTo(
+                String name,
+                By by,
+                Element parent)
             {
-                public final Element icon;
-                public final Element navText;
-                public final Element tooltipMessage;
-
-                public NavigateTo(
-                    String name,
-                    By by,
-                    Element parent)
-                {
-                    super(name, by, parent);
-                    tooltipMessage = new Element(this.name + " / Tooltip Message", By.xpath(".//a[contains(@title,'" + name + "')]"), this);
-                    icon = new Element(this.name + " / Icon", By.xpath(".//i[contains(@class,'item-icon')]"), this);
-                    navText = new Element(this.name + " Text", By.xpath(".//div[contains(@class, 'item-text')]"), this);
-                }
+                super(name, by, parent);
+                tooltipMessage = new Element(this.name + " / Tooltip Message", By.xpath(".//a[contains(@title,'" + name + "')]"), this);
+                icon = new Element(this.name + " / Icon", By.xpath(".//i[contains(@class,'item-icon')]"), this);
+                navText = new Element(this.name + " Text", By.xpath(".//div[contains(@class, 'item-text')]"), this);
             }
         }
     }

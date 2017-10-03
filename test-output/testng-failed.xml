@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
-  <test name="Test">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
     <classes>
-      <class name="scenarios.HomePageTest"/>
-      <class name="scenarios.SolutionsPageTest"/>
+      <class name="scenarios.Sprint19.BookingCapacityTest">
+        <methods>
+          <include name="TestScenarios"/>
+          <include name="endTest"/>
+          <include name="startTest"/>
+        </methods>
+      </class> <!-- scenarios.Sprint19.BookingCapacityTest -->
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Failed suite [Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
