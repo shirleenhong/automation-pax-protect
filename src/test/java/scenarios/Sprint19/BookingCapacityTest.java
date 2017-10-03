@@ -67,7 +67,7 @@ public class BookingCapacityTest extends TestBase
 			ReportLog.setTestStep("Click Pax Config");
 			GlobalPage.mainNavigationOptions.configPageButton.click();
 			ConfigPage.configSection.verifyDisplayed(true, 5);
-			//test123
+			//test123456
 		}
 		
 		public static void Step2() throws InterruptedException
