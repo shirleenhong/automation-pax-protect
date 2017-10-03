@@ -22,7 +22,7 @@
     </dependency>
     <dependency>
         <groupId>auto.framework</groupId>
-        <artifactId>TCoE_Selenium_Framework</artifactId>
+        <artifactId>Framework</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
