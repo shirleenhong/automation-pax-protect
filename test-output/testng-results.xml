@@ -2,38 +2,38 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="162866" started-at="2017-09-28T09:07:44Z" finished-at="2017-09-28T09:10:26Z">
+  <suite name="Default suite" duration-ms="122376" started-at="2017-10-03T09:46:58Z" finished-at="2017-10-03T09:49:00Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="162866" started-at="2017-09-28T09:07:44Z" finished-at="2017-09-28T09:10:26Z">
-      <class name="scenarios.Sprint19.BookingCapacityTest">
-        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="25625" started-at="2017-09-28T17:07:44Z" finished-at="2017-09-28T17:08:10Z">
+    <test name="Default test" duration-ms="122376" started-at="2017-10-03T09:46:58Z" finished-at="2017-10-03T09:49:00Z">
+      <class name="Sprint20.US124960_PaxRebookingLabelIcon">
+        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[US124960_PaxRebookingLabelIcon passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="23680" started-at="2017-10-03T17:46:58Z" finished-at="2017-10-03T17:47:22Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@234a8f27]]>
+                <![CDATA[org.testng.TestRunner@6ea94d6a]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startTest -->
-        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="134035" started-at="2017-09-28T17:08:10Z" finished-at="2017-09-28T17:10:24Z">
+        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[US124960_PaxRebookingLabelIcon passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="92700" started-at="2017-10-03T17:47:22Z" finished-at="2017-10-03T17:48:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestScenarios -->
-        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="2050" started-at="2017-09-28T17:10:24Z" finished-at="2017-09-28T17:10:26Z">
+        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[US124960_PaxRebookingLabelIcon passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="3839" started-at="2017-10-03T17:48:56Z" finished-at="2017-10-03T17:49:00Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@234a8f27]]>
+                <![CDATA[org.testng.TestRunner@6ea94d6a]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endTest -->
-      </class> <!-- scenarios.Sprint19.BookingCapacityTest -->
+      </class> <!-- Sprint20.US124960_PaxRebookingLabelIcon -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

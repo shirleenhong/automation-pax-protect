@@ -1,4 +1,4 @@
-package scenarios.Sprint19;
+package Sprint19;
 
 import org.testng.annotations.Test;
 
@@ -47,7 +47,7 @@ public class BookingCapacityTest extends TestBase
 		public static void PreRequisiteStep(TestDataHandler testDataHandler) throws InterruptedException
         {
 			ReportLog.setTestCase("PAX Protection HomePage");
-            ReportLog.setTestStep("Go to this URL: https://aviation-in-pax-protect-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io/ ");
+            ReportLog.setTestStep("Go to this URL: https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io/ ");
             WebControl.clearData();
             WebControl.open(testDataHandler.url);
             
