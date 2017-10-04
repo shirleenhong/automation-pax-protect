@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?><root>
     <test-scenario name="Test">
         <summary>
-            <info desc="10/03/2017 05:47 PM" name="Time Started"/>
-            <info desc="10/03/2017 05:48 PM" name="Time Ended"/>
-            <info desc="1.54 mins" name="Time Elapsed"/>
+            <info desc="10/04/2017 10:25 AM" name="Time Started"/>
+            <info desc="10/04/2017 10:27 AM" name="Time Ended"/>
+            <info desc="2.07 mins" name="Time Elapsed"/>
             <info desc="chrome 61.0.3163.100" name="Browser"/>
         </summary>
         <test-case name="PAX Protection HomePage">
             <test-step name="Go to this URL: https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io/ ">
-                <report desc="Clear data" status="Passed" timestamp="10/03/2017 05:47 PM"/>
-                <report desc="Navigate to https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io" status="Passed" timestamp="10/03/2017 05:47 PM"/>
-                <report desc="[Username/SSO ID Input] Wait for element to display (10)" status="Passed" timestamp="10/03/2017 05:47 PM"/>
-                <report desc="[Username/SSO ID Input] Type &quot;502388092&quot;" status="Passed" timestamp="10/03/2017 05:48 PM"/>
-                <report desc="[Password Input] Wait for element to display (10)" status="Passed" timestamp="10/03/2017 05:48 PM"/>
-                <report desc="[Password Input] Type **************** " status="Passed" timestamp="10/03/2017 05:48 PM"/>
-                <report desc="[Login - Shared Computer] Wait for element to display (10)" status="Passed" timestamp="10/03/2017 05:48 PM"/>
-                <report desc="[Login - Shared Computer] Click element" status="Passed" timestamp="10/03/2017 05:48 PM"/>
-                <report desc="not in GE - SSO Authentication Page page" status="Passed" timestamp="10/03/2017 05:48 PM"/>
+                <report desc="Clear data" status="Passed" timestamp="10/04/2017 10:25 AM"/>
+                <report desc="Navigate to https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io" status="Passed" timestamp="10/04/2017 10:25 AM"/>
+                <report desc="[Username/SSO ID Input] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:25 AM"/>
+                <report desc="[Username/SSO ID Input] Type &quot;502388092&quot;" status="Passed" timestamp="10/04/2017 10:25 AM"/>
+                <report desc="[Password Input] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:25 AM"/>
+                <report desc="[Password Input] Type **************** " status="Passed" timestamp="10/04/2017 10:26 AM"/>
+                <report desc="[Login - Shared Computer] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+                <report desc="[Login - Shared Computer] Click element" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+                <report desc="not in GE - SSO Authentication Page page" status="Passed" timestamp="10/04/2017 10:26 AM"/>
             </test-step>
         </test-case>
         <test-case name="[STEP 1]">
-            <test-step name="Verify Pax Rebooking Text and Icon">
-                <report desc="[Navigate To: Pax Rebooking] Verify that text equals Pax Rebooking" status="Passed" timestamp="10/03/2017 05:48 PM"/>
-                <report desc="[Navigate To: Pax Rebooking] Wait for element to display (5)" status="Passed" timestamp="10/03/2017 05:48 PM"/>
-                <report desc="[Navigate To: Pax Rebooking] Verify that displayed equals true" status="Passed" timestamp="10/03/2017 05:48 PM"/>
+            <test-step name="Solve a flight">
+                <report desc="[Check box per disrupted flight] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+                <report desc="[Check box per disrupted flight] Click element" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+                <report desc="[Solve button] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+                <report desc="[Solve button] Click element" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+            </test-step>
+        </test-case>
+        <test-case name="[STEP 2B]">
+            <test-step name="Solve another flight">
+                <report desc="['&gt;'] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+                <report desc="['&gt;'] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+                <report desc="[Check box per disrupted flight] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+                <report desc="[Check box per disrupted flight] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+                <report desc="[Solve button] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+                <report desc="[Solve button] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+                <report desc="[Yes Button] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+                <report desc="[Yes Button] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
             </test-step>
         </test-case>
     </test-scenario>
