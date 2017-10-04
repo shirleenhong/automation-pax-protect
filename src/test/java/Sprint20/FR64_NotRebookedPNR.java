@@ -8,6 +8,8 @@ import auto.framework.web.WebControl;
 import common.GlobalPage;
 import common.TestDataHandler;
 import pageobjects.GESSOAuthPage;
+import pageobjects.HomePage;
+import pageobjects.SolutionsPage;
 
 public class FR64_NotRebookedPNR extends TestBase
 {
@@ -16,9 +18,12 @@ public class FR64_NotRebookedPNR extends TestBase
 	public void TestScenarios() throws Exception
 	{
 		ReportLog.setTestName("Test");
-		testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='DataSet0'");
+		testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser0'");
+//		testDataHandler = TestDataHandler.setDisruptionDataSet("Main", "RowSelection='DataSet0'");
 		TestCases.PreRequisiteStep();
 		TestCases.Step1();
+//		TestCases.Step2A();
+		TestCases.Step2B();
 	}
 	
 	public static class TestCases
@@ -39,14 +44,32 @@ public class FR64_NotRebookedPNR extends TestBase
 		         GESSOAuthPage.page.verifyURL(false, 60);
 		}
 		
-		public static void Step1()
+		public static void Step1() throws Exception
 		{
 			ReportLog.setTestCase("[STEP 1]");
-				ReportLog.setTestStep("Verify Pax Rebooking Text and Icon");
-					GlobalPage.mainNavigationOptions.navigateToLink("Pax Rebooking").highlight();
-					GlobalPage.mainNavigationOptions.navigateToLink("Pax Rebooking").verifyText("Pax Rebooking");
-					GlobalPage.mainNavigationOptions.navigateToLink("Pax Rebooking").icon.highlight();
-					GlobalPage.mainNavigationOptions.navigateToLink("Pax Rebooking").verifyDisplayed(true, 5);
+				ReportLog.setTestStep("Solve a flight");
+				testDataHandler = TestDataHandler.setDisruptionDataSet("Main", "RowSelection='DataSet0'");
+				HomePage.pdsSection.disruptedFlight(testDataHandler.disruptedFlight).checkBox.click();
+				HomePage.pdsSection.solveButton.click();
+		}
+		
+		public static void Step2A() throws Exception
+		{
+			ReportLog.setTestCase("[STEP 2A]");
+				ReportLog.setTestStep("Close the Solution Window");
+				SolutionsPage.solutionSection.flightPane.closeSolution.click();
+				HomePage.closePopUp.yesButton.click();
+		}
+		
+		public static void Step2B() throws Exception
+		{
+			ReportLog.setTestCase("[STEP 2B]");
+				ReportLog.setTestStep("Solve another flight");
+				testDataHandler = TestDataHandler.setDisruptionDataSet("Main", "RowSelection='DataSet0'");
+				GlobalPage.mainHeader.showHideFlights.greaterThan.click();
+				HomePage.pdsSection.disruptedFlight(testDataHandler.resolve).checkBox.click();
+				HomePage.pdsSection.solveButton.click();
+				HomePage.closePopUp.yesButton.click();
 		}
 	}
 }
