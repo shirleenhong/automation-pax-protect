@@ -45,7 +45,7 @@ public class ConfigPage extends GlobalPage
                 super("Current Profile header", By.xpath(".//div[@id='currentProfile']"), parent);
 
                 currentProfileText = new Element("Current Profile text", By.xpath(".//div[contains(text(), 'Current Profile')]"), this);
-                applyButton = new Element("Apply button", By.xpath(".//div[@id='currentProfile']"), this);
+                applyButton = new Element("Apply button", By.xpath(".//button[contains(text(), 'Apply')]"), this);
                 resetDefaultButton = new Element("Reset to DEfault button", By.xpath(".//button[contains(text(), 'Reset to Default')]"), this);
             }
         }
@@ -198,7 +198,6 @@ public class ConfigPage extends GlobalPage
             public final Element downArrow;
             public final Element leftArrow;
             
-            public final Element advanceApplyButton;
 
             public AdvanceHeader(
                 Element parent)
@@ -209,7 +208,6 @@ public class ConfigPage extends GlobalPage
                 downArrow = new Element("Down Arrow", By.xpath(".//i[@class='pull-right config-icon fa fa-chevron-down']"), this);
                 leftArrow = new Element("Left Arrow", By.xpath(".//i[@class='pull-right config-icon fa fa-chevron-left']"), this);
                 
-                advanceApplyButton = new Element("Advance Options Apply Button", By.xpath("//*[@id='applyAdvanceOptions']"), this);
             }
         }
 

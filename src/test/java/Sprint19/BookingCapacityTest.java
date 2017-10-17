@@ -67,7 +67,6 @@ public class BookingCapacityTest extends TestBase
 			ReportLog.setTestStep("Click Pax Config");
 			GlobalPage.mainNavigationOptions.configPageButton.click();
 			ConfigPage.configSection.verifyDisplayed(true, 5);
-			//test123456
 		}
 		
 		public static void Step2() throws InterruptedException
@@ -98,7 +97,7 @@ public class BookingCapacityTest extends TestBase
 			ReportLog.setTestCase("Ensure that the system should only accept whole numbers from 1 to 100");
 			
 			ReportLog.setTestStep("Input Decimal Values");
-			ConfigPage.configSection.advanceBody.allowOverbooking.click();
+			ConfigPage.configSection.advanceBody.allowOverbooking.click(); //Enable this scenario if initial toggle is DISABLED
 	        ConfigPage.configSection.advanceBody.maxOverbookingBox.typeKeys("1.0");
 	        hoverElement(ConfigPage.configSection.advanceBody.maxOverbookingBox);
 	        if (ConfigPage.configSection.advanceBody.toolTip.getText().trim().contains("Accepts whole numbers only from 1 to 100"))
@@ -111,7 +110,7 @@ public class BookingCapacityTest extends TestBase
 	        }
 	        
 	        ReportLog.setTestStep("Input Non-Numeric Values");
-			//ConfigPage.configSection.advanceBody.allowOverbooking.click();
+			
 	        ConfigPage.configSection.advanceBody.maxOverbookingBox.typeKeys("ABC");
 	        hoverElement(ConfigPage.configSection.advanceBody.maxOverbookingBox);
 	        if (ConfigPage.configSection.advanceBody.toolTip.getText().trim().contains("Accepts whole numbers only from 1 to 100"))
@@ -124,7 +123,7 @@ public class BookingCapacityTest extends TestBase
 	        }
 	        
 	        ReportLog.setTestStep("Input Negative Values");
-			//ConfigPage.configSection.advanceBody.allowOverbooking.click();
+			
 	        ConfigPage.configSection.advanceBody.maxOverbookingBox.typeKeys("-1.0");
 	        hoverElement(ConfigPage.configSection.advanceBody.maxOverbookingBox);
 	        if (ConfigPage.configSection.advanceBody.toolTip.getText().trim().contains("Accepts whole numbers only from 1 to 100"))
@@ -137,20 +136,20 @@ public class BookingCapacityTest extends TestBase
 	        }
 	        
 	        ReportLog.setTestStep("Input Less Than 1");
-			//ConfigPage.configSection.advanceBody.allowOverbooking.click();
+			
 	        ConfigPage.configSection.advanceBody.maxOverbookingBox.typeKeys("0");
 	        hoverElement(ConfigPage.configSection.advanceBody.maxOverbookingBox);
-	        if (ConfigPage.configSection.advanceBody.toolTip.getText().trim().contains("Minimum value should be 1%"))
+	        if (ConfigPage.configSection.advanceBody.toolTip.getText().trim().contains("Accepts whole numbers only from 1 to 100"))
 	        {
-	            ReportLog.logEvent(true, "\"Minimum value should be 1%\" error message is present");
+	            ReportLog.logEvent(true, "\"Accepts whole numbers only from 1 to 100\" error message is present");
 	        }
 	        else
 	        {
-	            ReportLog.logEvent(false, "\"Minimum value should be 1%\" error message is not present");
+	            ReportLog.logEvent(false, "\"Accepts whole numbers only from 1 to 100\" error message is not present");
 	        }
 	        
 	        ReportLog.setTestStep("Input Greater Than 100");
-			//ConfigPage.configSection.advanceBody.allowOverbooking.click();
+			
 	        ConfigPage.configSection.advanceBody.maxOverbookingBox.typeKeys("101");
 	        hoverElement(ConfigPage.configSection.advanceBody.maxOverbookingBox);
 	        if (ConfigPage.configSection.advanceBody.toolTip.getText().trim().contains("Accepts whole numbers only from 1 to 100"))
@@ -168,27 +167,37 @@ public class BookingCapacityTest extends TestBase
 		{
 			ReportLog.setTestCase("Input and Apply valid values");
 			ConfigPage.configSection.advanceBody.maxOverbookingBox.typeKeys("50");
-			ConfigPage.configSection.advanceHeader.advanceApplyButton.click();
+			ConfigPage.configSection.currentProfile.applyButton.click();
 			
 			ReportLog.setTestStep("Advance Options Message");
 			ConfigPage.configSection.advanceBodyMessage.verifyDisplayed(true, 5);
 			ConfigPage.configSection.advanceBodyMessage.advancedOptionsHeader.verifyDisplayed(true, 5);
-			if (ConfigPage.configSection.advanceBodyMessage.getText().trim().contains("Your modified advanced options are saved."))
+			if (ConfigPage.configSection.advanceBodyMessage.getText().trim().contains("Your config settings are now applied."))
 	        {
-	            ReportLog.logEvent(true, "\"Your modified advanced options are saved.\" message is present");
+	            ReportLog.logEvent(true, "\"Your config settings are now applied.\" message is present");
 	        }
 	        else
 	        {
-	            ReportLog.logEvent(false, "\"Your modified advanced options are saved.\" message is not present");
+	            ReportLog.logEvent(false, "\"Your config settings are now applied.\" message is not present");
 	        }
 			ConfigPage.configSection.advanceBodyMessage.advancedOptionsOk.click();
 			
 			ReportLog.setTestStep("Return to Default Values");
 			ConfigPage.configSection.advanceBody.maxOverbookingBox.typeKeys("100");
-			ConfigPage.configSection.advanceHeader.advanceApplyButton.click();
+			ConfigPage.configSection.currentProfile.applyButton.click();
 			ConfigPage.configSection.advanceBodyMessage.advancedOptionsOk.click();
 			ConfigPage.configSection.advanceBody.allowOverbooking.click();
-			ConfigPage.configSection.advanceHeader.advanceApplyButton.click();
+			ConfigPage.configSection.currentProfile.applyButton.click();
+			ConfigPage.configSection.advanceBodyMessage.verifyDisplayed(true, 5);
+			if (ConfigPage.configSection.advanceBodyMessage.getText().trim().contains("Your config settings are now applied. The Max Lateness or Booking Capacity are not saved when their toggles are turned off."))
+	        {
+	            ReportLog.logEvent(true, "Confirmation for the toggle message is present");
+	        }
+	        else
+	        {
+	            ReportLog.logEvent(false, "Confirmation for the toggle message is not present");
+	        }
+			
 			ConfigPage.configSection.advanceBodyMessage.advancedOptionsOk.click();
 			ReportLog.setTestStep("FR28.0 and 29.0 - Test Passed");
 		}

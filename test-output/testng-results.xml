@@ -2,38 +2,38 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="158924" started-at="2017-10-04T02:24:48Z" finished-at="2017-10-04T02:27:27Z">
+  <suite name="Default suite" duration-ms="158006" started-at="2017-10-17T09:37:34Z" finished-at="2017-10-17T09:40:12Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="158924" started-at="2017-10-04T02:24:48Z" finished-at="2017-10-04T02:27:27Z">
-      <class name="Sprint20.FR64_NotRebookedPNR">
-        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[FR64_NotRebookedPNR passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="28658" started-at="2017-10-04T10:24:48Z" finished-at="2017-10-04T10:25:17Z">
+    <test name="Default test" duration-ms="158006" started-at="2017-10-17T09:37:34Z" finished-at="2017-10-17T09:40:12Z">
+      <class name="Sprint19.BookingCapacityTest">
+        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="24117" started-at="2017-10-17T17:37:34Z" finished-at="2017-10-17T17:37:58Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@1917d90f]]>
+                <![CDATA[org.testng.TestRunner@2a1debfa]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startTest -->
-        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[FR64_NotRebookedPNR passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="124432" started-at="2017-10-04T10:25:17Z" finished-at="2017-10-04T10:27:21Z">
+        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="130186" started-at="2017-10-17T17:37:58Z" finished-at="2017-10-17T17:40:09Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestScenarios -->
-        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[FR64_NotRebookedPNR passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="3372" started-at="2017-10-04T10:27:23Z" finished-at="2017-10-04T10:27:27Z">
+        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="2632" started-at="2017-10-17T17:40:09Z" finished-at="2017-10-17T17:40:12Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@1917d90f]]>
+                <![CDATA[org.testng.TestRunner@2a1debfa]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endTest -->
-      </class> <!-- Sprint20.FR64_NotRebookedPNR -->
+      </class> <!-- Sprint19.BookingCapacityTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
