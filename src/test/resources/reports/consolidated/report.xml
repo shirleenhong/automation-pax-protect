@@ -1,43 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?><root>
     <test-scenario name="Test">
         <summary>
-            <info desc="10/04/2017 10:25 AM" name="Time Started"/>
-            <info desc="10/04/2017 10:27 AM" name="Time Ended"/>
-            <info desc="2.07 mins" name="Time Elapsed"/>
+            <info desc="10/17/2017 05:37 PM" name="Time Started"/>
+            <info desc="10/17/2017 05:40 PM" name="Time Ended"/>
+            <info desc="2.17 mins" name="Time Elapsed"/>
             <info desc="chrome 61.0.3163.100" name="Browser"/>
         </summary>
         <test-case name="PAX Protection HomePage">
             <test-step name="Go to this URL: https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io/ ">
-                <report desc="Clear data" status="Passed" timestamp="10/04/2017 10:25 AM"/>
-                <report desc="Navigate to https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io" status="Passed" timestamp="10/04/2017 10:25 AM"/>
-                <report desc="[Username/SSO ID Input] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:25 AM"/>
-                <report desc="[Username/SSO ID Input] Type &quot;502388092&quot;" status="Passed" timestamp="10/04/2017 10:25 AM"/>
-                <report desc="[Password Input] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:25 AM"/>
-                <report desc="[Password Input] Type **************** " status="Passed" timestamp="10/04/2017 10:26 AM"/>
-                <report desc="[Login - Shared Computer] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:26 AM"/>
-                <report desc="[Login - Shared Computer] Click element" status="Passed" timestamp="10/04/2017 10:26 AM"/>
-                <report desc="not in GE - SSO Authentication Page page" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+                <report desc="Clear data" status="Passed" timestamp="10/17/2017 05:38 PM"/>
+                <report desc="Navigate to https://aviation-in-ppro-ui-app-hub-qa.run.aws-usw02-pr.ice.predix.io" status="Passed" timestamp="10/17/2017 05:38 PM"/>
+                <report desc="[Username/SSO ID Input] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:38 PM"/>
+                <report desc="[Username/SSO ID Input] Type &quot;502388092&quot;" status="Passed" timestamp="10/17/2017 05:38 PM"/>
+                <report desc="[Password Input] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:38 PM"/>
+                <report desc="[Password Input] Type &quot;Gerald0607S&quot;" status="Passed" timestamp="10/17/2017 05:38 PM"/>
+                <report desc="[Login - Shared Computer] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:38 PM"/>
+                <report desc="[Login - Shared Computer] Click element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="not in GE - SSO Authentication Page page" status="Passed" timestamp="10/17/2017 05:39 PM"/>
             </test-step>
         </test-case>
-        <test-case name="[STEP 1]">
-            <test-step name="Solve a flight">
-                <report desc="[Check box per disrupted flight] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:26 AM"/>
-                <report desc="[Check box per disrupted flight] Click element" status="Passed" timestamp="10/04/2017 10:26 AM"/>
-                <report desc="[Solve button] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:26 AM"/>
-                <report desc="[Solve button] Click element" status="Passed" timestamp="10/04/2017 10:26 AM"/>
+        <test-case name="Go to Pax Config Page">
+            <test-step name="Click Pax Config">
+                <report desc="[Pax Config Button] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Pax Config Button] Click element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Pax Configuration section] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+            </test-step>
+            <test-step name="Verify Advanced Options - Allow &amp; Max Lateness">
+                <report desc="[Advance Options Header] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Header] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Header Text] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Header Text] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Header Text] Verify that text contains Advance Options" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Down Arrow] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Down Arrow] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Body] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Body] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Lateness Text] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Lateness Text] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Lateness Text] Verify that text contains Allow Lateness" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Lateness] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Lateness] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Max Lateness Text] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Max Lateness Text] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Max Lateness Text] Verify that text contains Max Lateness (hours)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Max Lateness Input box] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Max Lateness Input box] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Overbooking Text] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Overbooking Text] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Overbooking Text] Verify that text contains Allow Overbooking" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Overbooking] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Overbooking] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Text] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Text] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Text] Verify that text contains Allowable Booking Capacity" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
             </test-step>
         </test-case>
-        <test-case name="[STEP 2B]">
-            <test-step name="Solve another flight">
-                <report desc="['&gt;'] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
-                <report desc="['&gt;'] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
-                <report desc="[Check box per disrupted flight] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
-                <report desc="[Check box per disrupted flight] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
-                <report desc="[Solve button] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
-                <report desc="[Solve button] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
-                <report desc="[Yes Button] Wait for element to display (10)" status="Passed" timestamp="10/04/2017 10:27 AM"/>
-                <report desc="[Yes Button] Click element" status="Passed" timestamp="10/04/2017 10:27 AM"/>
+        <test-case name="Ensure that the system should only accept whole numbers from 1 to 100">
+            <test-step name="Input Decimal Values">
+                <report desc="[Allow Overbooking] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allow Overbooking] Click element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Type &quot;1.0&quot;" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="Hover over element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="&quot;Accepts whole numbers only from 1 to 100&quot; error message is present" status="Passed" timestamp="10/17/2017 05:39 PM"/>
             </test-step>
+            <test-step name="Input Non-Numeric Values">
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Type &quot;ABC&quot;" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="Hover over element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="&quot;Accepts whole numbers only from 1 to 100&quot; error message is present" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+            </test-step>
+            <test-step name="Input Negative Values">
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Type &quot;-1.0&quot;" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="Hover over element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="&quot;Accepts whole numbers only from 1 to 100&quot; error message is present" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+            </test-step>
+            <test-step name="Input Less Than 1">
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Type &quot;0&quot;" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="Hover over element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="&quot;Accepts whole numbers only from 1 to 100&quot; error message is present" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+            </test-step>
+            <test-step name="Input Greater Than 100">
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Type &quot;101&quot;" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="Hover over element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="&quot;Accepts whole numbers only from 1 to 100&quot; error message is present" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+            </test-step>
+        </test-case>
+        <test-case name="Input and Apply valid values">
+            <test-step>
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Type &quot;50&quot;" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Apply button] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Apply button] Click element" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+            </test-step>
+            <test-step name="Advance Options Message">
+                <report desc="[Advance Options Message] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Message] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Header] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="[Advance Options Header] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:39 PM"/>
+                <report desc="&quot;Your config settings are now applied.&quot; message is present" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options OK Button] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options OK Button] Click element" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+            </test-step>
+            <test-step name="Return to Default Values">
+                <report desc="[Allowable Booking Capacity Input box] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Allowable Booking Capacity Input box] Type &quot;100&quot;" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Apply button] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Apply button] Click element" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options OK Button] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options OK Button] Click element" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Allow Overbooking] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Allow Overbooking] Click element" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Apply button] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Apply button] Click element" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options Message] Wait for element to display (5)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options Message] Verify that displayed equals true" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="Confirmation for the toggle message is present" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options OK Button] Wait for element to display (10)" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+                <report desc="[Advance Options OK Button] Click element" status="Passed" timestamp="10/17/2017 05:40 PM"/>
+            </test-step>
+            <test-step name="FR28.0 and 29.0 - Test Passed"/>
         </test-case>
     </test-scenario>
 </root>
