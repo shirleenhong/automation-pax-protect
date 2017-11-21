@@ -4,64 +4,15 @@ import org.openqa.selenium.By;
 
 import auto.framework.PageBase;
 import auto.framework.web.Element;
-import pageobjects.ConfigPage;
+
 
 public class GlobalPage extends PageBase
 {
-    public static NavigationSection navigationSection = new NavigationSection();
-    public static MainNavigationOptions mainNavigationOptions = new MainNavigationOptions();
     public static MainPXNavigationOptions mainPXNavigationOptions = new MainPXNavigationOptions();
     public static TimeUTC timeUTC = new TimeUTC();
 
     public static MainHeader        mainHeader        = new MainHeader();
 
-    public static class NavigationSection extends Element
-    {
-        public final Element toggleButton;
-
-
-        public NavigationSection()
-        {
-            super("Left Side Navigation Section", By.xpath("//body"));
-            toggleButton = new Element("Toggle icon button", By.xpath(".//*[@class='pxh-drawer-toggle']/a"), this);
-        }
-
-    }
-    
-    public static class MainNavigationOptions extends Element
-    {
-		public final Element configPageButton;
-		
-        public MainNavigationOptions()
-        {
-            super("Main Navigation Options", By.xpath("//*[contains(@class,'pxh-navigation')]"));
-            configPageButton = new Element("Pax Config Button", By.xpath(".//a[contains(@title,'Pax Config')]"), this);
-        }
-
-        public NavigateTo navigateToLink(String name)
-        {
-            return new NavigateTo("Navigate To: " + name, By.xpath(".//a[contains(@title,'" + name + "')]"), this);
-        }
-
-        public static class NavigateTo extends Element
-        {
-            public final Element icon;
-            public final Element navText;
-            public final Element tooltipMessage;
-
-            public NavigateTo(
-                String name,
-                By by,
-                Element parent)
-            {
-                super(name, by, parent);
-                tooltipMessage = new Element(this.name + " / Tooltip Message", By.xpath(".//a[contains(@title,'" + name + "')]"), this);
-                icon = new Element(this.name + " / Icon", By.xpath(".//i[contains(@class,'item-icon')]"), this);
-                navText = new Element(this.name + " Text", By.xpath(".//div[contains(@class, 'item-text')]"), this);
-            }
-
-        }
-    }
 
     public static class MainPXNavigationOptions extends Element {
 
@@ -82,8 +33,8 @@ public class GlobalPage extends PageBase
         {
             public final Element icon;
             public final Element navText;
-            public final Element impactPage;
-            public final Element protectionPage;
+           // public final Element impactPage;
+           // public final Element protectionPage;
 
 
             public NavigateTo(
@@ -94,8 +45,8 @@ public class GlobalPage extends PageBase
                 super(name, by, parent);
                 icon = new Element(this.name + " / Icon", By.xpath("//*[@id='items']//px-icon[contains(@class,'px-app-nav-item') and @icon='fa:cog']"), this);
                 navText = new Element(this.name + " Text", By.xpath(".//p[contains(text(),'" + name + "']"), this);
-                impactPage = new Element(this.name + " Text", By.xpath("/html/body/app-hub-shell/poly-app-app/iron-pages/poly-disruptions/div"), this);
-                protectionPage = new Element(this.name + " Text", By.xpath("/html/body/app-hub-shell/poly-app-app/iron-pages/poly-config/div"), this);
+                //impactPage = new Element(this.name + " Text", By.xpath("/html/body/app-hub-shell/poly-app-app/iron-pages/poly-disruptions/div"), this);
+                //protectionPage = new Element(this.name + " Text", By.xpath("/html/body/app-hub-shell/poly-app-app/iron-pages/poly-config/div"), this);
                 // impactPage = new Element(this.name + " Text", By.xpath(".//poly-disruptions[@name='disruptions']//div[contains(@class,'poly-disruptions')]"), this);
                // protectionPage = new Element(this.name + " Text", By.xpath(".//poly-config[@name='config']/div"), this);
             }
