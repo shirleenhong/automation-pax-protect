@@ -3,6 +3,7 @@ package Sprint23;
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
 import auto.framework.web.WebControl;
+import common.GlobalPage;
 import common.TestDataHandler;
 import common.BackendAPI;
 import org.json.JSONArray;
@@ -54,6 +55,7 @@ public class US137579_SummaryDrawer extends TestBase {
         public static void Step1() {
             ReportLog.setTestCase("[STEP 1]");
             ReportLog.setTestStep("Verify if the header of the screen have a summary drawer");
+            GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
             PaxImpactPage.summaryDrawer.rootElement.highlight();
             PaxImpactPage.summaryDrawer.rootElement.verifyDisplayed(true,5);
             PaxImpactPage.summaryDrawer.all.highlight();
@@ -86,18 +88,26 @@ public class US137579_SummaryDrawer extends TestBase {
             int totalLessThan180MinValue = 0;
             int totalCanceledValue = 0;
 
+            String responseContent = null;
             JSONArray  jsonArray = null;
 
             ReportLog.setTestCase("[STEP 2]");
             ReportLog.setTestStep("Verify if each segment value is equal with service response in summary drawer");
 
-            String responseContent = backendAPI.getPayload("Positive Test","GET/disruptions");
-            jsonArray = new JSONArray(responseContent);
 
-            /*testDataHandler = TestDataHandler.getRWSResponse("RWS", "RowSelection='Data1'");
-            String s = testDataHandler.rwsResponse;
+            responseContent = backendAPI.getPayload("Positive Test","GET/disruptions");
 
-            jsonArray = new JSONArray(testDataHandler.rwsResponse);*/
+
+            try {
+                if (responseContent.startsWith("[")) {
+                    jsonArray = new JSONArray(responseContent);
+                } else {
+                    ReportLog.addInfo("Can not get response content from service");
+                    ReportLog.assertFailed("Step2 is failed");
+                }
+            }catch(NullPointerException e){
+
+            }
 
             totalAllValue = jsonArray.length();
 
@@ -111,8 +121,8 @@ public class US137579_SummaryDrawer extends TestBase {
 
                     int departureDelayMinutes = delay.getInt("departureDelayMinutes");
 
-                    if (departureDelayMinutes < 15) totalLessThan15MinValue++ ;
-                    else if (departureDelayMinutes < 60) totalLessThan60MinValue++ ;
+                    if (departureDelayMinutes <= 15) totalLessThan15MinValue++ ;
+                    else if (departureDelayMinutes <= 60) totalLessThan60MinValue++ ;
                     else totalLessThan180MinValue++ ;
                 }
                 else if (disruption.toMap().containsKey("cancel")){
@@ -157,13 +167,19 @@ public class US137579_SummaryDrawer extends TestBase {
                 ReportLog.assertTrue(false, "Total Canceled Value failed");
             }
 
-            /*Assert.assertEquals(uiTotalAllValue,totalAllValue);
-            Assert.assertEquals(uiTotalDelayedValue,totalDelayedValue);
-            Assert.assertEquals(uiTotalLessThan15MinValue,totalLessThan15MinValue);
-            Assert.assertEquals(uiTotalLessThan60MinValue,totalLessThan60MinValue);
-            Assert.assertEquals(uiTotalLessThan180MinValue,totalLessThan180MinValue);
-            Assert.assertEquals(uiTotalCanceledValue,totalCanceledValue);*/
-
         }
+
+        /*public static void Step3(){
+            ReportLog.setTestCase("[STEP 3]");
+            ReportLog.setTestStep("Summary Drawer segment value is handled in any error in reflow workflow service");
+
+            if ((uiTotalAllValue == 0) & (uiTotalDelayedValue == 0) & (uiTotalLessThan15MinValue == 0) & (uiTotalLessThan60MinValue == 0) & (uiTotalLessThan180MinValue == 0) & (uiTotalCanceledValue == 0) ){
+                ReportLog.assertTrue(true, "Summary Drawer segment value is handled in any error in reflow workflow service ");
+            }
+            else {
+                ReportLog.assertFailed("Step 3 failed");
+            }
+
+        }*/
     }
 }

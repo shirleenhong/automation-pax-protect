@@ -1,5 +1,6 @@
 package common;
 
+import auto.framework.ReportLog;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlTestSuite;
 import com.eviware.soapui.impl.wsdl.submit.transports.http.SinglePartHttpResponse;
@@ -21,6 +22,7 @@ import java.util.List;
 public class BackendAPI {
     public String getPayload(String testSuiteName, String testCaseName){
         String responseContent = null;
+        int statusCode = 0;
         WsdlProject wProject = new WsdlProject("src/test/resources/data/ReflowWorkflowService-soapui-project.xml");
 
         // Get token for Authorization
@@ -42,14 +44,23 @@ public class BackendAPI {
                 SinglePartHttpResponse httpResponse = (SinglePartHttpResponse) rTestRequest.getResponse();
                 String testStepName = restResult.getTestStep().getName();
                 if (httpResponse != null){
-                    //System.out.println("****Running Test Step " + testStepName + "*****");
                     Log.info("****Running Test Step " + testStepName + "*****");
-                    responseContent = httpResponse.getContentAsString().toString();
-                    int statusCode = httpResponse.getStatusCode();
-                    //System.out.println("Response Status Code:" + statusCode);
-                    Log.info("Response Status Code:" + Integer.toString(statusCode));
-                    Assert.assertEquals(200, statusCode);
-                   // return responseContent;
+                    try {
+                        responseContent = httpResponse.getContentAsString().toString();
+                    } catch (Exception e){
+                        ReportLog.addInfo("Reflow workflow service response content is null");
+                    }
+
+
+                    try {
+                        statusCode = httpResponse.getStatusCode();
+                    }catch (Exception e) {
+                        ReportLog.addInfo("Response Status Code is" + Integer.toString(statusCode));
+                        //Log.info("Response Status Code:" + Integer.toString(statusCode));
+                       Assert.assertEquals(200, statusCode);
+                    }
+
+
                 }
             }
         }

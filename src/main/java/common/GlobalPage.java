@@ -11,9 +11,6 @@ public class GlobalPage extends PageBase
     public static MainPXNavigationOptions mainPXNavigationOptions = new MainPXNavigationOptions();
     public static TimeUTC timeUTC = new TimeUTC();
 
-    public static MainHeader        mainHeader        = new MainHeader();
-
-
     public static class MainPXNavigationOptions extends Element {
 
        // public final Element configPageButton;
@@ -64,54 +61,4 @@ public class GlobalPage extends PageBase
        }
     }
 
-    public static class MainHeader extends Element
-    {
-        public final Element   headerTitle;
-        public ShowHideFlights showHideFlights;
-
-        public MainHeader()
-        {
-            super("PAX Protect -- Main Header", By.xpath("//div[@id='microapp-header']"));
-            headerTitle = new Element("PAX Protect -- Main Header", By.xpath("//div[@id='microapp-header']"));
-            showHideFlights = new ShowHideFlights(this);
-        }
-
-        public static class ShowHideFlights extends Element
-        {
-            public final Element greaterThan;
-            public final Element lessThan;
-            public final Element showFlightsText;
-            public final Element hideFlightsText;
-
-            public ShowHideFlights(
-                Element parent)
-            {
-                super("Show Hide Flights", By.xpath("//div[@class='div-showHidePds style-scope px-inbox']"), parent);
-
-                greaterThan = new Element("'>'", By.xpath(".//i[@class='fa fa-chevron-right style-scope px-inbox']"), this);
-                showFlightsText = new Element("Show Flights", By.xpath(".//span[contains(text(),'Show Flights')]"), this);
-                lessThan = new Element("'<'", By.xpath(".//i[@class='fa fa-chevron-left style-scope px-inbox']"), this);
-                hideFlightsText = new Element("Hide Flights", By.xpath(".//span[contains(text(),'Hide Flights')]"), this);
-            }
-        }
-    }
-
-    public static class UserMenu extends Element
-    {
-        public final Element avatarIcon;
-        public final Element caretIcon;
-        public final Element loginName;
-        public final Element loginMenuLink;
-        public final Element loginAgainLink;
-
-        public UserMenu()
-        {
-            super("User Menu", By.xpath("//div[@id='pxh-user-menu']"));
-            avatarIcon = new Element("", By.xpath(".//i[contains(@class,'avatar-icon')]"), this);
-            caretIcon = new Element("", By.xpath(".//i[contains(@class,'caret-icon')]"), this);
-            loginName = new Element("", By.xpath(".//div[contains(@class,'login__name')]"), this);
-            loginMenuLink = new Element("", By.xpath(".//li[contains(@class,'menu__item')]//a[@title='Sign Out']"), this);
-            loginAgainLink = new Element("", By.xpath("//*[text()='Click here to login again']"));
-        }
-    }
 }

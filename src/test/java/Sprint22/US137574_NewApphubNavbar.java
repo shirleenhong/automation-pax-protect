@@ -7,6 +7,7 @@ import auto.framework.web.WebControl;
 import common.GlobalPage;
 import common.TestDataHandler;
 import pageobjects.GESSOAuthPage;
+import pageobjects.PaxImpactPage;
 
 public class US137574_NewApphubNavbar extends TestBase{
     public static TestDataHandler testDataHandler;
@@ -58,7 +59,8 @@ public class US137574_NewApphubNavbar extends TestBase{
             ReportLog.setTestCase("[STEP 2]");
             ReportLog.setTestStep("Verify Pax Impact Page");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
-            //GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").impactPage.verifyDisplayed(true, 5);
+            PaxImpactPage.summaryDrawer.rootElement.verifyDisplayed(true,5);
+
 
         }
 
@@ -67,7 +69,6 @@ public class US137574_NewApphubNavbar extends TestBase{
             ReportLog.setTestCase("[STEP 3]");
             ReportLog.setTestStep("Verify Pax Protection Page");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Protection").click();
-            //GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Protection").protectionPage.verifyDisplayed(true, 5);
         }
 
         public static void Step4() {

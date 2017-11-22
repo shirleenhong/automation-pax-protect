@@ -25,7 +25,8 @@ public class PaxImpactPage extends GlobalPage{
 
             super("Summary Drawer", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
 
-            rootElement           = new Element("Parent shadow root element", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
+            //rootElement           = new Element("Parent shadow root element", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
+            rootElement           = new Element("Parent shadow root element", By.xpath(".//ppro-summary-drawer-view[contains(@header,'Impacted Flights')]"));
             all                   = new Element("All disrupted flight section ", By.xpath("//*[@id='all']"));
             delayed               = new Element("Delayed disrupted flight section ", By.xpath("//*[@id='delayed']"));
             lessThan15Min         = new Element("Less than 15 min disrupted flight section ", By.xpath("//*[@id='lt15Min']"));
