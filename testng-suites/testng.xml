@@ -3,9 +3,13 @@
 <suite name="Suite">
   <test name="Test">
     <classes>
-      <class name="scenarios.HomePageTest"></class>
-      <class name="scenarios.SolutionsPageTest"></class>
-      <!-- <class name="scenarios.ConfigPageTest"></class> -->
+      <!-- <class name="Sprint24.TestCases"/>
+      <class name="Sprint24.US137580_ListView"/>
+      <class name="Sprint22.TestCases"/>
+      <class name="Sprint22.US137574_NewApphubNavbar"/>
+      <class name="common.DataRepository"/>
+      <class name="Sprint23.TestCases"/>
+      <class name="Sprint23.US137579_SummaryDrawer"/> -->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
