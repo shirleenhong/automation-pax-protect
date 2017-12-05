@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import auto.framework.PageBase;
 import auto.framework.web.Element;
 
-
 public class GlobalPage extends PageBase
 {
     public static MainPXNavigationOptions mainPXNavigationOptions = new MainPXNavigationOptions();

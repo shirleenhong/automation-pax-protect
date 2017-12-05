@@ -9,7 +9,10 @@ import common.BackendAPI;
 import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+
 import pageobjects.GESSOAuthPage;
+import pageobjects.PDSListViewPage;
 import pageobjects.PaxImpactPage;
 import org.json.JSONObject;
 
@@ -73,10 +76,10 @@ public class US137579_SummaryDrawer extends TestBase {
             PaxImpactPage.summaryDrawer.lessThan180Min.verifyDisplayed(true,5);
             PaxImpactPage.summaryDrawer.lessThan180Min.highlight();
             uiTotalLessThan180MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.lessThan180Min.getAttribute("value"));
-            PaxImpactPage.summaryDrawer.canceled.highlight();
-            PaxImpactPage.summaryDrawer.canceled.verifyDisplayed(true,5);
-            uiTotalCanceledValue = Integer.parseInt(PaxImpactPage.summaryDrawer.canceled.getAttribute("value"));
-
+            PaxImpactPage.summaryDrawer.cancelled.highlight();
+            PaxImpactPage.summaryDrawer.cancelled.verifyDisplayed(true,5);
+            uiTotalCanceledValue = Integer.parseInt(PaxImpactPage.summaryDrawer.cancelled.getAttribute("value"));
+           
         }
 
         public static void Step2() throws Exception {
