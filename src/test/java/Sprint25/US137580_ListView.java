@@ -222,19 +222,19 @@ public class US137580_ListView extends TestBase {
 		public static void Step3() throws Exception
 		{
 
-            List <String> flightNumbersUI = new ArrayList<String>();
+            List <String> flightItemsUI = new ArrayList<String>();
 
 			ReportLog.setTestCase("Sorting List View Headers");
             ReportLog.setTestStep("Ascending Order");
-            PaxImpactPage.headers.flightNumberHeader.click(); //flights will be sorted depending on the direction of the arrow-ASCENDING by Flight header
+            PaxImpactPage.headers.flightNumberHeader.click(); //flights will be sorted depending on the direction of the arrow-ASCENDING by FLIGHT header
 
 
-            //Getting flight list by ascending order from UI
+            //Getting flight item list by ascending order from UI
             SearchContext searchContext = WebManager.getDriver();
             List<WebElement> elements = ((SearchContext)searchContext).findElements(By.tagName("ppro-flight-item"));
 
             for (int i = 0 ; i < elements.size() ; i++ ){
-                flightNumbersUI.add(elements.get(i).getText());
+                flightItemsUI.add(elements.get(i).getText());
             }
 
             // Getting flight numbers  from web service response and stored in list
@@ -247,41 +247,41 @@ public class US137580_ListView extends TestBase {
                 totalFligtNumberList.add(flightNumber);
             }
 
-            // Sorting the flight numbers that got from web service response in the array
+            // Sorting the flight numbers that have been got from web service response in the array
             String[] totalFlightNumberArray = totalFligtNumberList.toArray(new String[0]);
 
             Arrays.sort(totalFlightNumberArray);
 
             // Checking if sorted array and sorted UI is equal
             for (int i = 0 ; i < totalFlightNumberArray.length ; i++ ){
-                if (flightNumbersUI.get(i).contains(totalFlightNumberArray[i])){
-                    ReportLog.assertTrue(true, "Ascendant Sorting for " + flightNumbersUI.get(i) + " Success" );
+                if (flightItemsUI.get(i).contains(totalFlightNumberArray[i])){
+                    ReportLog.assertTrue(true, "Ascendant Sorting for " + flightItemsUI.get(i) + " is Successful" );
                 }
                 else{
-                    ReportLog.assertTrue(false, "Ascendant Sorting for " + flightNumbersUI.get(i) + " Failed" );
+                    ReportLog.assertTrue(false, "Ascendant Sorting for " + flightItemsUI.get(i) + " is Failed" );
                 }
             }
 
 
             ReportLog.setTestStep("Descending Order");
-            PaxImpactPage.headers.flightNumberHeader.click(); //flights will be sorted in opposite direction of the arrow-DESCENDING by Flight header
+            PaxImpactPage.headers.flightNumberHeader.click(); //flights will be sorted in opposite direction of the arrow-DESCENDING by FLIGHT header
 
             //Getting flight list by descending order from UI
-            flightNumbersUI.clear();
+            flightItemsUI.clear();
             elements = ((SearchContext)searchContext).findElements(By.tagName("ppro-flight-item"));
 
             for (int i = 0 ; i < elements.size() ; i++ ){
-                flightNumbersUI.add(elements.get(i).getText());
+                flightItemsUI.add(elements.get(i).getText());
             }
 
 
             // Checking if reverse sorted array and sorted UI is equal
             for (int i = 0 ; i < totalFlightNumberArray.length ; i++ ){
-                if (flightNumbersUI.get(i).contains(totalFlightNumberArray[(totalFlightNumberArray.length -1)-i])){
-                    ReportLog.assertTrue(true, "Descendant Sorting for " + flightNumbersUI.get(i) + " Success" );
+                if (flightItemsUI.get(i).contains(totalFlightNumberArray[(totalFlightNumberArray.length -1)-i])){
+                    ReportLog.assertTrue(true, "Descendant Sorting for " + flightItemsUI.get(i) + " is Successful" );
                 }
                 else{
-                    ReportLog.assertTrue(false, "Descendant Sorting for " + flightNumbersUI.get(i) + " Failed" );
+                    ReportLog.assertTrue(false, "Descendant Sorting for " + flightItemsUI.get(i) + " is Failed" );
                 }
             }
 
@@ -290,13 +290,13 @@ public class US137580_ListView extends TestBase {
             ReportLog.setTestStep("Other Header: Ascending Order");
             PaxImpactPage.headers.paxHeader.click(); //flights will be sorted according to the new column headers value-NEW ASCENDING by Flight header
 
-            flightNumbersUI.clear();
+            flightItemsUI.clear();
             elements = ((SearchContext)searchContext).findElements(By.tagName("ppro-flight-item"));
 
             for (int i = 0 ; i < elements.size() ; i++ ){
                 String tempString = elements.get(i).getText();
                 int index = tempString.indexOf('Y');
-                flightNumbersUI.add(elements.get(i).getText().substring(index));
+                flightItemsUI.add(elements.get(i).getText().substring(index));
             }
 
             List <Integer> totalPAXList = new ArrayList<Integer>();
@@ -315,11 +315,11 @@ public class US137580_ListView extends TestBase {
 
             int f = 0;
             for (int i = 0 ; i < totalPAXArray.length ; i++ ){
-                if (flightNumbersUI.get(i).contains(totalPAXArray[i].toString())){
-                    ReportLog.assertTrue(true, "Ascendant Sorting for " + flightNumbersUI.get(i) + " Success" );
+                if (flightItemsUI.get(i).contains(totalPAXArray[i].toString())){
+                    ReportLog.assertTrue(true, "Ascendant Sorting for " + flightItemsUI.get(i) + " is Successful" );
                 }
                 else{
-                    ReportLog.assertTrue(false, "Ascendant Sorting for " + flightNumbersUI.get(i) + " Failed" );
+                    ReportLog.assertTrue(false, "Ascendant Sorting for " + flightItemsUI.get(i) + " is Failed" );
                 }
             }
             
