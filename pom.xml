@@ -14,6 +14,22 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <!--Add the SmartBear Ready! API plugin repository.-->
+  <!--Maven will download the plugin from the specified URL.-->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>SmartBearPluginRepository</id>
+      <url>http://smartbearsoftware.com/repository/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <repositories>
+    <repository>
+      <id>eviware</id>
+      <url>http://www.eviware.com/repository/maven2/</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
      	<groupId>org.testng</groupId>
@@ -46,6 +62,11 @@
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20171018</version>
+    </dependency>
+    <dependency>
+      <groupId>com.smartbear</groupId>
+      <artifactId>ready-api-soapui</artifactId>
+      <version>2.0.0</version>
     </dependency>
   </dependencies>
 </project>

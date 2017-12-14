@@ -30,12 +30,12 @@ public class PaxImpactPage extends GlobalPage
             super("Summary Drawer", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
 
             //rootElement           = new Element("Parent shadow root element", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
-            rootElement           = new Element("Parent shadow root element", By.xpath(".//ppro-summary-drawer-view[contains(@header,'Impacted Flights')]"));
+            rootElement           = new Element("Parent shadow root element", By.xpath(".//ppro-summary-drawer-view[@class='style-scope impacted-flights']"));
             all                   = new Element("All disrupted flight section ", By.xpath("//*[@id='all']"));
             delayed               = new Element("Delayed disrupted flight section ", By.xpath("//*[@id='delayed']"));
-            lessThan15Min         = new Element("Less than 15 min disrupted flight section ", By.xpath("//*[@id='lt15Min']"));
-            lessThan60Min         = new Element("Less than 60 min disrupted flight section ", By.xpath("//*[@id='lt60Min']"));
-            lessThan180Min        = new Element("Less than 180 min disrupted flight section ", By.xpath("//*[@id='lt180Min']"));
+            lessThan15Min         = new Element("Less than 15 min disrupted flight section ", By.xpath("//*[@id='lt60Min']"));
+            lessThan60Min         = new Element("Less than 60 min disrupted flight section ", By.xpath("//*[@id='lt180Min']"));
+            lessThan180Min        = new Element("Less than 180 min disrupted flight section ", By.xpath("//*[@id='ge180Min']"));
             cancelled             = new Element("Canceled disrupted flight section ", By.xpath("//*[@id='cancelled']"));
             disruptedPax          = new Element("Disrupted Pax disrupted flight section ", By.xpath(""));
             needsToRebook         = new Element("Needs To Rebook disrupted flight section ", By.xpath(""));

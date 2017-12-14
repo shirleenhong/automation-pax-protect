@@ -99,7 +99,6 @@ public class US137579_SummaryDrawer extends TestBase {
 
 
             responseContent = backendAPI.getPayload("Positive Test","GET/disruptions");
-            int a = 0;
 
             try {
                 if (responseContent.startsWith("[")) {
@@ -124,9 +123,9 @@ public class US137579_SummaryDrawer extends TestBase {
 
                     int departureDelayMinutes = delay.getInt("departureDelayMinutes");
 
-                    if (departureDelayMinutes <= 15) totalLessThan15MinValue++ ;
-                    else if (departureDelayMinutes <= 60) totalLessThan60MinValue++ ;
-                    else if (departureDelayMinutes <= 180) totalLessThan180MinValue++ ;
+                    if (departureDelayMinutes <= 60) totalLessThan15MinValue++ ;
+                    else if (departureDelayMinutes <= 180) totalLessThan60MinValue++ ;
+                    else if (departureDelayMinutes > 180) totalLessThan180MinValue++ ;
                 }
                 else if (disruption.toMap().containsKey("cancel")){
                     totalCanceledValue++;
