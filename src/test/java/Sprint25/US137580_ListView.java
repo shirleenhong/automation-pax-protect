@@ -148,9 +148,9 @@ public class US137580_ListView extends TestBase {
 
                                 int departureDelayMinutes = delay.getInt("departureDelayMinutes");
 
-                                if (departureDelayMinutes <= 15) totalLessThan15MinList.add(flightID);
-                                else if (departureDelayMinutes <= 60) totalLessThan60MinList.add(flightID);
-                                else if (departureDelayMinutes <= 180) totalLessThan180MinList.add(flightID);
+                                if (departureDelayMinutes <= 60) totalLessThan15MinList.add(flightID);
+                                else if (departureDelayMinutes <= 180) totalLessThan60MinList.add(flightID);
+                                else if (departureDelayMinutes > 180) totalLessThan180MinList.add(flightID);
                         }
                         else if (disruption.toMap().containsKey("cancel")){
                                 totalCancelledList.add(flightID);
@@ -291,12 +291,18 @@ public class US137580_ListView extends TestBase {
             PaxImpactPage.headers.paxHeader.click(); //flights will be sorted according to the new column headers value-NEW ASCENDING by Flight header
 
             flightItemsUI.clear();
-            elements = ((SearchContext)searchContext).findElements(By.tagName("ppro-flight-item"));
+            elements = ((SearchContext)searchContext).findElements(By.tagName("ppro-pax-count"));
 
-            for (int i = 0 ; i < elements.size() ; i++ ){
-                String tempString = elements.get(i).getText();
-                int index = tempString.indexOf('Y');
-                flightItemsUI.add(elements.get(i).getText().substring(index));
+            for (int i = 0 ; i < elements.size() ; i=i+2 ){
+                String paxAndMconXInfo = elements.get(i).getText();
+                int indexF = paxAndMconXInfo.indexOf('F');
+                int indexJ = paxAndMconXInfo.indexOf('J');
+                int indexY = paxAndMconXInfo.indexOf('Y');
+                int fCount = Integer.parseInt(paxAndMconXInfo.substring(indexF+1,indexJ-1));
+                int jCount = Integer.parseInt(paxAndMconXInfo.substring(indexJ+1,indexY-1));
+                int yCount = Integer.parseInt(paxAndMconXInfo.substring(indexY+1));
+                flightItemsUI.add((Integer.toString(fCount+jCount+yCount)));
+                //flightItemsUI.add(elements.get(i).getText().substring(index));
             }
 
             List <Integer> totalPAXList = new ArrayList<Integer>();
@@ -305,7 +311,9 @@ public class US137580_ListView extends TestBase {
                 JSONObject flightInfo = jsonArray.getJSONObject(i);
                 JSONObject flightDetails = flightInfo.getJSONObject("flightDetails");
                 int coachCompartmentPax = flightDetails.getInt("coachCompartmentPax");
-                totalPAXList.add(coachCompartmentPax);
+                int businessCompartmentPax = flightDetails.getInt("businessCompartmentPax");
+                int firstCompartmentPax = flightDetails.getInt("firstCompartmentPax");
+                totalPAXList.add(coachCompartmentPax + businessCompartmentPax + firstCompartmentPax);
             }
 
             // Sorting the flight numbers that got from web service response in the array
@@ -313,9 +321,9 @@ public class US137580_ListView extends TestBase {
 
             Arrays.sort(totalPAXArray);
 
-            int f = 0;
             for (int i = 0 ; i < totalPAXArray.length ; i++ ){
-                if (flightItemsUI.get(i).contains(totalPAXArray[i].toString())){
+                //if (flightItemsUI.get(i).contains(totalPAXArray[i].toString())){
+                if (flightItemsUI.get(i).equals(totalPAXArray[i].toString())){
                     ReportLog.assertTrue(true, "Ascendant Sorting for " + flightItemsUI.get(i) + " is Successful" );
                 }
                 else{
