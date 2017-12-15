@@ -10,7 +10,9 @@ public class PaxConfigPage extends GlobalPage
 {
     public static Page          page          = new Page("Pax Protection - Configuration", "pax-protect/#/config");
     public static ConfigSection configSection = new ConfigSection(null);
-
+    
+    
+    //Added PaxConfig
     public static class ConfigSection extends Element
     {
         public CurrentProfile currentProfile;
