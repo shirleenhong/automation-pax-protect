@@ -7,12 +7,9 @@ import common.GlobalPage;
 import common.TestDataHandler;
 import common.BackendAPI;
 import org.json.JSONArray;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 import pageobjects.GESSOAuthPage;
-import pageobjects.PDSListViewPage;
 import pageobjects.PaxImpactPage;
 import org.json.JSONObject;
 
@@ -24,9 +21,9 @@ public class US137579_SummaryDrawer extends TestBase {
 
     public static int uiTotalAllValue = 0;
     public static int uiTotalDelayedValue = 0;
-    public static int uiTotalLessThan15MinValue = 0;
-    public static int uiTotalLessThan60MinValue = 0;
-    public static int uiTotalLessThan180MinValue = 0;
+    public static int uiTotalGreaterThan15MinValue = 0;
+    public static int uiTotalGreaterThan60MinValue = 0;
+    public static int uiTotalGreaterThan180MinValue = 0;
     public static int uiTotalCanceledValue = 0;
     @Test
     public void TestScenarios() throws Exception
@@ -67,15 +64,15 @@ public class US137579_SummaryDrawer extends TestBase {
             PaxImpactPage.summaryDrawer.delayed.verifyDisplayed(true,5);
             PaxImpactPage.summaryDrawer.delayed.highlight();
             uiTotalDelayedValue = Integer.parseInt(PaxImpactPage.summaryDrawer.delayed.getAttribute("value"));
-            PaxImpactPage.summaryDrawer.lessThan15Min.verifyDisplayed(true,5);
-            PaxImpactPage.summaryDrawer.lessThan15Min.highlight();
-            uiTotalLessThan15MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.lessThan15Min.getAttribute("value"));
-            PaxImpactPage.summaryDrawer.lessThan60Min.verifyDisplayed(true,5);
-            PaxImpactPage.summaryDrawer.lessThan60Min.highlight();
-            uiTotalLessThan60MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.lessThan60Min.getAttribute("value"));
-            PaxImpactPage.summaryDrawer.lessThan180Min.verifyDisplayed(true,5);
-            PaxImpactPage.summaryDrawer.lessThan180Min.highlight();
-            uiTotalLessThan180MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.lessThan180Min.getAttribute("value"));
+            PaxImpactPage.summaryDrawer.greaterThan15Min.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.greaterThan15Min.highlight();
+            uiTotalGreaterThan15MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.greaterThan15Min.getAttribute("value"));
+            PaxImpactPage.summaryDrawer.greaterThan60Min.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.greaterThan60Min.highlight();
+            uiTotalGreaterThan60MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.greaterThan60Min.getAttribute("value"));
+            PaxImpactPage.summaryDrawer.greaterThan180Min.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.greaterThan180Min.highlight();
+            uiTotalGreaterThan180MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.greaterThan180Min.getAttribute("value"));
             PaxImpactPage.summaryDrawer.cancelled.highlight();
             PaxImpactPage.summaryDrawer.cancelled.verifyDisplayed(true,5);
             uiTotalCanceledValue = Integer.parseInt(PaxImpactPage.summaryDrawer.cancelled.getAttribute("value"));
@@ -86,9 +83,9 @@ public class US137579_SummaryDrawer extends TestBase {
 
             int totalAllValue = 0;
             int totalDelayedValue = 0;
-            int totalLessThan15MinValue = 0;
-            int totalLessThan60MinValue = 0;
-            int totalLessThan180MinValue = 0;
+            int totalGreaterThan15MinValue = 0;
+            int totalGreaterThan60MinValue = 0;
+            int totalGreaterThan180MinValue = 0;
             int totalCanceledValue = 0;
 
             String responseContent = null;
@@ -123,9 +120,9 @@ public class US137579_SummaryDrawer extends TestBase {
 
                     int departureDelayMinutes = delay.getInt("departureDelayMinutes");
 
-                    if (departureDelayMinutes <= 60) totalLessThan15MinValue++ ;
-                    else if (departureDelayMinutes <= 180) totalLessThan60MinValue++ ;
-                    else if (departureDelayMinutes > 180) totalLessThan180MinValue++ ;
+                    if ((departureDelayMinutes >= 15) && (departureDelayMinutes < 60)) totalGreaterThan15MinValue++ ;
+                    else if ((departureDelayMinutes >= 60) && (departureDelayMinutes < 180)) totalGreaterThan60MinValue++ ;
+                    else if (departureDelayMinutes >= 180) totalGreaterThan180MinValue++ ;
                 }
                 else if (disruption.toMap().containsKey("cancel")){
                     totalCanceledValue++;
@@ -144,23 +141,23 @@ public class US137579_SummaryDrawer extends TestBase {
             else {
                 ReportLog.assertTrue(false, "Total Delayed Value failed");
             }
-            if (uiTotalLessThan15MinValue == totalLessThan15MinValue){
-                ReportLog.assertTrue(true, "Total LessThan15Min Value");
+            if (uiTotalGreaterThan15MinValue == totalGreaterThan15MinValue){
+                ReportLog.assertTrue(true, "Total GreaterThan15Min Value");
             }
             else {
-                ReportLog.assertTrue(false, "Total LessThan15Min Value failed");
+                ReportLog.assertTrue(false, "Total GreaterThan15Min Value failed");
             }
-            if (uiTotalLessThan60MinValue == totalLessThan60MinValue){
-                ReportLog.assertTrue(true, "Total LessThan60Min Value passed");
-            }
-            else {
-                ReportLog.assertTrue(false, "Total LessThan60Min Value failed");
-            }
-            if (uiTotalLessThan180MinValue == totalLessThan180MinValue){
-                ReportLog.assertTrue(true, "Total LessThan180Min Value passed");
+            if (uiTotalGreaterThan60MinValue == totalGreaterThan60MinValue){
+                ReportLog.assertTrue(true, "Total GreaterThan60Min Value passed");
             }
             else {
-                ReportLog.assertTrue(false, "Total LessThan180Min Value failed");
+                ReportLog.assertTrue(false, "Total GreaterThan60Min Value failed");
+            }
+            if (uiTotalGreaterThan180MinValue == totalGreaterThan180MinValue){
+                ReportLog.assertTrue(true, "Total GreaterThan180Min Value passed");
+            }
+            else {
+                ReportLog.assertTrue(false, "Total GreaterThan180Min Value failed");
             }
             if (uiTotalCanceledValue == totalCanceledValue){
                 ReportLog.assertTrue(true, "Total Canceled Value passed");

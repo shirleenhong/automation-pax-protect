@@ -25,9 +25,9 @@ public class PaxImpactPage extends GlobalPage
         public final Element          rootElement;
         public final Element          all;
         public final Element          delayed;
-        public final Element          lessThan15Min;
-        public final Element          lessThan60Min;
-        public final Element          lessThan180Min;
+        public final Element          greaterThan15Min;
+        public final Element          greaterThan60Min;
+        public final Element          greaterThan180Min;
         public final Element          cancelled;
         public final Element          disruptedPax;
         public final Element          needsToRebook;
@@ -42,9 +42,9 @@ public class PaxImpactPage extends GlobalPage
             rootElement           = new Element("Parent shadow root element", By.xpath(".//ppro-summary-drawer-view[@class='style-scope impacted-flights']"));
             all                   = new Element("All disrupted flight section ", By.xpath("//*[@id='all']"));
             delayed               = new Element("Delayed disrupted flight section ", By.xpath("//*[@id='delayed']"));
-            lessThan15Min         = new Element("Less than 15 min disrupted flight section ", By.xpath("//*[@id='lt60Min']"));
-            lessThan60Min         = new Element("Less than 60 min disrupted flight section ", By.xpath("//*[@id='lt180Min']"));
-            lessThan180Min        = new Element("Less than 180 min disrupted flight section ", By.xpath("//*[@id='ge180Min']"));
+            greaterThan15Min         = new Element("Greater than 15 min disrupted flight section ", By.xpath("//*[@id='lt60Min']"));
+            greaterThan60Min         = new Element("Greater than 60 min disrupted flight section ", By.xpath("//*[@id='lt180Min']"));
+            greaterThan180Min        = new Element("Greater than 180 min disrupted flight section ", By.xpath("//*[@id='ge180Min']"));
             cancelled             = new Element("Canceled disrupted flight section ", By.xpath("//*[@id='cancelled']"));
             disruptedPax          = new Element("Disrupted Pax disrupted flight section ", By.xpath(""));
             needsToRebook         = new Element("Needs To Rebook disrupted flight section ", By.xpath(""));
