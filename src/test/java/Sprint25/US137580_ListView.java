@@ -131,9 +131,9 @@ public class US137580_ListView extends TestBase {
             PaxImpactPage.summaryDrawer.delayed.click();
 
                 List <String> totalDelayedList = new ArrayList<String>();
-                List <String> totalLessThan15MinList = new ArrayList<String>();
-                List <String> totalLessThan60MinList = new ArrayList<String>();
-                List <String> totalLessThan180MinList = new ArrayList<String>();
+                List <String> totalGreaterThan15MinList = new ArrayList<String>();
+                List <String> totalGreaterThan60MinList = new ArrayList<String>();
+                List <String> totalGreaterThan180MinList = new ArrayList<String>();
                 List <String> totalCancelledList = new ArrayList<String>();
 
 
@@ -148,9 +148,9 @@ public class US137580_ListView extends TestBase {
 
                                 int departureDelayMinutes = delay.getInt("departureDelayMinutes");
 
-                                if (departureDelayMinutes <= 60) totalLessThan15MinList.add(flightID);
-                                else if (departureDelayMinutes <= 180) totalLessThan60MinList.add(flightID);
-                                else if (departureDelayMinutes > 180) totalLessThan180MinList.add(flightID);
+                                if ((departureDelayMinutes >= 15) && (departureDelayMinutes < 60)) totalGreaterThan15MinList.add(flightID);
+                                else if ((departureDelayMinutes >= 60) && (departureDelayMinutes < 180)) totalGreaterThan60MinList.add(flightID);
+                                else if (departureDelayMinutes >= 180) totalGreaterThan180MinList.add(flightID);
                         }
                         else if (disruption.toMap().containsKey("cancel")){
                                 totalCancelledList.add(flightID);
@@ -168,18 +168,18 @@ public class US137580_ListView extends TestBase {
             ReportLog.setTestStep("<15 Mins Tab");
             PaxImpactPage.summaryDrawer.lessThan15Min.click();
 
-                if (totalLessThan15MinList.size() > 0){
-                        for (int i = 0 ; i < totalLessThan15MinList.size() ; i++ ){
-                                PDSListViewPage.listView.disruptedItem(totalLessThan15MinList.get(i)).verifyDisplayed(true, 5);
+                if (totalGreaterThan15MinList.size() > 0){
+                        for (int i = 0 ; i < totalGreaterThan15MinList.size() ; i++ ){
+                                PDSListViewPage.listView.disruptedItem(totalGreaterThan15MinList.get(i)).verifyDisplayed(true, 5);
                         }
                 }
             
             ReportLog.setTestStep("<60 Mins tab");
             PaxImpactPage.summaryDrawer.lessThan60Min.click();
 
-                if (totalLessThan60MinList.size() > 0){
-                        for (int i = 0 ; i < totalLessThan60MinList.size() ; i++ ){
-                                PDSListViewPage.listView.disruptedItem(totalLessThan60MinList.get(i)).verifyDisplayed(true, 5);
+                if (totalGreaterThan60MinList.size() > 0){
+                        for (int i = 0 ; i < totalGreaterThan60MinList.size() ; i++ ){
+                                PDSListViewPage.listView.disruptedItem(totalGreaterThan60MinList.get(i)).verifyDisplayed(true, 5);
                         }
                 }
 
@@ -188,9 +188,9 @@ public class US137580_ListView extends TestBase {
             ReportLog.setTestStep("<180 Tab");
             PaxImpactPage.summaryDrawer.lessThan180Min.click();
 
-                if (totalLessThan180MinList.size() > 0){
-                        for (int i = 0 ; i < totalLessThan180MinList.size() ; i++ ){
-                                PDSListViewPage.listView.disruptedItem(totalLessThan180MinList.get(i)).verifyDisplayed(true, 5);
+                if (totalGreaterThan180MinList.size() > 0){
+                        for (int i = 0 ; i < totalGreaterThan180MinList.size() ; i++ ){
+                                PDSListViewPage.listView.disruptedItem(totalGreaterThan180MinList.get(i)).verifyDisplayed(true, 5);
                         }
                 }
 
