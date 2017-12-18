@@ -2,38 +2,38 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="158006" started-at="2017-10-17T09:37:34Z" finished-at="2017-10-17T09:40:12Z">
+  <suite name="Default suite" duration-ms="137567" started-at="2017-12-15T09:12:24Z" finished-at="2017-12-15T09:14:42Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="158006" started-at="2017-10-17T09:37:34Z" finished-at="2017-10-17T09:40:12Z">
-      <class name="Sprint19.BookingCapacityTest">
-        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="24117" started-at="2017-10-17T17:37:34Z" finished-at="2017-10-17T17:37:58Z">
+    <test name="Default test" duration-ms="137567" started-at="2017-12-15T09:12:24Z" finished-at="2017-12-15T09:14:42Z">
+      <class name="Sprint25.US137581_GridView">
+        <test-method status="PASS" signature="startTest(org.testng.ITestContext)[pri:0, instance:[US137581_GridView passed=0 failed=0 skipped=0]]" name="startTest" is-config="true" duration-ms="17218" started-at="2017-12-15T17:12:24Z" finished-at="2017-12-15T17:12:41Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@2a1debfa]]>
+                <![CDATA[org.testng.TestRunner@ae4a043]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startTest -->
-        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="130186" started-at="2017-10-17T17:37:58Z" finished-at="2017-10-17T17:40:09Z">
+        <test-method status="PASS" signature="TestScenarios()[pri:0, instance:[US137581_GridView passed=0 failed=0 skipped=0]]" name="TestScenarios" duration-ms="117775" started-at="2017-12-15T17:12:41Z" finished-at="2017-12-15T17:14:39Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestScenarios -->
-        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[BookingCapacityTest passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="2632" started-at="2017-10-17T17:40:09Z" finished-at="2017-10-17T17:40:12Z">
+        <test-method status="PASS" signature="endTest(org.testng.ITestContext)[pri:0, instance:[US137581_GridView passed=0 failed=0 skipped=0]]" name="endTest" is-config="true" duration-ms="1889" started-at="2017-12-15T17:14:40Z" finished-at="2017-12-15T17:14:42Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@2a1debfa]]>
+                <![CDATA[org.testng.TestRunner@ae4a043]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endTest -->
-      </class> <!-- Sprint19.BookingCapacityTest -->
+      </class> <!-- Sprint25.US137581_GridView -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

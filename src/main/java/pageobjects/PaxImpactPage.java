@@ -1,8 +1,15 @@
 package pageobjects;
 
+import auto.framework.ReportLog;
+import auto.framework.WebManager;
 import auto.framework.web.Element;
 import common.GlobalPage;
+
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class PaxImpactPage extends GlobalPage
 {
@@ -11,6 +18,7 @@ public class PaxImpactPage extends GlobalPage
     public static Filter filter = new Filter();
     public static Headers headers = new Headers();
     public static Solve solve = new Solve();
+
     public static HeadersStyle headersStyle = new HeadersStyle();
 
     public static class SummaryDrawer extends Element{
@@ -60,6 +68,35 @@ public class PaxImpactPage extends GlobalPage
     		toggleCheckBoxLabel = new Element("Toggle Check Box Label", By.xpath(".//div[@class='container style-scope ppro-checkbox']"));
     		toggleCheckBox = new Element("Toggle Check Box", By.xpath("//div[@class='squarebox style-scope ppro-checkbox']"));
     		filterButton = new Element("Filter Button", By.xpath(".//div[@class='style-scope px-modal']"));
+  
+    	}
+    	
+    	//Elements for the Viewing Options icons, when both icons have the same elements
+    	public WebElement viewOptions(String viewType)
+    	{
+    		WebElement viewOption = null;
+    		
+			WebElement viewOptionContainer = driver.findElement(By.xpath(".//*[@class='style-scope impacted-flights']/ppro-toggle-list-view"));
+			
+			//Listing all the similar elements
+			List <WebElement> viewOptionsList = viewOptionContainer.findElements(By.tagName("iron-icon"));
+			
+			//Creating the distinction of the two elements, 1 = List View, 2 = Grid View. Type "list" or "grid" on the Test Page.
+			if(viewType.equalsIgnoreCase("list")) {
+				viewOption = viewOptionsList.get(0);
+			} else if (viewType.equalsIgnoreCase("grid")) {
+				viewOption = viewOptionsList.get(1);
+			} else {
+				ReportLog.logEvent(false, "The view type is invalid.");
+			}
+			
+			if(viewOption.isDisplayed()==true){
+				ReportLog.logEvent(true, "The "+viewType+" view option is displayed.");
+			} else {
+				ReportLog.logEvent(false, "The "+viewType+" view option is not displayed.");
+			}
+			
+			return viewOption;
     	}
     }
     
@@ -92,6 +129,8 @@ public class PaxImpactPage extends GlobalPage
 			misconnectionHeader = new Element("Misconnection Header", By.xpath(".//div[@id='misconnectionCountHeader']"));
 			
     	}
+    	
+    	
     }
     
     public static class Solve extends Element
@@ -103,7 +142,7 @@ public class PaxImpactPage extends GlobalPage
     	{
     		super("List View", By.xpath(".//div[@class='bottom-row style-scope impacted-flights']"));
 			
-    		solveButton = new Element("Solve Button", By.xpath(".//div[@class='btn btn--large btn--call-to-action  style-scope solve-button']"));
+    		solveButton = new Element("Solve Button", By.xpath(".//button[@class='btn btn--large btn--call-to-action  style-scope solve-button']"));
 			
     	}
     }

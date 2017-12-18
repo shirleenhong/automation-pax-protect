@@ -139,13 +139,11 @@ public class US137580_ListView extends TestBase {
             PaxImpactPage.summaryDrawer.all.click();
             testDataHandler = TestDataHandler.setDisruptionDataSet("Main", "RowSelection='DataSet0'");
             PDSListViewPage.listView.disruptedItem(testDataHandler.flightNumber).verifyDisplayed(true, 5);
-
-
         }
-
         public static void Step3() throws Exception
         {
             ReportLog.setTestCase("Sorting List View Headers");
+
             ReportLog.setTestStep("Ascending Order");
             PaxImpactPage.headers.flightNumberHeader.click(); //flights will be sorted depending on the direction of the arrow-ASCENDING, header can be changed
             //ASSERTIONS: set the ID first in the Dataset > Disruptions > "FlightSortAsc" column
