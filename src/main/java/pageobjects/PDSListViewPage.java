@@ -2,7 +2,7 @@ package pageobjects;
 
 import auto.framework.web.Element;
 import common.GlobalPage;
-import pageobjects.PaxImpactPage.Headers;
+
 
 import org.openqa.selenium.By;
 
@@ -23,7 +23,6 @@ public class PDSListViewPage extends GlobalPage
 		}
 		
 		public static class DisruptedItem extends Element
-		
 		{
 			public final Element listViewCheckBox;
 			
@@ -35,5 +34,4 @@ public class PDSListViewPage extends GlobalPage
 			}
 		}
 	}
-
 }
