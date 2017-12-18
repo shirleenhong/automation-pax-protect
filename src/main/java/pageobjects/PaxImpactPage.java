@@ -111,6 +111,8 @@ public class PaxImpactPage extends GlobalPage
     public static class HeadersStyle extends Element
     {
 
+        public final Element          impactedFlightsMidHeader;
+        public final Element          impactedFlightsHeader;
         public final Element          allHeader;
         public final Element          delayedHeader;
         public final Element          gt15MinHeader;
@@ -128,6 +130,8 @@ public class PaxImpactPage extends GlobalPage
 
             super("Summary Drawer", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
 
+            impactedFlightsMidHeader = new Element("Impacted Flights Middle Header", By.xpath(".//span[text()='Impacted Flights']"));
+            impactedFlightsHeader = new Element("Impacted Flights Header", By.xpath(".//ppro-page-header[text()='Impacted Flights']"));
             allHeader = new Element("ALL Header", By.xpath(".//div[@id='header' and contains(text(),'ALL')]"));
             delayedHeader = new Element("DELAYED Header", By.xpath(".//div[@id='header' and contains(text(),'DELAYED')]"));
             gt15MinHeader = new Element(">= 15 Header", By.xpath(".//div[@id='header' and contains(text(),'≥ 15min')]"));
