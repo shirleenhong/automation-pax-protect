@@ -18,8 +18,9 @@ public class PaxImpactPage extends GlobalPage
     public static Filter filter = new Filter();
     public static Headers headers = new Headers();
     public static Solve solve = new Solve();
-    static WebDriver driver = WebManager.getDriver();
-    
+
+    public static HeadersStyle headersStyle = new HeadersStyle();
+
     public static class SummaryDrawer extends Element{
         public final Element          rootElement;
         public final Element          all;
@@ -38,7 +39,7 @@ public class PaxImpactPage extends GlobalPage
             super("Summary Drawer", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
 
             //rootElement           = new Element("Parent shadow root element", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
-            rootElement           = new Element("Parent shadow root element", By.xpath(".//ppro-summary-drawer-view[contains(@header,'Impacted Flights')]"));
+            rootElement           = new Element("Parent shadow root element", By.xpath(".//ppro-summary-drawer-view[@class='style-scope impacted-flights']"));
             all                   = new Element("All disrupted flight section ", By.xpath("//*[@id='all']"));
             delayed               = new Element("Delayed disrupted flight section ", By.xpath("//*[@id='delayed']"));
             lessThan15Min         = new Element("Less than 15 min disrupted flight section ", By.xpath("//*[@id='lt60Min']"));
@@ -145,5 +146,48 @@ public class PaxImpactPage extends GlobalPage
 			
     	}
     }
+
+    public static class HeadersStyle extends Element
+    {
+
+        public final Element          impactedFlightsMidHeader;
+        public final Element          impactedFlightsHeader;
+        public final Element          allHeader;
+        public final Element          delayedHeader;
+        public final Element          gt15MinHeader;
+        public final Element          gt60MinHeader;
+        public final Element          gt180MinHeader;
+        public final Element          cancelledHeader;
+        public final Element          allHeaderValue;
+        public final Element          delayedHeaderValue;
+        public final Element          gt15MinHeaderValue;
+        public final Element          gt60MinHeaderValue;
+        public final Element          gt180MinHeaderValue;
+        public final Element          cancelledHeaderValue;
+
+        public HeadersStyle(){
+
+            super("Summary Drawer", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
+
+            impactedFlightsMidHeader = new Element("Impacted Flights Middle Header", By.xpath(".//span[text()='Impacted Flights']"));
+            impactedFlightsHeader = new Element("Impacted Flights Header", By.xpath(".//ppro-page-header[text()='Impacted Flights']"));
+            allHeader = new Element("ALL Header", By.xpath(".//div[@id='header' and contains(text(),'ALL')]"));
+            delayedHeader = new Element("DELAYED Header", By.xpath(".//div[@id='header' and contains(text(),'DELAYED')]"));
+            gt15MinHeader = new Element(">= 15 Header", By.xpath(".//div[@id='header' and contains(text(),'≥ 15min')]"));
+            gt60MinHeader = new Element(">= 60 Header", By.xpath(".//div[@id='header' and contains(text(),'≥ 60min')]"));
+            gt180MinHeader = new Element(">= 180 Header", By.xpath(".//div[@id='header' and contains(text(),'≥ 180min')]"));
+            cancelledHeader = new Element("CANCELLED Header", By.xpath(".//div[@id='header' and contains(text(),'CANCELLED')]"));
+            allHeaderValue = new Element("ALL Header Value", By.xpath(".//*[@id='all']//div[@class='value value-none-importance value-none-importance-highlighted style-scope stat-val']"));
+            delayedHeaderValue = new Element("DELAYED Header Value", By.xpath(".//*[@id='delayed']//div[@class='value value-none-importance  style-scope stat-val']"));
+            gt15MinHeaderValue = new Element("GT15MIN Header Value", By.xpath(".//*[@id='lt60Min']//div[@class='value value-low-importance  style-scope stat-val']"));
+            gt60MinHeaderValue = new Element("GT60MIN Header Value", By.xpath(".//*[@id='lt180Min']//div[@class='value value-middle-importance  style-scope stat-val']"));
+            gt180MinHeaderValue = new Element("GT180MIN Header Value", By.xpath(".//*[@id='ge180Min']//div[@class='value value-high-importance  style-scope stat-val']"));
+            cancelledHeaderValue = new Element("CANCELLED Header Value", By.xpath(".//*[@id='cancelled']//div[@class='value value-none-importance  style-scope stat-val']"));
+
+        }
+
+    }
+
+
 
 }
