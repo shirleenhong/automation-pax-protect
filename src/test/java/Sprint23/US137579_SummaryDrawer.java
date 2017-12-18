@@ -64,15 +64,15 @@ public class US137579_SummaryDrawer extends TestBase {
             PaxImpactPage.summaryDrawer.delayed.verifyDisplayed(true,5);
             PaxImpactPage.summaryDrawer.delayed.highlight();
             uiTotalDelayedValue = Integer.parseInt(PaxImpactPage.summaryDrawer.delayed.getAttribute("value"));
-            PaxImpactPage.summaryDrawer.lessThan15Min.verifyDisplayed(true,5);
-            PaxImpactPage.summaryDrawer.lessThan15Min.highlight();
-            uiTotalGreaterThan15MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.lessThan15Min.getAttribute("value"));
-            PaxImpactPage.summaryDrawer.lessThan60Min.verifyDisplayed(true,5);
-            PaxImpactPage.summaryDrawer.lessThan60Min.highlight();
-            uiTotalGreaterThan60MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.lessThan60Min.getAttribute("value"));
-            PaxImpactPage.summaryDrawer.lessThan180Min.verifyDisplayed(true,5);
-            PaxImpactPage.summaryDrawer.lessThan180Min.highlight();
-            uiTotalGreaterThan180MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.lessThan180Min.getAttribute("value"));
+            PaxImpactPage.summaryDrawer.greaterThan15Min.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.greaterThan15Min.highlight();
+            uiTotalGreaterThan15MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.greaterThan15Min.getAttribute("value"));
+            PaxImpactPage.summaryDrawer.greaterThan60Min.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.greaterThan60Min.highlight();
+            uiTotalGreaterThan60MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.greaterThan60Min.getAttribute("value"));
+            PaxImpactPage.summaryDrawer.greaterThan180Min.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.greaterThan180Min.highlight();
+            uiTotalGreaterThan180MinValue = Integer.parseInt(PaxImpactPage.summaryDrawer.greaterThan180Min.getAttribute("value"));
             PaxImpactPage.summaryDrawer.cancelled.highlight();
             PaxImpactPage.summaryDrawer.cancelled.verifyDisplayed(true,5);
             uiTotalCanceledValue = Integer.parseInt(PaxImpactPage.summaryDrawer.cancelled.getAttribute("value"));
@@ -142,22 +142,22 @@ public class US137579_SummaryDrawer extends TestBase {
                 ReportLog.assertTrue(false, "Total Delayed Value failed");
             }
             if (uiTotalGreaterThan15MinValue == totalGreaterThan15MinValue){
-                ReportLog.assertTrue(true, "Total LessThan15Min Value");
+                ReportLog.assertTrue(true, "Total GreaterThan15Min Value");
             }
             else {
-                ReportLog.assertTrue(false, "Total LessThan15Min Value failed");
+                ReportLog.assertTrue(false, "Total GreaterThan15Min Value failed");
             }
             if (uiTotalGreaterThan60MinValue == totalGreaterThan60MinValue){
-                ReportLog.assertTrue(true, "Total LessThan60Min Value passed");
+                ReportLog.assertTrue(true, "Total GreaterThan60Min Value passed");
             }
             else {
-                ReportLog.assertTrue(false, "Total LessThan60Min Value failed");
+                ReportLog.assertTrue(false, "Total GreaterThan60Min Value failed");
             }
             if (uiTotalGreaterThan180MinValue == totalGreaterThan180MinValue){
-                ReportLog.assertTrue(true, "Total LessThan180Min Value passed");
+                ReportLog.assertTrue(true, "Total GreaterThan180Min Value passed");
             }
             else {
-                ReportLog.assertTrue(false, "Total LessThan180Min Value failed");
+                ReportLog.assertTrue(false, "Total GreaterThan180Min Value failed");
             }
             if (uiTotalCanceledValue == totalCanceledValue){
                 ReportLog.assertTrue(true, "Total Canceled Value passed");

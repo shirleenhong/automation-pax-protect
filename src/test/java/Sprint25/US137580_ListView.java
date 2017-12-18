@@ -166,7 +166,7 @@ public class US137580_ListView extends TestBase {
 
             
             ReportLog.setTestStep("<15 Mins Tab");
-            PaxImpactPage.summaryDrawer.lessThan15Min.click();
+            PaxImpactPage.summaryDrawer.greaterThan15Min.click();
 
                 if (totalGreaterThan15MinList.size() > 0){
                         for (int i = 0 ; i < totalGreaterThan15MinList.size() ; i++ ){
@@ -175,7 +175,7 @@ public class US137580_ListView extends TestBase {
                 }
             
             ReportLog.setTestStep("<60 Mins tab");
-            PaxImpactPage.summaryDrawer.lessThan60Min.click();
+            PaxImpactPage.summaryDrawer.greaterThan60Min.click();
 
                 if (totalGreaterThan60MinList.size() > 0){
                         for (int i = 0 ; i < totalGreaterThan60MinList.size() ; i++ ){
@@ -186,7 +186,7 @@ public class US137580_ListView extends TestBase {
 
             
             ReportLog.setTestStep("<180 Tab");
-            PaxImpactPage.summaryDrawer.lessThan180Min.click();
+            PaxImpactPage.summaryDrawer.greaterThan180Min.click();
 
                 if (totalGreaterThan180MinList.size() > 0){
                         for (int i = 0 ; i < totalGreaterThan180MinList.size() ; i++ ){
