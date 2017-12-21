@@ -36,9 +36,9 @@ public class US137581_GridView extends TestBase {
         testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser1'");
         US137581_GridView.TestCases.PreRequisiteStep();
         US137581_GridView.TestCases.Step1();
-        US137581_GridView.TestCases.Step2();
-        US137581_GridView.TestCases.Step3();
-        US137581_GridView.TestCases.Step4();
+//        US137581_GridView.TestCases.Step2();
+//        US137581_GridView.TestCases.Step3();
+//        US137581_GridView.TestCases.Step4();
     }
 	
 	public static class TestCases
