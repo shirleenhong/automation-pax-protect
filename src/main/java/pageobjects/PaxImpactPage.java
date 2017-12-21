@@ -74,6 +74,8 @@ public class PaxImpactPage extends GlobalPage
     	//Elements for the Viewing Options icons, when both icons have the same elements
     	public WebElement viewOptions(String viewType)
     	{
+    		WebDriver driver = WebManager.getDriver();
+    		
     		WebElement viewOption = null;
     		
 			WebElement viewOptionContainer = driver.findElement(By.xpath(".//*[@class='style-scope impacted-flights']/ppro-toggle-list-view"));
