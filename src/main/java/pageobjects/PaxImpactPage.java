@@ -3,6 +3,7 @@ package pageobjects;
 import auto.framework.ReportLog;
 import auto.framework.WebManager;
 import auto.framework.web.Element;
+//import seleniumwireframe.WebManager;
 import common.GlobalPage;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class PaxImpactPage extends GlobalPage
     public static Solve solve = new Solve();
 
     public static HeadersStyle headersStyle = new HeadersStyle();
+
+    public static WebDriver driver = WebManager.getDriver();
 
     public static class SummaryDrawer extends Element{
         public final Element          rootElement;
@@ -142,7 +145,7 @@ public class PaxImpactPage extends GlobalPage
     	{
     		super("List View", By.xpath(".//div[@class='bottom-row style-scope impacted-flights']"));
 			
-    		solveButton = new Element("Solve Button", By.xpath(".//button[@class='btn btn--large btn--call-to-action  style-scope solve-button']"));
+    		solveButton = new Element("Solve Button", By.xpath(".//ppro-btn[@class='style-scope solve-button']"));
 			
     	}
     }
