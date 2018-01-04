@@ -9,8 +9,11 @@ import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCaseRunner;
 import com.eviware.soapui.impl.wsdl.teststeps.RestRequestStepResult;
 import com.eviware.soapui.impl.wsdl.teststeps.RestTestRequest;
 import com.eviware.soapui.impl.wsdl.teststeps.RestTestRequestStep;
+import com.eviware.soapui.impl.wsdl.teststeps.WsdlTestStep;
 import com.eviware.soapui.model.support.PropertiesMap;
+import com.eviware.soapui.model.testsuite.TestProperty;
 import com.eviware.soapui.model.testsuite.TestStepResult;
+import com.eviware.soapui.support.types.StringToObjectMap;
 import org.junit.Assert;
 import org.mortbay.log.Log;
 
@@ -20,7 +23,7 @@ import java.util.List;
  * Created by 212617361 on 8/23/2017.
  */
 public class BackendAPI {
-    public String getPayload(String testSuiteName, String testCaseName){
+    public String getPayload(String testSuiteName, String testCaseName, String transaction){
         String responseContent = null;
         int statusCode = 0;
         WsdlProject wProject = new WsdlProject("src/test/resources/data/ReflowWorkflowService-soapui-project.xml");
@@ -33,7 +36,23 @@ public class BackendAPI {
         // Run test case and get response content
         WsdlTestSuite gTestSuite = wProject.getTestSuiteByName(testSuiteName);
         WsdlTestCase gTestCase = gTestSuite.getTestCaseByName(testCaseName);
-        WsdlTestCaseRunner testRunnerCC = gTestCase.run(new PropertiesMap(), false);
+
+        if (testCaseName.equals("Solve_Transaction")){
+            gTestCase.getTestStepByName("request_solve_transaction").getProperty("transactionid").setValue(transaction);
+        }
+
+        if (testCaseName.equals("Solve")){
+            gTestCase.getTestStepByName("request_solve").getProperty("Request").setValue(transaction);
+            String ss = gTestCase.getTestStepByName("request_solve").getProperty("Request").getValue();
+            int f = 0;
+        }
+
+
+
+        //WsdlTestCaseRunner testRunnerCC = gTestCase.run(new PropertiesMap(), false);
+        //WsdlTestCaseRunner testRunnerCC = new WsdlTestCaseRunner(gTestCase, new StringToObjectMap(gTestCase.getProperties()));
+        WsdlTestCaseRunner testRunnerCC = gTestCase.run(new StringToObjectMap(gTestCase.getProperties()), false);
+
 
         List<TestStepResult> results = testRunnerCC.getResults();
         for (TestStepResult result : results) {

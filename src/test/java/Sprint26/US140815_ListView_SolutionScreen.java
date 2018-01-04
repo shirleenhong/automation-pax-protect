@@ -26,6 +26,7 @@ public class US140815_ListView_SolutionScreen extends TestBase {
     public static List<String> totalAllList = new ArrayList<String>();
     public static String responseContent;
     public static JSONArray  jsonArray;
+    public static String flightID;
 
     @Test
     public void TestScenarios() throws Exception
@@ -61,7 +62,7 @@ public class US140815_ListView_SolutionScreen extends TestBase {
             ReportLog.setTestStep("Verifying Headers");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
 
-            responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions");
+            responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions", "");
 
             try {
                 if (responseContent.startsWith("[")) {
@@ -86,7 +87,7 @@ public class US140815_ListView_SolutionScreen extends TestBase {
 
 
             JSONObject flightInfo = jsonArray.getJSONObject(0);
-            String flightID = flightInfo.getString("flightID");
+            flightID = flightInfo.getString("flightID");
 
             PDSListViewPage.listView.disruptedItem(flightID).listViewCheckBox.click();
 
@@ -103,16 +104,23 @@ public class US140815_ListView_SolutionScreen extends TestBase {
             SolutionScreenPage.solutionPageFrame.selectedFlights.verifyDisplayed(true, 5);
             SolutionScreenPage.solutionPageFrame.totalPNRs.verifyDisplayed(true, 5);
 
-            responseContent = backendAPI.getPayload("Positive Test", "Solve");
+            String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [\"" + flightID + "\"]";
+
+            responseContent = backendAPI.getPayload("Positive Test", "Solve",requestBody);
+
+            JSONObject jsonObjectS = new JSONObject(responseContent);
+            String transactionId = jsonObjectS.getString("transactionId");
+
+
 
             System.out.println("solve_transaction da sira");
 
-            responseContent = backendAPI.getPayload("Positive Test", "Solve_Transaction");
+            responseContent = backendAPI.getPayload("Positive Test", "Solve_Transaction",transactionId);
 
 
-            JSONObject jsonObject = new JSONObject(responseContent);
-            JSONObject solutionSummary = jsonObject.getJSONObject("solutionSummary");
-            JSONArray pnrs = jsonObject.getJSONArray("pnrs");
+            JSONObject jsonObjectST = new JSONObject(responseContent);
+            JSONObject solutionSummary = jsonObjectST.getJSONObject("solutionSummary");
+            JSONArray pnrs = jsonObjectST.getJSONArray("pnrs");
 
             for (int i=0; i<pnrs.length(); i++){
                 JSONObject pnrObject = pnrs.getJSONObject(i);
