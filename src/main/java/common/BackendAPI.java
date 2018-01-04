@@ -43,8 +43,6 @@ public class BackendAPI {
 
         if (testCaseName.equals("Solve")){
             gTestCase.getTestStepByName("request_solve").getProperty("Request").setValue(transaction);
-            String ss = gTestCase.getTestStepByName("request_solve").getProperty("Request").getValue();
-            int f = 0;
         }
 
 
