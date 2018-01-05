@@ -23,7 +23,57 @@ import java.util.List;
  * Created by 212617361 on 8/23/2017.
  */
 public class BackendAPI {
-    public String getPayload(String testSuiteName, String testCaseName, String transaction){
+    public String getPayload(String testSuiteName, String testCaseName){
+        String responseContent = null;
+        int statusCode = 0;
+        WsdlProject wProject = new WsdlProject("src/test/resources/data/ReflowWorkflowService-soapui-project.xml");
+
+        // Get token for Authorization
+        WsdlTestSuite gTokenTestSuite = wProject.getTestSuiteByName("Authorization");
+        WsdlTestCase gTestCaseToken = gTokenTestSuite.getTestCaseByName("Authorization");
+        WsdlTestCaseRunner testRunnerToken = gTestCaseToken.run(new PropertiesMap(), false);
+
+        // Run test case and get response content
+        WsdlTestSuite gTestSuite = wProject.getTestSuiteByName(testSuiteName);
+        WsdlTestCase gTestCase = gTestSuite.getTestCaseByName(testCaseName);
+
+        WsdlTestCaseRunner testRunnerCC = gTestCase.run(new StringToObjectMap(gTestCase.getProperties()), false);
+
+
+        List<TestStepResult> results = testRunnerCC.getResults();
+        for (TestStepResult result : results) {
+            if (RestRequestStepResult.class.isInstance(result)) {
+                RestRequestStepResult restResult = (RestRequestStepResult) result;
+                RestTestRequestStep rtestStep = (RestTestRequestStep) restResult.getTestStep();
+                RestTestRequest rTestRequest = rtestStep.getTestRequest();
+                SinglePartHttpResponse httpResponse = (SinglePartHttpResponse) rTestRequest.getResponse();
+                String testStepName = restResult.getTestStep().getName();
+                if (httpResponse != null){
+                    Log.info("****Running Test Step " + testStepName + "*****");
+                    try {
+                        responseContent = httpResponse.getContentAsString().toString();
+                    } catch (Exception e){
+                        ReportLog.addInfo("Reflow workflow service response content is null");
+                    }
+
+
+                    try {
+                        statusCode = httpResponse.getStatusCode();
+                    }catch (Exception e) {
+                        ReportLog.addInfo("Response Status Code is" + Integer.toString(statusCode));
+                        //Log.info("Response Status Code:" + Integer.toString(statusCode));
+                       Assert.assertEquals(200, statusCode);
+                    }
+
+
+                }
+            }
+        }
+
+        return responseContent;
+    }
+
+    public String getPayloadWithParameter(String testSuiteName, String testCaseName, String parameter){
         String responseContent = null;
         int statusCode = 0;
         WsdlProject wProject = new WsdlProject("src/test/resources/data/ReflowWorkflowService-soapui-project.xml");
@@ -38,11 +88,11 @@ public class BackendAPI {
         WsdlTestCase gTestCase = gTestSuite.getTestCaseByName(testCaseName);
 
         if (testCaseName.equals("Solve_Transaction")){
-            gTestCase.getTestStepByName("request_solve_transaction").getProperty("transactionid").setValue(transaction);
+            gTestCase.getTestStepByName("request_solve_transaction").getProperty("transactionid").setValue(parameter);
         }
 
         if (testCaseName.equals("Solve")){
-            gTestCase.getTestStepByName("request_solve").getProperty("Request").setValue(transaction);
+            gTestCase.getTestStepByName("request_solve").getProperty("Request").setValue(parameter);
         }
 
 
@@ -74,7 +124,7 @@ public class BackendAPI {
                     }catch (Exception e) {
                         ReportLog.addInfo("Response Status Code is" + Integer.toString(statusCode));
                         //Log.info("Response Status Code:" + Integer.toString(statusCode));
-                       Assert.assertEquals(200, statusCode);
+                        Assert.assertEquals(200, statusCode);
                     }
 
 

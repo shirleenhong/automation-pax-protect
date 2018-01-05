@@ -145,7 +145,8 @@ public class PaxImpactPage extends GlobalPage
     	{
     		super("List View", By.xpath(".//div[@class='bottom-row style-scope impacted-flights']"));
 			
-    		solveButton = new Element("Solve Button", By.xpath(".//ppro-btn[@class='style-scope solve-button']"));
+    		//solveButton = new Element("Solve Button", By.xpath(".//solve-button[@class='style-scope impacted-flights']"));
+            solveButton = new Element("Solve Button", By.xpath(".//solve-button[contains(@class,'style-scope impacted-flights')]"));
 			
     	}
     }
