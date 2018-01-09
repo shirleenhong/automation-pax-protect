@@ -127,15 +127,15 @@ public class US137581_GridView extends TestBase {
 
 	            
 	            ReportLog.setTestStep("<15 Mins Tab");
-	            PaxImpactPage.summaryDrawer.lessThan15Min.click();
+	            PaxImpactPage.summaryDrawer.greaterThan15Min.click();
 	            testDataHandler = TestDataHandler.setDisruptionDataSet("Main", "RowSelection='DataSet1'");
 	            PDSGridViewPage.gridView.disruptedItemGridView(testDataHandler.flightNumber).verifyDisplayed(true, 5);
 	            
 	            ReportLog.setTestStep("<60 Mins tab");
-	            PaxImpactPage.summaryDrawer.lessThan60Min.click();
+	            PaxImpactPage.summaryDrawer.greaterThan60Min.click();
 	            
 	            ReportLog.setTestStep("<180 Tab");
-	            PaxImpactPage.summaryDrawer.lessThan180Min.click();
+	            PaxImpactPage.summaryDrawer.greaterThan180Min.click();
 	            
 	            ReportLog.setTestStep("Cancelled Tab");
 	            PaxImpactPage.summaryDrawer.cancelled.click();
