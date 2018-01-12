@@ -58,9 +58,6 @@ public class US140815_ListView_SolutionScreen extends TestBase {
 
         public static void Step1() {
 
-            ReportLog.setTestCase("Verify Solution Screen List View");
-            ReportLog.setTestStep("Verifying All PNRs");
-
             ReportLog.setTestCase("Navigate to Solution Screen Page");
             ReportLog.setTestStep("Click to Solve button");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
@@ -90,6 +87,8 @@ public class US140815_ListView_SolutionScreen extends TestBase {
         }
 
         public static void Step2() {
+            ReportLog.setTestCase("Verify Solution Screen List View");
+            ReportLog.setTestStep("Verifying All PNRs");
 
             SolutionScreenPage.solutionPageFrame.impactedFlightsText.verifyDisplayed(true, 5);
             SolutionScreenPage.solutionPageFrame.selectedFlightsText.verifyDisplayed(true, 5);
