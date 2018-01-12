@@ -57,8 +57,8 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
 
         public static void Step1() {
 
-            ReportLog.setTestCase("Verify PDS Section");
-            ReportLog.setTestStep("Verifying Headers");
+            ReportLog.setTestCase("Navigate to Solution Screen Page");
+            ReportLog.setTestStep("Click to Solve button");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
 
             responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions");
@@ -88,6 +88,9 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
         }
 
         public static void Step2() {
+
+            ReportLog.setTestCase("Verify Solution Screen Summary Drawer");
+            ReportLog.setTestStep("Verifying Headers with their values");
 
             SolutionScreenPage.solutionPageFrame.impactedFlightsText.verifyDisplayed(true, 5);
             SolutionScreenPage.solutionPageFrame.selectedFlightsText.verifyDisplayed(true, 5);

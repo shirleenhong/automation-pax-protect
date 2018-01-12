@@ -58,8 +58,11 @@ public class US140815_ListView_SolutionScreen extends TestBase {
 
         public static void Step1() {
 
-            ReportLog.setTestCase("Verify PDS Section");
-            ReportLog.setTestStep("Verifying Headers");
+            ReportLog.setTestCase("Verify Solution Screen List View");
+            ReportLog.setTestStep("Verifying All PNRs");
+
+            ReportLog.setTestCase("Navigate to Solution Screen Page");
+            ReportLog.setTestStep("Click to Solve button");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
 
             responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions");
@@ -74,16 +77,6 @@ public class US140815_ListView_SolutionScreen extends TestBase {
             } catch (NullPointerException e) {
 
             }
-
-            /*for (int i = 0 ; i < jsonArray.length() ; i++ ){
-                JSONObject flightInfo = jsonArray.getJSONObject(i);
-                String flightID = flightInfo.getString("flightID");
-                totalAllList.add(flightID);
-            }
-
-              for (int i = 0 ; i < totalAllList.size() ; i++ ){
-                PDSListViewPage.listView.disruptedItem(totalAllList.get(i)).listViewCheckBox.click();
-            }*/
 
 
             JSONObject flightInfo = jsonArray.getJSONObject(0);
