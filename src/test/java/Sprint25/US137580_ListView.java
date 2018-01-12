@@ -17,6 +17,7 @@ import pageobjects.GESSOAuthPage;
 import pageobjects.PDSListViewPage;
 import pageobjects.PaxImpactPage;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,12 +45,12 @@ public class US137580_ListView extends TestBase {
 	
 	public static class TestCases 
 	{
-		public static void PreRequisiteStep() throws InterruptedException 
-		{
+		public static void PreRequisiteStep() throws InterruptedException, MalformedURLException {
             ReportLog.setTestCase("PAX Protection HomePage");
             ReportLog.setTestStep("Go to this URL: https://pax-protect-ui-shell.run.aws-usw02-pr.ice.predix.io ");
             WebControl.clearData();
             WebControl.open(testDataHandler.url);
+
 
             Thread.sleep(1000);
             if (GESSOAuthPage.authInfo.gESSOLabel.isDisplayed()) {

@@ -25,7 +25,7 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
     public static List<String> totalAllList = new ArrayList<String>();
     public static String responseContent;
     public static JSONArray jsonArray;
-    public static String flightID;
+    public static String flightID = "";
 
     @Test
     public void TestScenarios() throws Exception
@@ -100,6 +100,16 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
                 SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(i)).verifyDisplayed(true,5);
             }
 
+            for (int i = 0 ; i < totalAllList.size() ; i++ ){
+                if (i == totalAllList.size()-1){
+                    flightID = flightID.concat(totalAllList.get(i));
+                }
+                else{
+                    flightID = flightID.concat(totalAllList.get(i)+",");
+                }
+            }
+
+
             String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [\"" + flightID + "\"]}";
 
             responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve",requestBody);
@@ -113,16 +123,35 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
 
             JSONObject jsonObjectST = new JSONObject(responseContent);
             JSONObject solutionSummary = jsonObjectST.getJSONObject("solutionSummary");
+
             int[] terminatingPaxArray = connectingPaxConts("terminatingPax",solutionSummary );
             int[] connectingPaxArray = connectingPaxConts("connectingPax",solutionSummary );
             int[] misconnectingPaxArray = connectingPaxConts("misconnectingPax",solutionSummary );
 
+            String terminatingPaxString = "f" + terminatingPaxArray[0] + " " + "j" + terminatingPaxArray[1] + " " + "y" + terminatingPaxArray[2];
+            String connectingPaxString = "f" + connectingPaxArray[0] + " " + "j" + connectingPaxArray[1] + " " + "y" + connectingPaxArray[2];
+            String misconnectingPaxString = "f" + misconnectingPaxArray[0] + " " + "j" + misconnectingPaxArray[1] + " " + "y" + misconnectingPaxArray[2];
+
+            SolutionScreenPage.totalPNRsFrame.totalPNRsItem("total").verifyDisplayed(true, 5);
+            SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").verifyDisplayed(true, 5);
+            SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").verifyDisplayed(true, 5);
+            SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").verifyDisplayed(true, 5);
+
+            if (SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").totalPNRsItemText.getText().equals(terminatingPaxString)){
+                ReportLog.assertTrue(true, "terminating pax counts right");
+            }
+            if (SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").totalPNRsItemText.getText().equals(connectingPaxString)){
+                ReportLog.assertTrue(true, "connecting pax counts right");
+            }
+            if (SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").totalPNRsItemText.getText().equals(misconnectingPaxString)){
+                ReportLog.assertTrue(true, "misconnecting pax counts right");
+            }
 
 
         }
 
         public static int[] connectingPaxConts(String jObjectString, JSONObject jObject){
-            int[] returnArray = new int[0];
+            int[] returnArray = new int[4];
 
             JSONObject Pax = jObject.getJSONObject(jObjectString);
             returnArray[0] = Pax.getInt("firstClassCount");

@@ -9,6 +9,7 @@ public class SolutionScreenPage extends GlobalPage {
     public static SolutionPageFrame solutionPageFrame = new SolutionPageFrame();
     public static PNRListView pnrListView = new PNRListView();
     public static SelectedFlightsFrame selectedFlightsFrame = new SelectedFlightsFrame();
+    public static TotalPNRsFrame totalPNRsFrame = new TotalPNRsFrame();
 
     public static class SolutionPageFrame extends Element{
 
@@ -51,6 +52,26 @@ public class SolutionScreenPage extends GlobalPage {
         }
 
 
+    }
+
+    public static class TotalPNRsFrame extends Element {
+        public TotalPNRsFrame() {
+
+            super("Total PNRs Frame", By.xpath(".//ppro-horizontal-selector[@selected-id='total']"));
+
+        }
+
+        public TotalPNRsItem totalPNRsItem(String id) {return new TotalPNRsItem(id);}
+
+        public static class TotalPNRsItem extends Element{
+
+            public final Element totalPNRsItemText;
+
+            public TotalPNRsItem(String id){
+                super("Total PNRs Item: " + id, By.xpath(".//stat-val[@id='"+id+"']"));
+                totalPNRsItemText = new Element("Total PNRs Item " + id, By.xpath(".//div[contains(@class,'stat-val')]"), this);
+            }
+        }
     }
 
     public static class PNRListView extends Element
