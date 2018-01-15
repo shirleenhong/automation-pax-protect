@@ -77,6 +77,8 @@ public class PaxImpactPage extends GlobalPage
     	//Elements for the Viewing Options icons, when both icons have the same elements
     	public WebElement viewOptions(String viewType)
     	{
+    		WebDriver driver = WebManager.getDriver();
+    		
     		WebElement viewOption = null;
     		
 			WebElement viewOptionContainer = driver.findElement(By.xpath(".//*[@class='style-scope impacted-flights']/ppro-toggle-list-view"));
@@ -144,10 +146,8 @@ public class PaxImpactPage extends GlobalPage
     	public Solve()
     	{
     		super("List View", By.xpath(".//div[@class='bottom-row style-scope impacted-flights']"));
-			
     		//solveButton = new Element("Solve Button", By.xpath(".//solve-button[@class='style-scope impacted-flights']"));
-            solveButton = new Element("Solve Button", By.xpath(".//solve-button[contains(@class,'style-scope impacted-flights')]"));
-			
+            solveButton = new Element("Solve Button", By.xpath(".//solve-button[contains(@class,'style-scope impacted-flights')]"));			
     	}
     }
 
