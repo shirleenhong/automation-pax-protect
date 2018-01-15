@@ -64,7 +64,7 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
             responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions");
 
             try {
-                if (responseContent.startsWith("[")) {
+                if (responseContent.length() > 2) {
                     jsonArray = new JSONArray(responseContent);
                 } else {
                     ReportLog.addInfo("Can not get response content from service");
