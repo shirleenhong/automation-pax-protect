@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.mortbay.log.Log;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by 212617361 on 8/23/2017.
@@ -101,6 +102,11 @@ public class BackendAPI {
         //WsdlTestCaseRunner testRunnerCC = new WsdlTestCaseRunner(gTestCase, new StringToObjectMap(gTestCase.getProperties()));
         WsdlTestCaseRunner testRunnerCC = gTestCase.run(new StringToObjectMap(gTestCase.getProperties()), false);
 
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         List<TestStepResult> results = testRunnerCC.getResults();
         for (TestStepResult result : results) {

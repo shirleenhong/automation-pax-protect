@@ -108,7 +108,6 @@ public class US140815_ListView_SolutionScreen extends TestBase {
 
 
             JSONObject jsonObjectST = new JSONObject(responseContent);
-            JSONObject solutionSummary = jsonObjectST.getJSONObject("solutionSummary");
             JSONArray pnrs = jsonObjectST.getJSONArray("pnrs");
 
             for (int i=0; i<pnrs.length(); i++){

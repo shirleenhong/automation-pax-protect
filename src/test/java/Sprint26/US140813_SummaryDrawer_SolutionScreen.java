@@ -104,16 +104,16 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
             }
 
             for (int i = 0 ; i < totalAllList.size() ; i++ ){
+
                 if (i == totalAllList.size()-1){
-                    flightID = flightID.concat(totalAllList.get(i));
+                    flightID = flightID.concat("\"" + totalAllList.get(i) + "\"");
                 }
                 else{
-                    flightID = flightID.concat(totalAllList.get(i)+",");
+                    flightID = flightID.concat("\"" + totalAllList.get(i) + "\"" + ",");
                 }
             }
 
-
-            String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [\"" + flightID + "\"]}";
+            String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
 
             responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve",requestBody);
 
@@ -125,28 +125,34 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
 
 
             JSONObject jsonObjectST = new JSONObject(responseContent);
+
             JSONObject solutionSummary = jsonObjectST.getJSONObject("solutionSummary");
 
             int[] terminatingPaxArray = connectingPaxConts("terminatingPax",solutionSummary );
             int[] connectingPaxArray = connectingPaxConts("connectingPax",solutionSummary );
             int[] misconnectingPaxArray = connectingPaxConts("misconnectingPax",solutionSummary );
 
-            String terminatingPaxString = "f" + terminatingPaxArray[0] + " " + "j" + terminatingPaxArray[1] + " " + "y" + terminatingPaxArray[2];
-            String connectingPaxString = "f" + connectingPaxArray[0] + " " + "j" + connectingPaxArray[1] + " " + "y" + connectingPaxArray[2];
-            String misconnectingPaxString = "f" + misconnectingPaxArray[0] + " " + "j" + misconnectingPaxArray[1] + " " + "y" + misconnectingPaxArray[2];
+            String terminatingPaxString = "F" + terminatingPaxArray[0] + " " + "J" + terminatingPaxArray[1] + " " + "Y" + terminatingPaxArray[2];
+            String connectingPaxString = "F" + connectingPaxArray[0] + " " + "J" + connectingPaxArray[1] + " " + "Y" + connectingPaxArray[2];
+            String misconnectingPaxString = "F" + misconnectingPaxArray[0] + " " + "J" + misconnectingPaxArray[1] + " " + "Y" + misconnectingPaxArray[2];
 
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("total").verifyDisplayed(true, 5);
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").verifyDisplayed(true, 5);
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").verifyDisplayed(true, 5);
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").verifyDisplayed(true, 5);
 
-            if (SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").totalPNRsItemText.getText().equals(terminatingPaxString)){
+            String terminatingPaxStringUI = SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").totalPNRsItemText.getText().substring(SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").totalPNRsItemText.getText().indexOf('F'));
+            String connectingPaxStringUI = SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").totalPNRsItemText.getText().substring(SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").totalPNRsItemText.getText().indexOf('F'));
+            String misconnectingPaxStringUI = SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").totalPNRsItemText.getText().substring(SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").totalPNRsItemText.getText().indexOf('F'));
+
+
+            if (terminatingPaxStringUI.equals(terminatingPaxString)){
                 ReportLog.assertTrue(true, "terminating pax counts right");
             }
-            if (SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").totalPNRsItemText.getText().equals(connectingPaxString)){
+            if (connectingPaxStringUI.equals(connectingPaxString)){
                 ReportLog.assertTrue(true, "connecting pax counts right");
             }
-            if (SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").totalPNRsItemText.getText().equals(misconnectingPaxString)){
+            if (misconnectingPaxStringUI.equals(misconnectingPaxString)){
                 ReportLog.assertTrue(true, "misconnecting pax counts right");
             }
 
