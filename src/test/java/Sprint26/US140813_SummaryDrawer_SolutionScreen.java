@@ -127,39 +127,48 @@ public class US140813_SummaryDrawer_SolutionScreen extends TestBase {
             JSONObject jsonObjectST = new JSONObject(responseContent);
 
             JSONObject solutionSummary = jsonObjectST.getJSONObject("solutionSummary");
+            JSONArray pnrs = jsonObjectST.getJSONArray("pnrs");
 
-            int[] terminatingPaxArray = connectingPaxConts("terminatingPax",solutionSummary );
-            int[] connectingPaxArray = connectingPaxConts("connectingPax",solutionSummary );
-            int[] misconnectingPaxArray = connectingPaxConts("misconnectingPax",solutionSummary );
+            int[] terminatingPaxArray = connectingPaxCounts("terminatingPax",solutionSummary );
+            int[] connectingPaxArray = connectingPaxCounts("connectingPax",solutionSummary );
+            int[] misconnectingPaxArray = connectingPaxCounts("misconnectingPax",solutionSummary );
+
+            String totalPNRCount = Integer.toString(pnrs.length());
 
             String terminatingPaxString = "F" + terminatingPaxArray[0] + " " + "J" + terminatingPaxArray[1] + " " + "Y" + terminatingPaxArray[2];
             String connectingPaxString = "F" + connectingPaxArray[0] + " " + "J" + connectingPaxArray[1] + " " + "Y" + connectingPaxArray[2];
             String misconnectingPaxString = "F" + misconnectingPaxArray[0] + " " + "J" + misconnectingPaxArray[1] + " " + "Y" + misconnectingPaxArray[2];
+
 
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("total").verifyDisplayed(true, 5);
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").verifyDisplayed(true, 5);
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").verifyDisplayed(true, 5);
             SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").verifyDisplayed(true, 5);
 
+
+            String totalPNRCountUI = SolutionScreenPage.totalPNRsFrame.totalPNRsItem("total").totalPNRsItemText.getText().substring(SolutionScreenPage.totalPNRsFrame.totalPNRsItem("total").totalPNRsItemText.getText().indexOf("\n")+1);
             String terminatingPaxStringUI = SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").totalPNRsItemText.getText().substring(SolutionScreenPage.totalPNRsFrame.totalPNRsItem("terminating").totalPNRsItemText.getText().indexOf('F'));
             String connectingPaxStringUI = SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").totalPNRsItemText.getText().substring(SolutionScreenPage.totalPNRsFrame.totalPNRsItem("connecting").totalPNRsItemText.getText().indexOf('F'));
             String misconnectingPaxStringUI = SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").totalPNRsItemText.getText().substring(SolutionScreenPage.totalPNRsFrame.totalPNRsItem("misconnecting").totalPNRsItemText.getText().indexOf('F'));
 
 
+            if (totalPNRCountUI.equals(totalPNRCount)){
+                ReportLog.assertTrue(true, "total pnrs counts right on UI");
+            }
             if (terminatingPaxStringUI.equals(terminatingPaxString)){
-                ReportLog.assertTrue(true, "terminating pax counts right");
+                ReportLog.assertTrue(true, "terminating pax counts right on UI");
             }
             if (connectingPaxStringUI.equals(connectingPaxString)){
-                ReportLog.assertTrue(true, "connecting pax counts right");
+                ReportLog.assertTrue(true, "connecting pax counts right on UI");
             }
             if (misconnectingPaxStringUI.equals(misconnectingPaxString)){
-                ReportLog.assertTrue(true, "misconnecting pax counts right");
+                ReportLog.assertTrue(true, "misconnecting pax counts right on UI");
             }
 
 
         }
 
-        public static int[] connectingPaxConts(String jObjectString, JSONObject jObject){
+        public static int[] connectingPaxCounts(String jObjectString, JSONObject jObject){
             int[] returnArray = new int[4];
 
             JSONObject Pax = jObject.getJSONObject(jObjectString);
