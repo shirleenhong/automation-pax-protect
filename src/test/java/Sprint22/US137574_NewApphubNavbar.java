@@ -18,9 +18,9 @@ public class US137574_NewApphubNavbar extends TestBase{
         testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser1'");
         TestCases.PreRequisiteStep(testDataHandler);
         TestCases.Step1();
-        TestCases.Step2();
-        TestCases.Step3();
         TestCases.Step4();
+        TestCases.Step3();
+        TestCases.Step2();
     }
 
     public static class TestCases {

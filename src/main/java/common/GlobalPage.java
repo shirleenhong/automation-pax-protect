@@ -76,12 +76,11 @@ public class GlobalPage extends PageBase
        public static String currentTime(){
            String currentTimeStr = null;
            SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+           // Get Time Zone GMT
            dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-//Local time zone
+           // Get Local Time Zone
            SimpleDateFormat dateFormatLocal = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
 
-//Time in GMT
            try {
                currentTimeStr = String.valueOf(dateFormatLocal.parse( dateFormatGmt.format(new Date()) ));
            } catch (ParseException e) {
