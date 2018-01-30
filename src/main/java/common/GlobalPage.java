@@ -4,6 +4,12 @@ import org.openqa.selenium.By;
 
 import auto.framework.PageBase;
 import auto.framework.web.Element;
+import sun.util.calendar.LocalGregorianCalendar;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class GlobalPage extends PageBase
 {
@@ -53,10 +59,35 @@ public class GlobalPage extends PageBase
     public static class TimeUTC extends Element
     {
        public final Element timeUTCText;
+        public final Element UTCText;
 
        public TimeUTC(){
            super("Time shown in UTC Label",By.xpath("/html/body/app-hub-shell/div/nav-bar/div/div"));
-           timeUTCText = new Element("Time shown in UTC Text",By.xpath(".//span[contains(text(),'Time shown in UTC')]"),this);
+
+           String currentTimeToComp = currentTime();
+           String[] currentTimeToCompArray = currentTimeToComp.split("[ ]");
+           String currentTimeToCompUI = currentTimeToCompArray[2] + " " + currentTimeToCompArray[1] + " " + currentTimeToCompArray[5].substring(2,4) + " " + currentTimeToCompArray[3].split(":")[0] + currentTimeToCompArray[3].split(":")[1];
+
+           UTCText = new Element("UTC Text",By.xpath(".//a[contains(text(),'UTC')]"),this);
+           timeUTCText = new Element("Time shown in UTC Text",By.xpath(".//span[contains(text(),'" + currentTimeToCompUI + "')]"),this);
+
+       }
+
+       public static String currentTime(){
+           String currentTimeStr = null;
+           SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+           // Get Time Zone GMT
+           dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+           // Get Local Time Zone
+           SimpleDateFormat dateFormatLocal = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+
+           try {
+               currentTimeStr = String.valueOf(dateFormatLocal.parse( dateFormatGmt.format(new Date()) ));
+           } catch (ParseException e) {
+               e.printStackTrace();
+           }
+           
+           return currentTimeStr;
        }
     }
 

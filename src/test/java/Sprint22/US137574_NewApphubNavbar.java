@@ -17,10 +17,11 @@ public class US137574_NewApphubNavbar extends TestBase{
         ReportLog.setTestName("Test");
         testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser1'");
         TestCases.PreRequisiteStep(testDataHandler);
-        TestCases.Step1();
-        TestCases.Step2();
-        TestCases.Step3();
+
         TestCases.Step4();
+        TestCases.Step1();
+        TestCases.Step3();
+        TestCases.Step2();
     }
 
     public static class TestCases {
@@ -75,9 +76,8 @@ public class US137574_NewApphubNavbar extends TestBase{
 
             ReportLog.setTestCase("[STEP 4]");
             ReportLog.setTestStep("Verify Time shown in UTC Text");
+            GlobalPage.timeUTC.UTCText.highlight();
             GlobalPage.timeUTC.timeUTCText.highlight();
-            GlobalPage.timeUTC.timeUTCText.verifyText("Time shown in UTC");
-
         }
 
     }
