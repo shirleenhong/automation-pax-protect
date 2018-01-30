@@ -65,8 +65,8 @@ public class GlobalPage extends PageBase
            super("Time shown in UTC Label",By.xpath("/html/body/app-hub-shell/div/nav-bar/div/div"));
 
            String currentTimeToComp = currentTime();
-           String[] currentTimeToCompArrray = currentTimeToComp.split("[ ]");
-           String currentTimeToCompUI = currentTimeToCompArrray[2] + " " + currentTimeToCompArrray[1] + " " + currentTimeToCompArrray[5].substring(2,4) + " " + currentTimeToCompArrray[3].split(":")[0] + currentTimeToCompArrray[3].split(":")[1];
+           String[] currentTimeToCompArray = currentTimeToComp.split("[ ]");
+           String currentTimeToCompUI = currentTimeToCompArray[2] + " " + currentTimeToCompArray[1] + " " + currentTimeToCompArray[5].substring(2,4) + " " + currentTimeToCompArray[3].split(":")[0] + currentTimeToCompArray[3].split(":")[1];
 
            UTCText = new Element("UTC Text",By.xpath(".//a[contains(text(),'UTC')]"),this);
            timeUTCText = new Element("Time shown in UTC Text",By.xpath(".//span[contains(text(),'" + currentTimeToCompUI + "')]"),this);
