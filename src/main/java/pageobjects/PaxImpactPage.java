@@ -49,10 +49,10 @@ public class PaxImpactPage extends GlobalPage
             greaterThan60Min         = new Element("Greater than 60 min disrupted flight section ", By.xpath("//*[@id='lt180Min']"));
             greaterThan180Min        = new Element("Greater than 180 min disrupted flight section ", By.xpath("//*[@id='ge180Min']"));
             cancelled             = new Element("Canceled disrupted flight section ", By.xpath("//*[@id='cancelled']"));
-            disruptedPax          = new Element("Disrupted Pax disrupted flight section ", By.xpath(""));
-            needsToRebook         = new Element("Needs To Rebook disrupted flight section ", By.xpath(""));
-            noReflow              = new Element("No Reflow disrupted flight section ", By.xpath(""));
-            rebooked              = new Element("Rebooked disrupted flight section ", By.xpath(""));
+            disruptedPax          = new Element("Disrupted Pax disrupted flight section ", By.xpath("//*[@id='disruptedPax']"));
+            needsToRebook         = new Element("Needs To Rebook disrupted flight section ", By.xpath("//*[@id='needsToRebook']"));
+            noReflow              = new Element("No Reflow disrupted flight section ", By.xpath("//*[@id='noReflow']"));
+            rebooked              = new Element("Rebooked disrupted flight section ", By.xpath("//*[@id='rebooked']"));
 
         }
         
