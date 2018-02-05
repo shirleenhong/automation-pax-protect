@@ -34,8 +34,8 @@ public class US153948_Selected_Flights_Component extends TestBase {
         testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser1'");
         US153948_Selected_Flights_Component.TestCases.PreRequisiteStep();
         US153948_Selected_Flights_Component.TestCases.Step1();
-        //US153948_Selected_Flights_Component.TestCases.Step2();
-        US153948_Selected_Flights_Component.TestCases.Step3();
+        US153948_Selected_Flights_Component.TestCases.Step2();
+        //US153948_Selected_Flights_Component.TestCases.Step3();
 
     }
 
@@ -59,7 +59,7 @@ public class US153948_Selected_Flights_Component extends TestBase {
         public static void Step1() {
 
             ReportLog.setTestCase("Navigate to Solution Screen Page");
-            ReportLog.setTestStep("Click to Solve button");
+            ReportLog.setTestStep("Select All Disrupted Flights and Click to Solve button");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
 
             responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions");
@@ -90,8 +90,10 @@ public class US153948_Selected_Flights_Component extends TestBase {
 
         public static void Step3() {
 
-            ReportLog.setTestCase("Verify Solution Screen Summary Drawer");
-            ReportLog.setTestStep("Verifying All Pnrs");
+            ReportLog.setTestCase("Verify Solution Screen List View for All Flights");
+            ReportLog.setTestStep("Verifying All Disrupted Flights Pnrs");
+
+            flightID = "";
 
             SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem("all").click();
 
@@ -131,38 +133,46 @@ public class US153948_Selected_Flights_Component extends TestBase {
 
         public static void Step2() {
 
-            ReportLog.setTestCase("Verify Solution Screen Summary Drawer");
-            ReportLog.setTestStep("Verifying First Selected Flight Pnrs");
+            ReportLog.setTestCase("Verify Solution Screen List View");
+            ReportLog.setTestStep("Verifying Each Selected Flight Pnrs in order");
 
+            // Verifying Solution Screen Summary Drawer Header
 
             for (int i = 0; i < totalAllList.size(); i++) {
                 SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(i)).verifyDisplayed(true, 5);
             }
 
-            SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(0)).click();
+            //Verifying each selected flights pnrs
 
-            flightID = flightID.concat("\"" + totalAllList.get(0) + "\"");
+            for (int i = 0; i < totalAllList.size(); i++) {
 
-            String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
+                flightID = "";
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve", requestBody);
+                SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(i)).click();
 
-            JSONObject jsonObjectS = new JSONObject(responseContent);
-            String transactionId = jsonObjectS.getString("transactionId");
+                flightID = flightID.concat("\"" + totalAllList.get(i) + "\"");
+
+                String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
+
+                responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve", requestBody);
+
+                JSONObject jsonObjectS = new JSONObject(responseContent);
+                String transactionId = jsonObjectS.getString("transactionId");
 
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
+                responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
 
 
-            JSONObject jsonObjectST = new JSONObject(responseContent);
+                JSONObject jsonObjectST = new JSONObject(responseContent);
 
-            JSONArray pnrs = jsonObjectST.getJSONArray("pnrs");
+                JSONArray pnrs = jsonObjectST.getJSONArray("pnrs");
 
-            for (int i=0; i<pnrs.length(); i++){
-                JSONObject pnrObject = pnrs.getJSONObject(i);
-                String confirmationNumber = pnrObject.getString("confirmationNumber");
-                SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).verifyDisplayed(true);
-                SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).highlight();
+                for (int j = 0; j < pnrs.length(); j++) {
+                    JSONObject pnrObject = pnrs.getJSONObject(j);
+                    String confirmationNumber = pnrObject.getString("confirmationNumber");
+                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).verifyDisplayed(true);
+                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).highlight();
+                }
             }
 
 
