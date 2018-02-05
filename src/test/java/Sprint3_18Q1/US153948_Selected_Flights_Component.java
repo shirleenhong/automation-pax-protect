@@ -35,7 +35,7 @@ public class US153948_Selected_Flights_Component extends TestBase {
         US153948_Selected_Flights_Component.TestCases.PreRequisiteStep();
         US153948_Selected_Flights_Component.TestCases.Step1();
         US153948_Selected_Flights_Component.TestCases.Step2();
-        //US153948_Selected_Flights_Component.TestCases.Step3();
+        US153948_Selected_Flights_Component.TestCases.Step3();
 
     }
 
