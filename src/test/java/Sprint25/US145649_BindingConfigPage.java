@@ -64,7 +64,7 @@ public class US145649_BindingConfigPage extends TestBase
 		{
 			ReportLog.setTestCase("Go to Pax Config Page");
 			ReportLog.setTestStep("Click Pax Config");
-			GlobalPage.mainNavigationOptions.PaxConfigPageButton.click();
+			GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Protection").click();
 			PaxConfigPage.configSection.verifyDisplayed(true, 5);
 		}
 		
