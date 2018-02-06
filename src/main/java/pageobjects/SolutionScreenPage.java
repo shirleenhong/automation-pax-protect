@@ -51,6 +51,16 @@ public class SolutionScreenPage extends GlobalPage {
             }
         }
 
+        public SelectedFlightsButton selectedFlightsButton = new SelectedFlightsButton();
+
+        public static class SelectedFlightsButton extends Element{
+
+            public SelectedFlightsButton (){
+                super("Selected Flights Button: ", By.xpath(".//div[@class='button style-scope ppro-horizontal-selector']"));
+            }
+
+        }
+
 
     }
 

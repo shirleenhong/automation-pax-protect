@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 import pageobjects.GESSOAuthPage;
+import pageobjects.PDSListViewPage;
 import pageobjects.PaxImpactPage;
 import pageobjects.SolutionScreenPage;
 
@@ -82,6 +83,7 @@ public class US153948_Selected_Flights_Component extends TestBase {
             }
 
             PaxImpactPage.headers.headerCheckBox.click();
+            //PDSListViewPage.listView.disruptedItem("FL-ZZ-158-20180206-DCA-LAX-0").listViewCheckBox.click();
 
             //  PaxImpactPage.solve.solveButton.highlight();
             PaxImpactPage.solve.solveButton.click();
@@ -136,10 +138,21 @@ public class US153948_Selected_Flights_Component extends TestBase {
             ReportLog.setTestCase("Verify Solution Screen List View");
             ReportLog.setTestStep("Verifying Each Selected Flight Pnrs in order");
 
+            if (SolutionScreenPage.selectedFlightsFrame.selectedFlightsButton.isDisplayed()) {
+                SolutionScreenPage.selectedFlightsFrame.selectedFlightsButton.click();
+            }
+
             // Verifying Solution Screen Summary Drawer Header
 
             for (int i = 0; i < totalAllList.size(); i++) {
-                SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(i)).verifyDisplayed(true, 5);
+                if (SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(i)).isDisplayed()){
+                    SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(i)).verifyDisplayed(true, 5);
+                }
+                else{
+                    SolutionScreenPage.selectedFlightsFrame.selectedFlightsItem(totalAllList.get(i)).verifyDisplayed(false);
+                }
+
+
             }
 
             //Verifying each selected flights pnrs
