@@ -37,6 +37,7 @@ public class PaxImpactPage extends GlobalPage
         public final Element          noReflow;
         public final Element          rebooked;
 
+
         public SummaryDrawer(){
 
             super("Summary Drawer", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
@@ -53,6 +54,21 @@ public class PaxImpactPage extends GlobalPage
             needsToRebook         = new Element("Needs To Rebook disrupted flight section ", By.xpath("//*[@id='needsToRebook']"));
             noReflow              = new Element("No Reflow disrupted flight section ", By.xpath("//*[@id='noReflow']"));
             rebooked              = new Element("Rebooked disrupted flight section ", By.xpath("//*[@id='rebooked']"));
+
+        }
+
+        public SummaryDrawerItem summaryDrawerItem(String id){
+            return new SummaryDrawerItem(id);
+        }
+
+        public class SummaryDrawerItem extends Element{
+            public  Element itemValue ;
+
+            public SummaryDrawerItem( String id){
+                super("Summary Drawer Item: " + id, By.xpath(".//stat-val[@id='"+id+"']"));
+                itemValue = new Element("Summary Drawer Item Value ", By.xpath(".//ppro-horizontal-selector[@id='passenger-stats']//div[@class='value value-none-importance  style-scope stat-val']"));
+
+            }
 
         }
         
