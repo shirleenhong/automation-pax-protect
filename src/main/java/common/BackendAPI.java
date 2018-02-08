@@ -96,6 +96,9 @@ public class BackendAPI {
             gTestCase.getTestStepByName("request_solve").getProperty("Request").setValue(parameter);
         }
 
+        if (testCaseName.equals("GET/pnr-report")){
+            gTestCase.getTestStepByName("request_GET/pnr").getProperty("flightIds").setValue(parameter);
+        }
 
 
         //WsdlTestCaseRunner testRunnerCC = gTestCase.run(new PropertiesMap(), false);
