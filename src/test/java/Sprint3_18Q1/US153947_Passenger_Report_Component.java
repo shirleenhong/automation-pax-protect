@@ -29,6 +29,7 @@ public class US153947_Passenger_Report_Component extends TestBase {
     public static int uiNeedsToRebookCount = 0;
     public static int uiNoReflowCount = 0;
     public static int uiRebookedCount = 0;
+    public static int disruptedPaxCount = 0;
     public static int needsToRebookCount = 0;
     public static int noReflowCount = 0 ;
     public static int rebookedCount = 0 ;
@@ -46,37 +47,37 @@ public class US153947_Passenger_Report_Component extends TestBase {
 
     public static class TestCases {
         public static void PreRequisiteStep(TestDataHandler testDataHandler) throws InterruptedException {
-            ReportLog.setTestCase("PAX Protection HomePage");
-            ReportLog.setTestStep("Go to this URL: https://pax-protect-ui-shell.run.aws-usw02-pr.ice.predix.io ");
-            WebControl.clearData();
-            WebControl.open(testDataHandler.url);
 
-            Thread.sleep(1000);
-            if (GESSOAuthPage.authInfo.gESSOLabel.isDisplayed()) {
-                GESSOAuthPage.authInfo.sSOIDInput.typeKeys(testDataHandler.username);
-                GESSOAuthPage.authInfo.passWordInput.typeKeys(testDataHandler.password);
-                GESSOAuthPage.authInfo.submitFormShared.click();
-            }
-            GESSOAuthPage.page.verifyURL(false, 60);
+            ReportLog.setTestCase("Get All Disrupted Flights and Solve, Go To PAX Protection HomePage");
+            ReportLog.setTestStep("Get all disrupted flights and calculate total disrupted Pax Count");
 
             responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions");
 
             try {
                 if (responseContent.length() > 2) {
                     jsonArray = new JSONArray(responseContent);
+                    ReportLog.assertTrue(true,"Disrupted flights get successfully");
                 } else {
-                    ReportLog.addInfo("Can not get response content from service");
-                    ReportLog.assertFailed("Step1 is failed since there is no disrupted data");
+                    ReportLog.assertFailed("PreRequisiteStep is failed since there is no disrupted data");
                 }
             } catch (NullPointerException e) {
 
             }
 
+            // Getting all flightids and calculate total disrupted pax count
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject flightInfo = jsonArray.getJSONObject(i);
                 String flightID = flightInfo.getString("flightID");
                 totalAllList.add(flightID);
+                JSONObject flightDetails = flightInfo.getJSONObject("flightDetails");
+                int coachCompartmentPax = flightDetails.getInt("coachCompartmentPax");
+                int businessCompartmentPax = flightDetails.getInt("businessCompartmentPax");
+                int firstCompartmentPax = flightDetails.getInt("firstCompartmentPax");
+                disruptedPaxCount += coachCompartmentPax + businessCompartmentPax + firstCompartmentPax;
             }
+
+            // prepare flightID string for Solve request body
 
             flightID = "";
 
@@ -89,6 +90,8 @@ public class US153947_Passenger_Report_Component extends TestBase {
                 }
             }
 
+            ReportLog.setTestStep("Solve All Disrupted Flights ");
+
             String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
 
             responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve", requestBody);
@@ -96,13 +99,36 @@ public class US153947_Passenger_Report_Component extends TestBase {
             JSONObject jsonObjectS = new JSONObject(responseContent);
             String transactionId = jsonObjectS.getString("transactionId");
 
-            backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
+            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
+
+            if (responseContent.contains("solutionSummary")){
+                ReportLog.assertTrue(true, "Solution response got successfully");
+            }else{
+                ReportLog.assertFailed("Solution response failed");
+            }
+
+            ReportLog.setTestStep("Go to this URL: https://pax-protect-ui-shell.run.aws-usw02-pr.ice.predix.io ");
+            WebControl.clearData();
+            WebControl.open(testDataHandler.url);
+
+            Thread.sleep(1000);
+            if (GESSOAuthPage.authInfo.gESSOLabel.isDisplayed()) {
+                GESSOAuthPage.authInfo.sSOIDInput.typeKeys(testDataHandler.username);
+                GESSOAuthPage.authInfo.passWordInput.typeKeys(testDataHandler.password);
+                GESSOAuthPage.authInfo.submitFormShared.click();
+            }
+            GESSOAuthPage.page.verifyURL(false, 60);
+
+
         }
 
         public static void Step1() {
             ReportLog.setTestCase("[STEP 1]");
-            ReportLog.setTestStep("Verify all headers of the summary drawer");
+            ReportLog.setTestStep("Verify all headers value of the passenger report summary drawer");
+
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
+
+            // prepare flightID string for Get/pnr-report request body
 
             flightID = "";
 
@@ -117,6 +143,8 @@ public class US153947_Passenger_Report_Component extends TestBase {
 
             responseContent = backendAPI.getPayloadWithParameter("Positive Test", "GET/pnr-report", flightID);
 
+            // Getting needsToRebook, noReflow, rebooked counts from pnr-report service response
+
             JSONObject jsonObjectS = new JSONObject(responseContent);
             JSONObject pnrReportSummary = jsonObjectS.getJSONObject("pnrReportSummary");
 
@@ -130,6 +158,7 @@ public class US153947_Passenger_Report_Component extends TestBase {
                 rebookedCount = pnrReportSummary.getInt("rebookedCount");
             }
 
+            // Getting needsToRebook, noReflow, rebooked counts from UI
 
             PaxImpactPage.summaryDrawer.summaryDrawerItem("disruptedPax").highlight();
             uiDisruptedPaxCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("disruptedPax").itemValue.getText());
@@ -153,6 +182,29 @@ public class US153947_Passenger_Report_Component extends TestBase {
                 if (!PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").getText().contains("---")){
                     uiRebookedCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").itemValue.getText().substring(PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").getText().indexOf("\n")+1));
                 }
+            }
+
+            // Compare counts got from pnr-report service response and UI
+
+            if ((needsToRebookCount == uiNeedsToRebookCount)){
+                ReportLog.assertTrue(true,"Passenger Report Counts for needsToRebookCount verification is passed");
+            }else{
+                ReportLog.assertFailed("Passenger Report Counts for needsToRebookCount verification is failed");
+            }
+            if ((noReflowCount == uiNoReflowCount)){
+                ReportLog.assertTrue(true,"Passenger Report Counts for noReflowCount verification is passed");
+            }else{
+                ReportLog.assertFailed("Passenger Report Counts for noReflowCount verification is failed");
+            }
+            if ((rebookedCount == uiRebookedCount)){
+                ReportLog.assertTrue(true,"Passenger Report Counts for rebookedCount verification is passed");
+            }else{
+                ReportLog.assertFailed("Passenger Report Counts for rebookedCount verification is failed");
+            }
+            if ((disruptedPaxCount == uiDisruptedPaxCount)){
+                ReportLog.assertTrue(true,"Passenger Report Counts for disruptedPaxCount verification is passed");
+            }else{
+                ReportLog.assertFailed("Passenger Report Counts for disruptedPaxCount verification is failed");
             }
 
 
