@@ -54,7 +54,7 @@ public class US137579_SummaryDrawer extends TestBase {
 
         public static void Step1() {
             ReportLog.setTestCase("[STEP 1]");
-            ReportLog.setTestStep("Verify if the header of the screen have a summary drawer");
+            ReportLog.setTestStep("Verify all headers of the summary drawer");
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Pax Impact").click();
             PaxImpactPage.summaryDrawer.rootElement.highlight();
             PaxImpactPage.summaryDrawer.rootElement.verifyDisplayed(true,5);
@@ -76,6 +76,15 @@ public class US137579_SummaryDrawer extends TestBase {
             PaxImpactPage.summaryDrawer.cancelled.highlight();
             PaxImpactPage.summaryDrawer.cancelled.verifyDisplayed(true,5);
             uiTotalCanceledValue = Integer.parseInt(PaxImpactPage.summaryDrawer.cancelled.getAttribute("value"));
+
+            PaxImpactPage.summaryDrawer.disruptedPax.highlight();
+            PaxImpactPage.summaryDrawer.disruptedPax.verifyDisplayed(true, 5);
+            PaxImpactPage.summaryDrawer.needsToRebook.highlight();
+            PaxImpactPage.summaryDrawer.needsToRebook.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.noReflow.highlight();
+            PaxImpactPage.summaryDrawer.noReflow.verifyDisplayed(true,5);
+            PaxImpactPage.summaryDrawer.rebooked.highlight();
+            PaxImpactPage.summaryDrawer.rebooked.verifyDisplayed(true,5);
            
         }
 

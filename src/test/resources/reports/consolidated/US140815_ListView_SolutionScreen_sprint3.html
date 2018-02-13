@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<html>
+   <head>
+      <title>R3 Report Manager</title>
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js">//</script>
+      <script>
+	$( document ).ready(function() {
+
+		function expandContent(element) {
+			element.parent().nextAll(".box, .line").show();
+			element.attr("class","collapse");
+			element.unbind("click");
+			element.text("[-]");
+			element.click(function( event ) {
+				collapseContent($(this));
+			});
+		};
+		
+		function collapseContent(element) {
+			element.parent().nextAll(".box, .line").hide();
+			element.attr("class","expand");
+			element.unbind("click");
+			element.text("[+]");
+			element.click(function( event ) {
+				expandContent($(this));
+			});
+		};
+		
+		$( "span.expand" ).click(function( event ) {
+			expandContent($(this));
+		});
+		
+		$( "span.collapse" ).click(function( event ) {
+			collapseContent($(this));
+		});
+		
+		$( "span.collapse-all" ).click(function( event ) {
+			$( "span.collapse" ).click();
+		});
+		
+		$( "span.expand-all" ).click(function( event ) {
+			$( "span.expand" ).click();
+		});
+		
+		$( "span.collapse" ).click();
+		
+		$( "div.box[id='summary']" ).find("span.expand:first").click();
+		
+	});
+    </script>
+      <style>
+		h1 {
+			font-size: 16pt;
+			margin: 10px 0px 0px 0px;
+		}
+		div.box {
+			font-family:"Calibri";
+			font-size: 9pt;
+			display: block;
+			width: inherit;
+			border: none;
+			margin: 0px 5px 6px 5px;
+			padding-bottom: 0px;
+		}
+		div.line {
+			font-family:"Calibri";
+			font-size: 9pt;
+			display: block;
+			width: inherit;
+			border: solid #aaa 1px;
+			margin: 4px 5px 4px 5px;
+			padding: 0px 3px 0px 3px;
+		}
+		div.header1 {
+			font-family:"Calibri";
+			font-size: 10pt;
+			color: white;
+			background-color: #333;
+			width: inherit;
+			border: solid #aaa 1px;
+			min-height: 19px;
+			padding: 0px 3px 1px 3px;
+			margin: 5px 0px 5px 0px;
+		}
+		div.header2 {
+			font-family:"Calibri";
+			font-size: 10pt;
+			color: black;
+			background-color: #cfcfcf;
+			width: inherit;
+			border: solid #bfbfbf 1px;
+			min-height: 19px;
+			padding: 0px 3px 1px 3px;
+			margin: 5px 0px 5px 0px;
+		}
+		table.metrics {
+			font-family:"Calibri";
+			font-size: 9pt;
+			border: solid gray 1px;
+		}
+		table.metrics td{
+			text-align:center;
+			border: solid #aaa 1px;
+		}
+		span.label {
+			font-family:"Calibri";
+			color: black;
+			font-weight: bold;
+		}
+		span.passed {
+			color: green;
+		}
+		span.failed {
+			color: red;
+		}
+		span.warning {
+			color: orange;
+		}
+		span.norun, span.incomplete {
+			color: grey;
+		}
+		span.info {
+			color: #3377ff;
+		}
+		span.done {
+			color: green;
+		}
+		span.status {
+			color: grey;
+		}
+		span.expand, span.collapse {
+			font-family:"Courier";
+			font-size: 10pt;
+			color: grey;
+			font-weight: bold;
+		}
+		a:link {
+			color: #3377ff;
+		}
+		
+		div.footer {
+		   position: fixed;
+		   right: 0;
+		   bottom: 0;
+		   left: 0;
+		   padding: 1rem;
+		   background-color: #efefef;
+		   text-align: left;
+		}
+		
+	</style>
+   </head>
+   <body>
+      <center>
+         <table class="metrics">
+            <tr>
+               <th width="105px">Level</th>
+               <th width="75px">
+                  <span class="passed">Passed</span>
+               </th>
+               <th width="75px">
+                  <span class="failed">Failed</span>
+               </th>
+               <th width="75px">
+                  <span class="warning">Warning</span>
+               </th>
+               <th width="75px">
+                  <span class="incomplete">Incomplete</span>
+               </th>
+               <th width="75px">
+                  <span class="norun">No Run</span>
+               </th>
+               <th width="75px">Total</th>
+            </tr>
+            <tr>
+               <td>Test Scenario</td>
+               <td>1</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>1</td>
+            </tr>
+            <tr>
+               <td>Test Case</td>
+               <td>3</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>3</td>
+            </tr>
+            <tr>
+               <td>Test Steps</td>
+               <td>3</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>3</td>
+            </tr>
+         </table>
+      </center>
+      <h1>Test Scenario: Test</h1>
+      <div class="box" id="test-summary">
+         <div class="header2">
+            <span class="collapse" href="#">[-]</span>Test Execution Summary<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="line">
+            <span class="label">Time Started</span> : 02/13/2018 08:41 AM</div>
+         <div class="line">
+            <span class="label">Time Ended</span> : 02/13/2018 08:43 AM</div>
+         <div class="line">
+            <span class="label">Time Elapsed</span> : 2.15 mins</div>
+         <div class="line">
+            <span class="label">Browser</span> : chrome 63.0.3239.132</div>
+      </div>
+      <div class="box" id="test-case">
+         <div class="header1">
+            <span class="collapse" href="#">[-]</span>Test Case: PAX Protection HomePage<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="box" id="test-step">
+            <div class="header2">
+               <span class="collapse" href="#">[-]</span> Step: Go to this URL: https://pax-protect-ui-shell.run.aws-usw02-pr.ice.predix.io <span class="status"> | <span class="passed">Passed</span>
+               </span>
+            </div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | Clear data</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | Navigate to https://pax-protect-ui-shell-qa.run.aws-usw02-pr.ice.predix.io </div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Username/SSO ID Input] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Username/SSO ID Input] Type "212617361"</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Password Input] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Password Input] Type **************** </div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Login - Shared Computer] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Login - Shared Computer] Click element</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | not in GE - SSO Authentication Page page</div>
+         </div>
+      </div>
+      <div class="box" id="test-case">
+         <div class="header1">
+            <span class="collapse" href="#">[-]</span>Test Case: Navigate to Solution Screen Page<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="box" id="test-step">
+            <div class="header2">
+               <span class="collapse" href="#">[-]</span> Step: Click to Solve button<span class="status"> | <span class="passed">Passed</span>
+               </span>
+            </div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Navigate To: Pax Impact] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Navigate To: Pax Impact] Click element</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View Check Box FL-ZZ-716-20180213-BUF-LAX-0] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View Check Box FL-ZZ-716-20180213-BUF-LAX-0] Click element</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Solve Button] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Solve Button] Click element</div>
+         </div>
+      </div>
+      <div class="box" id="test-case">
+         <div class="header1">
+            <span class="collapse" href="#">[-]</span>Test Case: Verify Solution Screen List View and Commit Functionality<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="box" id="test-step">
+            <div class="header2">
+               <span class="collapse" href="#">[-]</span> Step: Verifying All PNRs and Commit an Available PNR<span class="status"> | <span class="passed">Passed</span>
+               </span>
+            </div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights Text] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights Text] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Selected Flights Text] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Selected Flights Text] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Details Text] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Details Text] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Total PNRs] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:41 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Total PNRs] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TUKYIW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TUKYIW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VLYIEK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VLYIEK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KCFVZD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KCFVZD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item Commit ButtonKCFVZD] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item Commit ButtonKCFVZD] Click element</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item Commit ResponseKCFVZD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item Commit ResponseKCFVZD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | Pnr commit successfully</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: RXJZWL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: RXJZWL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MHMITW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MHMITW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KFKJXK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KFKJXK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QLXSDZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QLXSDZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YIRYQN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YIRYQN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EKWRAF] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EKWRAF] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VTFIJA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VTFIJA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AZUBDM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AZUBDM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FOUVVQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FOUVVQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DYZZEH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DYZZEH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GYUIOM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GYUIOM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FVCAPE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FVCAPE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OUFYOV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OUFYOV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NHCBGE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NHCBGE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KCOURC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KCOURC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XGMOEN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XGMOEN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CBZQZV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CBZQZV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PCAOZL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PCAOZL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZGBXCD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZGBXCD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WBACWA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WBACWA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WXCQQB] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WXCQQB] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MXVMSI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MXVMSI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DIPBUG] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DIPBUG] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TVHHJU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TVHHJU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UVNHMY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UVNHMY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UJJRVE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UJJRVE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JJFPIK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JJFPIK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CFVTAB] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CFVTAB] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SAXXKX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SAXXKX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YTKZDC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YTKZDC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PWRBAQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PWRBAQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VZWUKR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VZWUKR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AURANV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AURANV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AURHKP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AURHKP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UYXZWZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UYXZWZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TFVCPL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TFVCPL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LKIUVA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LKIUVA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NHJGIN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NHJGIN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BZWQTR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BZWQTR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LAPUAL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LAPUAL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QUJVPY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QUJVPY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WKDGIP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WKDGIP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IQCGXD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:42 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IQCGXD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SQXGXZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SQXGXZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EYXRAA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EYXRAA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BPADEJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BPADEJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OETCMU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OETCMU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KEXLMT] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KEXLMT] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WDDNMK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WDDNMK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SNHAPN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SNHAPN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FYWRAN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FYWRAN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OWEHOI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OWEHOI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MAAJKJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MAAJKJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OTXRJG] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OTXRJG] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HJSWAW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HJSWAW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CSDPMD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CSDPMD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PAKBPF] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PAKBPF] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NRQQQO] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NRQQQO] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NNPBTG] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NNPBTG] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WZWEGE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WZWEGE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FMPVOR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FMPVOR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CXVKHX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CXVKHX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZVFYRG] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZVFYRG] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WHFZNK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WHFZNK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CXLQQH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CXLQQH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PFWSZA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PFWSZA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HPYCRL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HPYCRL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FMBPUA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FMBPUA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TGEBMZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TGEBMZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KMLYJG] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KMLYJG] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VEYCJP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">02/13/2018 08:43 AM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VEYCJP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px"/> | <b>
+                  <span class="info">Info</span>
+               </b> | Button disabled</div>
+         </div>
+      </div>
+   </body>
+   <div class="footer">
+      <strong>© 2016 Accenture TCoE Capability. </strong>All Rights Reserved.</div>
+</html>

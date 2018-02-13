@@ -37,6 +37,7 @@ public class PaxImpactPage extends GlobalPage
         public final Element          noReflow;
         public final Element          rebooked;
 
+
         public SummaryDrawer(){
 
             super("Summary Drawer", By.xpath(".//div[contains(@class,'ppro-summary-drawer-view')]"));
@@ -49,10 +50,25 @@ public class PaxImpactPage extends GlobalPage
             greaterThan60Min         = new Element("Greater than 60 min disrupted flight section ", By.xpath("//*[@id='lt180Min']"));
             greaterThan180Min        = new Element("Greater than 180 min disrupted flight section ", By.xpath("//*[@id='ge180Min']"));
             cancelled             = new Element("Canceled disrupted flight section ", By.xpath("//*[@id='cancelled']"));
-            disruptedPax          = new Element("Disrupted Pax disrupted flight section ", By.xpath(""));
-            needsToRebook         = new Element("Needs To Rebook disrupted flight section ", By.xpath(""));
-            noReflow              = new Element("No Reflow disrupted flight section ", By.xpath(""));
-            rebooked              = new Element("Rebooked disrupted flight section ", By.xpath(""));
+            disruptedPax          = new Element("Disrupted Pax disrupted flight section ", By.xpath("//*[@id='disruptedPax']"));
+            needsToRebook         = new Element("Needs To Rebook disrupted flight section ", By.xpath("//*[@id='needsToRebook']"));
+            noReflow              = new Element("No Reflow disrupted flight section ", By.xpath("//*[@id='noReflow']"));
+            rebooked              = new Element("Rebooked disrupted flight section ", By.xpath("//*[@id='rebooked']"));
+
+        }
+
+        public SummaryDrawerItem summaryDrawerItem(String id){
+            return new SummaryDrawerItem(id);
+        }
+
+        public class SummaryDrawerItem extends Element{
+            public  Element itemValue ;
+
+            public SummaryDrawerItem( String id){
+                super("Summary Drawer Item: " + id, By.xpath(".//stat-val[@id='"+id+"']"));
+                itemValue = new Element("Summary Drawer Item Value ", By.xpath(".//ppro-horizontal-selector[@id='passenger-stats']//stat-val[@id='"+id+"']//div[@class='value value-none-importance  style-scope stat-val']"));
+
+            }
 
         }
         
