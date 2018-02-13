@@ -1,6 +1,5 @@
 package Sprint3_18Q1;
 
-import Sprint23.US137579_SummaryDrawer;
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
 import auto.framework.web.WebControl;
@@ -163,24 +162,25 @@ public class US153947_Passenger_Report_Component extends TestBase {
             PaxImpactPage.summaryDrawer.summaryDrawerItem("disruptedPax").highlight();
             uiDisruptedPaxCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("disruptedPax").itemValue.getText());
 
+
             PaxImpactPage.summaryDrawer.summaryDrawerItem("needsToRebook").highlight();
             if (needsToRebookCount > 0){
-                if (!PaxImpactPage.summaryDrawer.summaryDrawerItem("needsToRebook").getText().contains("---")){
-                    uiNeedsToRebookCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("needsToRebook").getText().substring(PaxImpactPage.summaryDrawer.summaryDrawerItem("needsToRebook").getText().indexOf("\n")+1));
+                if (!PaxImpactPage.summaryDrawer.summaryDrawerItem("needsToRebook").itemValue.getText().contains("---")){
+                    uiNeedsToRebookCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("needsToRebook").itemValue.getText());
                 }
             }
 
             PaxImpactPage.summaryDrawer.summaryDrawerItem("noReflow").highlight();
             if (noReflowCount > 0){
-                if (!PaxImpactPage.summaryDrawer.summaryDrawerItem("noReflow").getText().contains("---")){
-                    uiNoReflowCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("noReflow").getText().substring(PaxImpactPage.summaryDrawer.summaryDrawerItem("noReflow").getText().indexOf("\n")+1));
+                if (!PaxImpactPage.summaryDrawer.summaryDrawerItem("noReflow").itemValue.getText().contains("---")){
+                    uiNoReflowCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("noReflow").itemValue.getText());
                 }
             }
 
             PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").highlight();
             if (rebookedCount > 0){
-                if (!PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").getText().contains("---")){
-                    uiRebookedCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").itemValue.getText().substring(PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").getText().indexOf("\n")+1));
+                if (!PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").itemValue.getText().contains("---")){
+                    uiRebookedCount = Integer.parseInt(PaxImpactPage.summaryDrawer.summaryDrawerItem("rebooked").itemValue.getText());
                 }
             }
 
@@ -206,7 +206,6 @@ public class US153947_Passenger_Report_Component extends TestBase {
             }else{
                 ReportLog.assertFailed("Passenger Report Counts for disruptedPaxCount verification is failed");
             }
-
 
         }
     }

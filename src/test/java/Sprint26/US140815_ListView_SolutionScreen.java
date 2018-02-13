@@ -15,15 +15,12 @@ import pageobjects.PaxImpactPage;
 import pageobjects.SolutionScreenPage;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class US140815_ListView_SolutionScreen extends TestBase {
 
     public static TestDataHandler testDataHandler;
     public static BackendAPI backendAPI = new BackendAPI();
 
-    public static List<String> totalAllList = new ArrayList<String>();
     public static String responseContent;
     public static JSONArray  jsonArray;
     public static String flightID;
@@ -87,8 +84,8 @@ public class US140815_ListView_SolutionScreen extends TestBase {
         }
 
         public static void Step2() {
-            ReportLog.setTestCase("Verify Solution Screen List View");
-            ReportLog.setTestStep("Verifying All PNRs");
+            ReportLog.setTestCase("Verify Solution Screen List View and Commit Functionality");
+            ReportLog.setTestStep("Verifying All PNRs and Commit an Available PNR");
 
             SolutionScreenPage.solutionPageFrame.impactedFlightsText.verifyDisplayed(true, 5);
             SolutionScreenPage.solutionPageFrame.selectedFlightsText.verifyDisplayed(true, 5);
@@ -110,13 +107,29 @@ public class US140815_ListView_SolutionScreen extends TestBase {
             JSONObject jsonObjectST = new JSONObject(responseContent);
             JSONArray pnrs = jsonObjectST.getJSONArray("pnrs");
 
+            boolean oneCommitDone = false;
+
             for (int i=0; i<pnrs.length(); i++){
                 JSONObject pnrObject = pnrs.getJSONObject(i);
                 String confirmationNumber = pnrObject.getString("confirmationNumber");
                 SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).verifyDisplayed(true, 5);
                 SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).highlight();
-            }
+                SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.highlight();
+                if (!SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.getCssValue("cursor").equals("not-allowed") && !oneCommitDone){
+                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.click();
+                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.verifyDisplayed(true,5);
+                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.highlight();
+                    if (SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.getText().equals("REBOOKED")){
+                        ReportLog.assertTrue(true, "Pnr commit successfully");
+                        oneCommitDone = true;
+                    }else{
+                        ReportLog.assertFailed("Pnr commit failed");
+                    }
+                }else{
+                    ReportLog.addInfo("Button disabled");
+                }
 
+            }
 
         }
     }
