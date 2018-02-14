@@ -79,14 +79,16 @@ public class PaxImpactPage extends GlobalPage
     	public final Element toggleCheckBoxLabel;
     	public final Element toggleCheckBox;
     	public final Element filterButton;
+    	public final Element searchBox;
     	
     	public Filter()
     	{
-    		super("Filter and Options", By.xpath(".//div[@class='actions-row style-scope pax-impact']"));
+    		super("Filter and Options", By.xpath(".//div[@class='actions-row style-scope impacted-flights']"));
     		
     		toggleCheckBoxLabel = new Element("Toggle Check Box Label", By.xpath(".//div[@class='container style-scope ppro-checkbox']"));
     		toggleCheckBox = new Element("Toggle Check Box", By.xpath("//div[@class='squarebox style-scope ppro-checkbox']"));
     		filterButton = new Element("Filter Button", By.xpath(".//div[@class='style-scope px-modal']"));
+    		searchBox = new Element("Search Textbox", By.xpath(".//input[@class='style-scope paper-input']"));
   
     	}
     	
