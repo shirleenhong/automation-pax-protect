@@ -93,12 +93,12 @@ public class US153947_Passenger_Report_Component extends TestBase {
 
             String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve", requestBody);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve","request_solve", "Request", requestBody);
 
             JSONObject jsonObjectS = new JSONObject(responseContent);
             String transactionId = jsonObjectS.getString("transactionId");
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve_Transaction","request_solve_transaction", "transactionid", transactionId);
 
             if (responseContent.contains("solutionSummary")){
                 ReportLog.assertTrue(true, "Solution response got successfully");
@@ -140,7 +140,7 @@ public class US153947_Passenger_Report_Component extends TestBase {
                 }
             }
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "GET/pnr-report", flightID);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "GET/pnr-report", "request_GET/pnr", "flightIds", flightID);
 
             // Getting needsToRebook, noReflow, rebooked counts from pnr-report service response
 
