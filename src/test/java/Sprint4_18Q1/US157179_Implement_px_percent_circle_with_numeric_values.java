@@ -49,6 +49,10 @@ public class US157179_Implement_px_percent_circle_with_numeric_values extends Te
         }
 
         public static void Step1(){
+
+            ReportLog.setTestCase("Executive Dashboard PxPercentCircle Section Test");
+            ReportLog.setTestStep("Verify each part of the PxPercentCircle section ");
+
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").click();
             ExecutiveDashboardPage.statisticFrame.percentCircleItem("FLIGHT ARRIVAL").highlight();
             ExecutiveDashboardPage.statisticFrame.percentCircleItem("FLIGHT ARRIVAL").percentCircleItemHeader.highlight();
