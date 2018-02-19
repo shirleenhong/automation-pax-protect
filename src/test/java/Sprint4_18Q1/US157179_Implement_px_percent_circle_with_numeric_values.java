@@ -2,12 +2,10 @@ package Sprint4_18Q1;
 
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
-import auto.framework.WebManager;
 import auto.framework.web.WebControl;
 import common.BackendAPI;
 import common.GlobalPage;
 import common.TestDataHandler;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import pageobjects.ExecutiveDashboardPage;
 import pageobjects.GESSOAuthPage;
@@ -21,8 +19,6 @@ public class US157179_Implement_px_percent_circle_with_numeric_values extends Te
     //public static BackendAPI backendAPI = new BackendAPI();
 
    // public static String responseContent;
-
-    public static WebDriver driver = WebManager.getDriver();
 
     @Test
     public void TestScenarios() throws Exception

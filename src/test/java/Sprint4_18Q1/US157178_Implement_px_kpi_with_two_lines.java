@@ -44,8 +44,8 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
 
         public static void Step1(){
 
-            ReportLog.setTestCase("Executive Dashboard PxPercentCircle Section Test");
-            ReportLog.setTestStep("Verify each part of the PxPercentCircle section ");
+            ReportLog.setTestCase("Executive Dashboard Px Kpi Section Test");
+            ReportLog.setTestStep("Verify each part of the Px Kpi section ");
 
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").click();
             ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").verifyDisplayed(true,5);
