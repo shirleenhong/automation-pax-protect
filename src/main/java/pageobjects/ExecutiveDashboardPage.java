@@ -20,10 +20,16 @@ public class ExecutiveDashboardPage extends GlobalPage {
         public static class StatisticItem extends Element{
 
             public final Element statisticItemHeader;
+            public final Element circleItem;
+            public final Element rectItem;
+            public final Element rectPathItem;
 
             StatisticItem(String title){
                 super("Percent Circle Item", By.xpath("//ppro-stats-card[@title='"+title+"']") );
                 statisticItemHeader = new Element("Flight Arrival Text", By.xpath("//ppro-stats-card[@title='"+title+"']//div[text()='"+title+"']"));
+                circleItem = new Element("px circle item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='circle' and @transform='rotate(-90, 62.5, 69.5)']"));
+                rectItem = new Element("px kpi rect item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='rect' and @fill='#14242e']"));
+                rectPathItem = new Element("px kpi rect path item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='path' and @stroke='#1ac6ff']"));
             }
 
         }

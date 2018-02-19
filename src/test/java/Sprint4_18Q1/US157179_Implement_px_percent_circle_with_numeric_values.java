@@ -2,22 +2,27 @@ package Sprint4_18Q1;
 
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
+import auto.framework.WebManager;
 import auto.framework.web.WebControl;
 import common.BackendAPI;
 import common.GlobalPage;
 import common.TestDataHandler;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import pageobjects.ExecutiveDashboardPage;
 import pageobjects.GESSOAuthPage;
 
 import java.net.MalformedURLException;
 
+
 public class US157179_Implement_px_percent_circle_with_numeric_values extends TestBase {
 
     public static TestDataHandler testDataHandler;
-    public static BackendAPI backendAPI = new BackendAPI();
+    //public static BackendAPI backendAPI = new BackendAPI();
 
-    public static String responseContent;
+   // public static String responseContent;
+
+    public static WebDriver driver = WebManager.getDriver();
 
     @Test
     public void TestScenarios() throws Exception
@@ -56,6 +61,11 @@ public class US157179_Implement_px_percent_circle_with_numeric_values extends Te
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").click();
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleItem.highlight();
+
+            String stroke_dashoffset = ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleItem.getAttribute("stroke-dashoffset");
+
             ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").statisticItemHeader.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").verifyDisplayed(true,5);
