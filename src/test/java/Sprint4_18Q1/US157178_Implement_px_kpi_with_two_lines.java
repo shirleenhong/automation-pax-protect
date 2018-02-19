@@ -3,7 +3,6 @@ package Sprint4_18Q1;
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
 import auto.framework.web.WebControl;
-import common.BackendAPI;
 import common.GlobalPage;
 import common.TestDataHandler;
 import org.testng.annotations.Test;
@@ -12,22 +11,17 @@ import pageobjects.GESSOAuthPage;
 
 import java.net.MalformedURLException;
 
-public class US157179_Implement_px_percent_circle_with_numeric_values extends TestBase {
+public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
 
     public static TestDataHandler testDataHandler;
-    public static BackendAPI backendAPI = new BackendAPI();
-
-    public static String responseContent;
 
     @Test
     public void TestScenarios() throws Exception
     {
         ReportLog.setTestName("Test");
         testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser1'");
-        US157179_Implement_px_percent_circle_with_numeric_values.TestCases.PreRequisiteStep();
-        US157179_Implement_px_percent_circle_with_numeric_values.TestCases.Step1();
-        //US157179_Implement_px_percent_circle_with_numeric_values.TestCases.Step2();
-
+        US157178_Implement_px_kpi_with_two_lines.TestCases.PreRequisiteStep();
+        US157178_Implement_px_kpi_with_two_lines.TestCases.Step1();
 
     }
 
@@ -54,14 +48,19 @@ public class US157179_Implement_px_percent_circle_with_numeric_values extends Te
             ReportLog.setTestStep("Verify each part of the PxPercentCircle section ");
 
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").click();
-            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").verifyDisplayed(true,5);
-            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").statisticItemHeader.verifyDisplayed(true,5);
-            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").verifyDisplayed(true,5);
-            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").statisticItemHeader.verifyDisplayed(true,5);
-            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").verifyDisplayed(true,5);
-            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").statisticItemHeader.verifyDisplayed(true,5);
-            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").verifyDisplayed(true,5);
-            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").statisticItemHeader.verifyDisplayed(true,5);
+
 
         }
     }

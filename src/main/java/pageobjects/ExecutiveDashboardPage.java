@@ -15,15 +15,15 @@ public class ExecutiveDashboardPage extends GlobalPage {
             super("Predix Percent Circle Frame", By.xpath("//div[@class='statistics style-scope ppro-x-summary']"));
         }
 
-        public PercentCircleItem percentCircleItem(String title){return new PercentCircleItem(title);}
+        public StatisticItem statisticItem(String title){return new StatisticItem(title);}
 
-        public static class PercentCircleItem extends Element{
+        public static class StatisticItem extends Element{
 
-            public final Element percentCircleItemHeader;
+            public final Element statisticItemHeader;
 
-            PercentCircleItem(String title){
+            StatisticItem(String title){
                 super("Percent Circle Item", By.xpath("//ppro-stats-card[@title='"+title+"']") );
-                percentCircleItemHeader = new Element("Flight Arrival Text", By.xpath("//div[text()='"+title+"']"));
+                statisticItemHeader = new Element("Flight Arrival Text", By.xpath("//ppro-stats-card[@title='"+title+"']//div[text()='"+title+"']"));
             }
 
         }
