@@ -47,24 +47,51 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             ReportLog.setTestCase("Executive Dashboard Px Kpi Section Test");
             ReportLog.setTestStep("Verify each part of the Px Kpi section ");
 
+            GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").verifyDisplayed(true,5);
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").click();
+
             ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").statisticItemHeader.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").rectItem.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").rectPathItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").kpiChartCount.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").kpiChartCountText.verifyDisplayed();
 
-           String d = ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").rectPathItem.getAttribute("d");
+            String count = ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").kpiChartCount.getAttribute("count");
+            String countText = ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").kpiChartCountText.getText();
+
+            String d = ExecutiveDashboardPage.statisticFrame.statisticItem("ARRIVALS OTP").rectPathItem.getAttribute("d");
 
             ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").rectItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").rectPathItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").kpiChartCount.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").kpiChartCountText.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").rectItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").rectPathItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").kpiChartCount.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").kpiChartCountText.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").rectItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").rectPathItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCount.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCountText.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").rectItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").rectPathItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").kpiChartCount.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").kpiChartCountText.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").rectItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").rectPathItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").kpiChartCount.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("> 180min").kpiChartCountText.verifyDisplayed();
 
 
         }

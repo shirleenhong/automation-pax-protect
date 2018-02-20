@@ -59,15 +59,33 @@ public class US157179_Implement_px_percent_circle_with_numeric_values extends Te
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").statisticItemHeader.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleItem.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleItem.highlight();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleProgress.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleInMiddleText.verifyDisplayed();
+
+            String textInTheCricle = ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleInMiddleText.getText();
+            String value = ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleProgress.getAttribute("value");
+            String range = ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleProgress.getAttribute("range");
 
             String stroke_dashoffset = ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").circleItem.getAttribute("stroke-dashoffset");
 
             ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").circleItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").circleItem.highlight();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").circleProgress.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST ARRIVAL").circleInMiddleText.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").circleItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").circleItem.highlight();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").circleProgress.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT DEPARTURE").circleInMiddleText.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").statisticItemHeader.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").circleItem.verifyDisplayed(true,5);
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").circleItem.highlight();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").circleProgress.verifyDisplayed();
+            ExecutiveDashboardPage.statisticFrame.statisticItem("CUST DEPARTURE").circleInMiddleText.verifyDisplayed();
 
         }
     }
