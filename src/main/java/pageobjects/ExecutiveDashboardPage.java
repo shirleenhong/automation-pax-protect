@@ -37,8 +37,8 @@ public class ExecutiveDashboardPage extends GlobalPage {
 
                 rectItem = new Element("px kpi rect item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='rect' and @fill='#14242e']"));
                 rectPathItem = new Element("px kpi rect path item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='path' and @stroke='#1ac6ff']"));
-                kpiChartCount = new Element("ppro kpi chart count", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-chart-kpi[@class='style-scope ppro-x-summary']"));
-                kpiChartCountText = new Element("ppro kpi chart count text", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-chart-kpi[@class='style-scope ppro-x-summary']//span[contains(@class,'ppro-chart-kpi')]"));
+                kpiChartCount = new Element("ppro kpi chart count", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-chart-kpi[contains(@class,'style-scope')]"));
+                kpiChartCountText = new Element("ppro kpi chart count text", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-chart-kpi[contains(@class,'style-scope')]//span[contains(@class,'ppro-chart-kpi')]"));
             }
 
         }
