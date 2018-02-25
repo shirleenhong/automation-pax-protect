@@ -14,6 +14,7 @@ import com.eviware.soapui.model.testsuite.TestStepResult;
 import com.eviware.soapui.support.types.StringToObjectMap;
 import org.junit.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -84,6 +85,10 @@ public class BackendAPI {
         WsdlTestCase gTestCase = gTestSuite.getTestCaseByName(testCaseName);
 
         gTestCase.getTestStepByName(testStepName).getProperty(propertyName).setValue(parameter);
+
+       /* RestTestRequestStep restTestRequestStep = (RestTestRequestStep) gTestCase.getTestStepByName(testStepName);
+
+        RestTestRequest restTestRequest = restTestRequestStep.getTestRequest();*/
 
         WsdlTestCaseRunner testRunnerCC = gTestCase.run(new StringToObjectMap(gTestCase.getProperties()), false);
 

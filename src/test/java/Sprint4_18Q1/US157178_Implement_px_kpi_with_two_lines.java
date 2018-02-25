@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import pageobjects.ExecutiveDashboardPage;
 import pageobjects.GESSOAuthPage;
 
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -33,6 +34,8 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
     public static int totalCanceledPsngrValue = 0;
     public static int totalMisConPsngrValue = 0;
     public static int totalDivertedPsngrValue = 0;
+    public static Float totalArrOTPValue = Float.valueOf(0);
+    public static Float totalDepOTPValue = Float.valueOf(0);
 
     @Test
     public void TestScenarios() throws Exception
@@ -98,12 +101,17 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             //String q = "{\"destAirportID\":\"AP-LAX\",\"arrDateTimeSch\":{\"$and\":[{\"$ge\":{\"$date\":\"" + today + "T00:01:00Z\"}},{\"$lt\":{\"$date\":\"" + nextDay + "T00:01:00Z\"}}]}}";
             String q = "{\"arrDateTimeSch\":{\"$and\":[{\"$ge\":{\"$date\":\"" + today + "T00:01:00Z\"}},{\"$lt\":{\"$date\":\"" + nextDay + "T00:01:00Z\"}}]}}";
 
-            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "GET/OTP","request_GET_otp_ARR", "Request", q);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "GET/OTP","request_GET_otp_ARR", "q", q);
 
-            JSONArray jsonArrayS = new JSONArray(responseContent);
-            int otpArrCount = jsonArrayS.length();
+            JSONArray arrOtpArray = new JSONArray(responseContent);
 
-            /*if ((Integer.parseInt(arrOtpUiCount) == otpArrCount) && (Integer.parseInt(arrOtpUiCountText) == otpArrCount)) {
+            for (int i=0; i< arrOtpArray.length(); i++){
+                Float otpf = arrOtpArray.getJSONObject(i).getFloat("otpf");
+                totalArrOTPValue+=otpf;
+            }
+            int avrArrCount = Math.round((totalArrOTPValue/arrOtpArray.length())*100);
+
+            /*if ((Integer.parseInt(arrOtpUiCount) == avrArrCount) && (Integer.parseInt(arrOtpUiCountText) == avrArrCount)) {
                 ReportLog.assertTrue(true, "Arrival OTP test passed");
             }else{
                 ReportLog.assertFailed("Arrival OTP test failed");
@@ -120,6 +128,14 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").kpiChartCount.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").kpiChartCountText.verifyDisplayed();
 
+            String cancelledUiCountText = ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").kpiChartCountText.getText();
+
+             if ((Integer.parseInt(cancelledUiCountText) == totalCanceledPsngrValue)) {
+                ReportLog.assertTrue(true, "Cancelled test passed");
+            }else{
+                ReportLog.assertFailed("Cancelled test failed");
+            }
+
         }
 
         public static void Step3(){
@@ -129,6 +145,14 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").rectPathItem.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").kpiChartCount.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").kpiChartCountText.verifyDisplayed();
+
+            String misconxUiCountText = ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").kpiChartCountText.getText();
+
+            if ((Integer.parseInt(misconxUiCountText) == totalMisConPsngrValue)) {
+                ReportLog.assertTrue(true, "Misconx test passed");
+            }else{
+                ReportLog.assertFailed("Misconx test failed");
+            }
 
         }
 
@@ -140,8 +164,8 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCount.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCountText.verifyDisplayed();
 
-            String arrOtpUiCount = ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCount.getAttribute("count");
-            String arrOtpUiCountText = ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCountText.getText();
+            String depOtpUiCount = ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCount.getAttribute("count");
+            String depOtpUiCountText = ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").kpiChartCountText.getText();
 
             String d = ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").rectPathItem.getAttribute("d");
 
@@ -156,12 +180,17 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             //String q = "{\"origAirportID\":\"AP-LAX\",\"dptDateTimeSch\":{\"$and\":[{\"$ge\":{\"$date\":\"" + today + "T00:01:00Z\"}},{\"$lt\":{\"$date\":\"" + nextDay + "T00:01:00Z\"}}]}}";
             String q = "{\"dptDateTimeSch\":{\"$and\":[{\"$ge\":{\"$date\":\"" + today + "T00:01:00Z\"}},{\"$lt\":{\"$date\":\"" + nextDay + "T00:01:00Z\"}}]}}";
 
-            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "GET/OTP","request_GET_otp_DEP", "Request", q);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "GET/OTP","request_GET_otp_DEP", "q", q);
 
-            JSONArray jsonArrayS = new JSONArray(responseContent);
-            int otpDepCount = jsonArrayS.length();
+            JSONArray depOtpArray = new JSONArray(responseContent);
 
-            /*if ((Integer.parseInt(arrOtpUiCount) == otpDepCount) && (Integer.parseInt(arrOtpUiCountText) == otpDepCount)) {
+            for (int i=0; i< depOtpArray.length(); i++){
+                Float otpf = depOtpArray.getJSONObject(i).getFloat("otpf");
+                totalDepOTPValue+=otpf;
+            }
+            int avrDepCount = Math.round((totalDepOTPValue/depOtpArray.length())*100);
+
+            /*if ((Integer.parseInt(depOtpUiCount) == avrDepCount) && (Integer.parseInt(depOtpUiCountText) == avrDepCount)) {
                 ReportLog.assertTrue(true, "Departure OTP test passed");
             }else{
                 ReportLog.assertFailed("Departure OTP test failed");
@@ -177,6 +206,14 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").kpiChartCount.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").kpiChartCountText.verifyDisplayed();
 
+            String divertedUiCountText = ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").kpiChartCountText.getText();
+
+            if ((Integer.parseInt(divertedUiCountText) == totalDivertedPsngrValue)) {
+                ReportLog.assertTrue(true, "Diverted test passed");
+            }else{
+                ReportLog.assertFailed("Diverted test failed");
+            }
+
 
         }
 
@@ -188,6 +225,14 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
             ExecutiveDashboardPage.statisticFrame.statisticItem("> 180MIN").rectPathItem.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("> 180MIN").kpiChartCount.verifyDisplayed();
             ExecutiveDashboardPage.statisticFrame.statisticItem("> 180MIN").kpiChartCountText.verifyDisplayed();
+
+            String divertedUiCountText = ExecutiveDashboardPage.statisticFrame.statisticItem("> 180MIN").kpiChartCountText.getText();
+
+            if ((Integer.parseInt(divertedUiCountText) == totalGreaterThan180MinPsngrValue)) {
+                ReportLog.assertTrue(true, "> 180MIN test passed");
+            }else{
+                ReportLog.assertFailed("> 180MIN test failed");
+            }
 
         }
 
