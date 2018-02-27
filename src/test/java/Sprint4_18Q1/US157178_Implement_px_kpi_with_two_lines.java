@@ -79,7 +79,7 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
                     .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//p[contains(text(),'Executive Dashboard')]")));
 
             ReportLog.setTestCase("Executive Dashboard Px Kpi Section Test");
-            ReportLog.setTestStep("Verify each part of the Px Kpi section ");
+            ReportLog.setTestStep("Verify ARRIVALS OTP part of the Px Kpi section ");
 
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").verifyDisplayed(true,5);
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").click();
@@ -135,6 +135,9 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
 
         public static void Step2(){
 
+            ReportLog.setTestCase("Executive Dashboard Px Kpi Section Test");
+            ReportLog.setTestStep("Verify CANCELLED part of the Px Kpi section ");
+
             ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").statisticItemHeader.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("CANCELLED").rectItem.verifyDisplayed(true,5);
@@ -153,6 +156,9 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
         }
 
         public static void Step3(){
+            ReportLog.setTestCase("Executive Dashboard Px Kpi Section Test");
+            ReportLog.setTestStep("Verify MISCONX part of the Px Kpi section ");
+
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").statisticItemHeader.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("MISCONX").rectItem.verifyDisplayed(true,5);
@@ -171,6 +177,9 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
         }
 
         public static void Step4(){
+            ReportLog.setTestCase("Executive Dashboard Px Kpi Section Test");
+            ReportLog.setTestStep("Verify DEPARTURES OTP part of the Px Kpi section ");
+
             ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").statisticItemHeader.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("DEPARTURES OTP").rectItem.verifyDisplayed(true,5);
@@ -217,6 +226,9 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
         }
 
         public static void Step5(){
+            ReportLog.setTestCase("Executive Dashboard Px Kpi Section Test");
+            ReportLog.setTestStep("Verify DIVERTED part of the Px Kpi section ");
+
             ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").statisticItemHeader.verifyDisplayed(true,5);
             ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").rectItem.verifyDisplayed(true,5);
@@ -226,11 +238,11 @@ public class US157178_Implement_px_kpi_with_two_lines extends TestBase {
 
             String divertedUiCountText = ExecutiveDashboardPage.statisticFrame.statisticItem("DIVERTED").kpiChartCountText.getText();
 
-           /* if ((Integer.parseInt(divertedUiCountText) == totalDivertedPsngrValue)) {
+            if ((Integer.parseInt(divertedUiCountText) == totalDivertedPsngrValue)) {
                 ReportLog.assertTrue(true, "Diverted test passed");
             }else{
                 ReportLog.assertFailed("Diverted test failed");
-            }*/
+            }
 
 
         }
