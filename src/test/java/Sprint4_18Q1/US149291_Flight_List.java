@@ -109,7 +109,7 @@ public class US149291_Flight_List extends TestBase{
                 ExecutiveDashboardListPage.disruptedFlightList.disruptedFlightListItem(flightID).verifyDisplayed(true,5);
                 String[] parsedItem = ExecutiveDashboardListPage.disruptedFlightList.disruptedFlightListItem(flightID).getText().split("\n");
 
-                if (tenant.concat(flightNumber).equals(parsedItem[1])){
+                if (tenant.toUpperCase().concat(flightNumber).equals(parsedItem[1])){
                     ReportLog.assertTrue(true,"flight field value is passed");
                 }else{
                     ReportLog.assertFailed("flight field value is failed");
