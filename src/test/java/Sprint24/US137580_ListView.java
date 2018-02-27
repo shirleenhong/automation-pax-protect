@@ -118,15 +118,15 @@ public class US137580_ListView extends TestBase {
             PDSListViewPage.listView.disruptedItem(testDataHandler.flightNumber).verifyDisplayed(true, 5);
 
             ReportLog.setTestStep("<15 Mins Tab");
-            PaxImpactPage.summaryDrawer.lessThan15Min.click();
+            PaxImpactPage.summaryDrawer.greaterThan15Min.click();
 
             ReportLog.setTestStep("<60 Mins tab");
-            PaxImpactPage.summaryDrawer.lessThan60Min.click();
+            PaxImpactPage.summaryDrawer.greaterThan60Min.click();
             testDataHandler = TestDataHandler.setDisruptionDataSet("Main", "RowSelection='DataSet4'");
             PDSListViewPage.listView.disruptedItem(testDataHandler.flightNumber).verifyDisplayed(true, 5);
 
             ReportLog.setTestStep("<180 Tab");
-            PaxImpactPage.summaryDrawer.lessThan180Min.click();
+            PaxImpactPage.summaryDrawer.greaterThan180Min.click();
             testDataHandler = TestDataHandler.setDisruptionDataSet("Main", "RowSelection='DataSet0'");
             PDSListViewPage.listView.disruptedItem(testDataHandler.flightNumber).verifyDisplayed(true, 5);
 

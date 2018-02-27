@@ -9,14 +9,12 @@ import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCaseRunner;
 import com.eviware.soapui.impl.wsdl.teststeps.RestRequestStepResult;
 import com.eviware.soapui.impl.wsdl.teststeps.RestTestRequest;
 import com.eviware.soapui.impl.wsdl.teststeps.RestTestRequestStep;
-import com.eviware.soapui.impl.wsdl.teststeps.WsdlTestStep;
 import com.eviware.soapui.model.support.PropertiesMap;
-import com.eviware.soapui.model.testsuite.TestProperty;
 import com.eviware.soapui.model.testsuite.TestStepResult;
 import com.eviware.soapui.support.types.StringToObjectMap;
 import org.junit.Assert;
-import org.mortbay.log.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,9 +46,7 @@ public class BackendAPI {
                 RestTestRequestStep rtestStep = (RestTestRequestStep) restResult.getTestStep();
                 RestTestRequest rTestRequest = rtestStep.getTestRequest();
                 SinglePartHttpResponse httpResponse = (SinglePartHttpResponse) rTestRequest.getResponse();
-                String testStepName = restResult.getTestStep().getName();
                 if (httpResponse != null){
-                    Log.info("****Running Test Step " + testStepName + "*****");
                     try {
                         responseContent = httpResponse.getContentAsString().toString();
                     } catch (Exception e){
@@ -62,7 +58,6 @@ public class BackendAPI {
                         statusCode = httpResponse.getStatusCode();
                     }catch (Exception e) {
                         ReportLog.addInfo("Response Status Code is" + Integer.toString(statusCode));
-                        //Log.info("Response Status Code:" + Integer.toString(statusCode));
                        Assert.assertEquals(200, statusCode);
                     }
 
@@ -74,7 +69,8 @@ public class BackendAPI {
         return responseContent;
     }
 
-    public String getPayloadWithParameter(String testSuiteName, String testCaseName, String parameter){
+
+    public String getPayloadWithProperty(String testSuiteName, String testCaseName, String testStepName, String propertyName, String parameter){
         String responseContent = null;
         int statusCode = 0;
         WsdlProject wProject = new WsdlProject("src/test/resources/data/ReflowWorkflowService-soapui-project.xml");
@@ -88,25 +84,16 @@ public class BackendAPI {
         WsdlTestSuite gTestSuite = wProject.getTestSuiteByName(testSuiteName);
         WsdlTestCase gTestCase = gTestSuite.getTestCaseByName(testCaseName);
 
-        if (testCaseName.equals("Solve_Transaction")){
-            gTestCase.getTestStepByName("request_solve_transaction").getProperty("transactionid").setValue(parameter);
-        }
+        gTestCase.getTestStepByName(testStepName).getProperty(propertyName).setValue(parameter);
 
-        if (testCaseName.equals("Solve")){
-            gTestCase.getTestStepByName("request_solve").getProperty("Request").setValue(parameter);
-        }
+       /* RestTestRequestStep restTestRequestStep = (RestTestRequestStep) gTestCase.getTestStepByName(testStepName);
 
-        if (testCaseName.equals("GET/pnr-report")){
-            gTestCase.getTestStepByName("request_GET/pnr").getProperty("flightIds").setValue(parameter);
-        }
+        RestTestRequest restTestRequest = restTestRequestStep.getTestRequest();*/
 
-
-        //WsdlTestCaseRunner testRunnerCC = gTestCase.run(new PropertiesMap(), false);
-        //WsdlTestCaseRunner testRunnerCC = new WsdlTestCaseRunner(gTestCase, new StringToObjectMap(gTestCase.getProperties()));
         WsdlTestCaseRunner testRunnerCC = gTestCase.run(new StringToObjectMap(gTestCase.getProperties()), false);
 
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -118,25 +105,20 @@ public class BackendAPI {
                 RestTestRequestStep rtestStep = (RestTestRequestStep) restResult.getTestStep();
                 RestTestRequest rTestRequest = rtestStep.getTestRequest();
                 SinglePartHttpResponse httpResponse = (SinglePartHttpResponse) rTestRequest.getResponse();
-                String testStepName = restResult.getTestStep().getName();
+                //String tstStepName = restResult.getTestStep().getName();
                 if (httpResponse != null){
-                    Log.info("****Running Test Step " + testStepName + "*****");
                     try {
                         responseContent = httpResponse.getContentAsString().toString();
                     } catch (Exception e){
                         ReportLog.addInfo("Reflow workflow service response content is null");
                     }
 
-
                     try {
                         statusCode = httpResponse.getStatusCode();
                     }catch (Exception e) {
                         ReportLog.addInfo("Response Status Code is" + Integer.toString(statusCode));
-                        //Log.info("Response Status Code:" + Integer.toString(statusCode));
                         Assert.assertEquals(200, statusCode);
                     }
-
-
                 }
             }
         }

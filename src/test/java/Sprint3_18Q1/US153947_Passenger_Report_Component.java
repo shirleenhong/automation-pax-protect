@@ -2,12 +2,17 @@ package Sprint3_18Q1;
 
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
+import auto.framework.WebManager;
 import auto.framework.web.WebControl;
 import common.BackendAPI;
 import common.GlobalPage;
 import common.TestDataHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pageobjects.GESSOAuthPage;
 import pageobjects.PaxImpactPage;
@@ -93,12 +98,12 @@ public class US153947_Passenger_Report_Component extends TestBase {
 
             String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve", requestBody);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve","request_solve", "Request", requestBody);
 
             JSONObject jsonObjectS = new JSONObject(responseContent);
             String transactionId = jsonObjectS.getString("transactionId");
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve_Transaction","request_solve_transaction", "transactionid", transactionId);
 
             if (responseContent.contains("solutionSummary")){
                 ReportLog.assertTrue(true, "Solution response got successfully");
@@ -118,6 +123,8 @@ public class US153947_Passenger_Report_Component extends TestBase {
             }
             GESSOAuthPage.page.verifyURL(false, 60);
 
+            WebElement myDynamicElement1 = (new WebDriverWait(WebManager.getDriver(), 50))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//p[contains(text(),'Pax Impact')]")));
 
         }
 
@@ -140,7 +147,7 @@ public class US153947_Passenger_Report_Component extends TestBase {
                 }
             }
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "GET/pnr-report", flightID);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "GET/pnr-report", "request_GET/pnr", "flightIds", flightID);
 
             // Getting needsToRebook, noReflow, rebooked counts from pnr-report service response
 

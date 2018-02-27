@@ -110,13 +110,13 @@ public class US153948_Selected_Flights_Component extends TestBase {
 
             String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve", requestBody);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve","request_solve", "Request", requestBody);
 
             JSONObject jsonObjectS = new JSONObject(responseContent);
             String transactionId = jsonObjectS.getString("transactionId");
 
 
-            responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
+            responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve_Transaction","request_solve_transaction", "transactionid", transactionId);
 
 
             JSONObject jsonObjectST = new JSONObject(responseContent);
@@ -167,13 +167,13 @@ public class US153948_Selected_Flights_Component extends TestBase {
 
                 String requestBody = "{   \"tenant\" : \"zz\",   \"user\" : \"pinar\",   \"flights\" : [ " + flightID + " ]}";
 
-                responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve", requestBody);
+                responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve","request_solve", "Request", requestBody);
 
                 JSONObject jsonObjectS = new JSONObject(responseContent);
                 String transactionId = jsonObjectS.getString("transactionId");
 
 
-                responseContent = backendAPI.getPayloadWithParameter("Positive Test", "Solve_Transaction", transactionId);
+                responseContent = backendAPI.getPayloadWithProperty("Positive Test", "Solve_Transaction","request_solve_transaction", "transactionid", transactionId);
 
 
                 JSONObject jsonObjectST = new JSONObject(responseContent);
