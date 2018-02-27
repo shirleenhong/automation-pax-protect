@@ -21,7 +21,7 @@ public class ExecutiveDashboardPage extends GlobalPage {
 
             public final Element statisticItemHeader;
             public final Element circleItem;
-            public final Element circleProgress;
+            //public final Element circleProgress;
             public final Element circleInMiddleText;
             public final Element rectItem;
             public final Element rectPathItem;
@@ -32,8 +32,8 @@ public class ExecutiveDashboardPage extends GlobalPage {
                 super("Statistic Frame Item", By.xpath("//ppro-stats-card[@title='"+title+"']") );
                 statisticItemHeader = new Element("Statistic Frame Headers Text", By.xpath("//ppro-stats-card[@title='"+title+"']//div[text()='"+title+"']"));
                 circleItem = new Element("px circle item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='circle' and @transform='rotate(-90, 62.5, 69.5)']"));
-                circleProgress = new Element("px circle progress", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-kpi-progress-circle[contains(@class,'style-scope ppro-x-summary')]"));
-                circleInMiddleText = new Element("px circle middle text", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-kpi-progress-circle[contains(@class,'style-scope ppro-x-summary')]//b[contains(@class,'ppro-kpi-progress-circle')]"));
+                //circleProgress = new Element("px circle progress", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-kpi-progress-circle[contains(@class,'style-scope ppro-x-summary')]"));
+                circleInMiddleText = new Element("px circle middle text", By.xpath("//ppro-stats-card[@title='"+title+"']//ppro-kpi-progress-circle[contains(@class,'style-scope')]//b[contains(@class,'ppro-kpi-progress-circle')]"));
 
                 rectItem = new Element("px kpi rect item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='rect' and @fill='#14242e']"));
                 rectPathItem = new Element("px kpi rect path item", By.xpath("//ppro-stats-card[@title='"+title+"']//*[name()='svg']//*[name()='path' and @stroke='#1ac6ff']"));

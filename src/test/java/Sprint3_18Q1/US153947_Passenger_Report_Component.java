@@ -2,12 +2,17 @@ package Sprint3_18Q1;
 
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
+import auto.framework.WebManager;
 import auto.framework.web.WebControl;
 import common.BackendAPI;
 import common.GlobalPage;
 import common.TestDataHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pageobjects.GESSOAuthPage;
 import pageobjects.PaxImpactPage;
@@ -118,6 +123,8 @@ public class US153947_Passenger_Report_Component extends TestBase {
             }
             GESSOAuthPage.page.verifyURL(false, 60);
 
+            WebElement myDynamicElement1 = (new WebDriverWait(WebManager.getDriver(), 50))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//p[contains(text(),'Pax Impact')]")));
 
         }
 
