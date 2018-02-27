@@ -11,8 +11,11 @@ public class ExecutiveDashboardPage extends GlobalPage {
 
     public static class StatisticFrame extends Element {
 
+        public final Element flightListIcon;
+
         public StatisticFrame() {
             super("Executive Dashboard Statistic Frame", By.xpath("//div[@class='statistics style-scope ppro-x-summary']"));
+            flightListIcon = new Element(By.xpath("//px-icon[contains(@class,'style-scope ppro-summary-drawer-view x-scope px-icon')]"));
         }
 
         public StatisticItem statisticItem(String title){return new StatisticItem(title);}

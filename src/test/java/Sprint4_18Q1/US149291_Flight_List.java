@@ -2,14 +2,20 @@ package Sprint4_18Q1;
 
 import auto.framework.ReportLog;
 import auto.framework.TestBase;
+import auto.framework.WebManager;
 import auto.framework.web.WebControl;
 import common.BackendAPI;
 import common.GlobalPage;
 import common.TestDataHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pageobjects.ExecutiveDashboardListPage;
+import pageobjects.ExecutiveDashboardPage;
 import pageobjects.GESSOAuthPage;
 
 import java.net.MalformedURLException;
@@ -22,7 +28,6 @@ public class US149291_Flight_List extends TestBase{
 
     public static BackendAPI backendAPI = new BackendAPI();
 
-    public static List<String> totalAllList = new ArrayList<String>();
     public static String responseContent;
     public static JSONArray  jsonArray;
 
@@ -53,6 +58,9 @@ public class US149291_Flight_List extends TestBase{
                 GESSOAuthPage.authInfo.submitFormShared.click();
             }
             GESSOAuthPage.page.verifyURL(false, 60);
+
+            WebElement myDynamicElement = (new WebDriverWait(WebManager.getDriver(), 50))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//p[contains(text(),'Executive Dashboard')]")));
         }
 
 
@@ -61,7 +69,19 @@ public class US149291_Flight_List extends TestBase{
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").verifyDisplayed(true,5);
             GlobalPage.mainPXNavigationOptions.navigateToNavbarLink("Executive Dashboard").click();
 
-            WebControl.activeWindow().waitForPageToLoad(5);
+            WebElement myDynamicElement = (new WebDriverWait(WebManager.getDriver(), 50))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//ppro-stats-card[@title='ARRIVALS OTP']//div[text()='ARRIVALS OTP']")));
+
+            ExecutiveDashboardPage.statisticFrame.flightListIcon.click();
+
+            if (!ExecutiveDashboardPage.statisticFrame.statisticItem("FLIGHT ARRIVAL").isDisplayed()){
+                ReportLog.assertTrue(true, "Flight List opened successfully");
+            }else{
+                ReportLog.assertFailed("Flight List can not be opened");
+            }
+
+
+           // WebControl.activeWindow().waitForPageToLoad(5);
 
             responseContent = backendAPI.getPayload("Positive Test","GET/disruptions");
 
@@ -70,7 +90,7 @@ public class US149291_Flight_List extends TestBase{
                     jsonArray = new JSONArray(responseContent);
                 } else {
                     ReportLog.addInfo("Can not get response content from service");
-                    ReportLog.assertFailed("Step2 is failed");
+                    ReportLog.assertFailed("Step1 is failed");
                 }
             }catch(NullPointerException e){
 
@@ -79,14 +99,37 @@ public class US149291_Flight_List extends TestBase{
             for (int i = 0 ; i < jsonArray.length() ; i++ ){
                 JSONObject flightInfo = jsonArray.getJSONObject(i);
                 String flightID = flightInfo.getString("flightID");
-                totalAllList.add(flightID);
-            }
+                String tenant = flightInfo.getString("tenant");
+                String flightNumber = flightInfo.getJSONObject("flightDetails").getString("flightNumber");
+                String origin = flightInfo.getJSONObject("flightDetails").getString("origin");
+                String destination = flightInfo.getJSONObject("flightDetails").getString("destination");
 
-            for(int i = 0; i<totalAllList.size(); i++){
-                ExecutiveDashboardListPage.disruptedFlightList.disruptedFlightListItem(totalAllList.get(i)).verifyDisplayed(true,5);
-                ExecutiveDashboardListPage.disruptedFlightList.disruptedFlightListItem(totalAllList.get(i)).highlight();
-                String[] parsedItem = ExecutiveDashboardListPage.disruptedFlightList.disruptedFlightListItem(totalAllList.get(i)).getText().split("\n");
-                int f =0;
+                int cost = flightInfo.getJSONArray("costs").getJSONObject(0).getJSONArray("data").getJSONObject(0).getJSONObject("total-cost").getInt("value");
+
+                ExecutiveDashboardListPage.disruptedFlightList.disruptedFlightListItem(flightID).verifyDisplayed(true,5);
+                String[] parsedItem = ExecutiveDashboardListPage.disruptedFlightList.disruptedFlightListItem(flightID).getText().split("\n");
+
+                if (tenant.concat(flightNumber).equals(parsedItem[1])){
+                    ReportLog.assertTrue(true,"flight field value is passed");
+                }else{
+                    ReportLog.assertFailed("flight field value is failed");
+                }
+                if (origin.split("-")[1].equals(parsedItem[2])){
+                    ReportLog.assertTrue(true,"origin field value is passed");
+                }else{
+                    ReportLog.assertFailed("origin field value is failed");
+                }
+                if (destination.split("-")[1].equals(parsedItem[3])){
+                    ReportLog.assertTrue(true,"dest field value is passed");
+                }else{
+                    ReportLog.assertFailed("dest field value is failed");
+                }
+                if (Integer.parseInt(parsedItem[6]) == cost){
+                    ReportLog.assertTrue(true,"cost field value is passed");
+                }else{
+                    ReportLog.assertFailed("cost field value is failed");
+                }
+
             }
 
         }
