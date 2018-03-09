@@ -67,7 +67,6 @@ public class PaxImpactPage extends GlobalPage
             public SummaryDrawerItem( String id){
                 super("Summary Drawer Item: " + id, By.xpath(".//stat-val[@id='"+id+"']"));
                 itemValue = new Element("Summary Drawer Item Value ", By.xpath(".//ppro-horizontal-selector[@id='passenger-stats']//stat-val[@id='"+id+"']//div[@class='value value-none-importance  style-scope stat-val']"));
-
             }
 
         }
