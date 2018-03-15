@@ -33,12 +33,12 @@ public class US145649_BindingConfigPage extends TestBase
 	public void TestScenarios() throws Exception
 	{
 		ReportLog.setTestName("Test");
-		testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser0'");
+		testDataHandler = TestDataHandler.loadTestData("URL", "RowSelection='LoginUser1'");
 		TestCases.PreRequisiteStep(testDataHandler);
 		TestCases.Step1();
 		TestCases.Step2();
-		TestCases.Step3();
-		TestCases.Step4();
+//		TestCases.Step3();
+//		TestCases.Step4();
 	}
 	
 	public static class TestCases
@@ -86,7 +86,7 @@ public class US145649_BindingConfigPage extends TestBase
 	        PaxConfigPage.configSection.advanceBody.allowOverbookingText.verifyText("Allow Overbooking");
 	        PaxConfigPage.configSection.advanceBody.allowOverbooking.verifyDisplayed(true, 5);
 	        PaxConfigPage.configSection.advanceBody.maxOverbookingText.verifyDisplayed(true, 5);
-	        PaxConfigPage.configSection.advanceBody.maxOverbookingText.verifyText("Allowable Booking Capacity");
+	        PaxConfigPage.configSection.advanceBody.maxOverbookingText.verifyText("Allowable Booking Capacity (%)"); //Sprint 5_18Q1: TC67503, US161691: Add Units to fields in Config View
 	        PaxConfigPage.configSection.advanceBody.maxOverbookingBox.verifyDisplayed(true, 5);
 	        
 		}
