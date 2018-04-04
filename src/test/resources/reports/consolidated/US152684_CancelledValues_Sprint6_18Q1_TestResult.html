@@ -1,0 +1,2512 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<html>
+   <head>
+      <title>R3 Report Manager</title>
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js">//</script>
+      <script>
+	$( document ).ready(function() {
+
+		function expandContent(element) {
+			element.parent().nextAll(".box, .line").show();
+			element.attr("class","collapse");
+			element.unbind("click");
+			element.text("[-]");
+			element.click(function( event ) {
+				collapseContent($(this));
+			});
+		};
+		
+		function collapseContent(element) {
+			element.parent().nextAll(".box, .line").hide();
+			element.attr("class","expand");
+			element.unbind("click");
+			element.text("[+]");
+			element.click(function( event ) {
+				expandContent($(this));
+			});
+		};
+		
+		$( "span.expand" ).click(function( event ) {
+			expandContent($(this));
+		});
+		
+		$( "span.collapse" ).click(function( event ) {
+			collapseContent($(this));
+		});
+		
+		$( "span.collapse-all" ).click(function( event ) {
+			$( "span.collapse" ).click();
+		});
+		
+		$( "span.expand-all" ).click(function( event ) {
+			$( "span.expand" ).click();
+		});
+		
+		$( "span.collapse" ).click();
+		
+		$( "div.box[id='summary']" ).find("span.expand:first").click();
+		
+	});
+    </script>
+      <style>
+		h1 {
+			font-size: 16pt;
+			margin: 10px 0px 0px 0px;
+		}
+		div.box {
+			font-family:"Calibri";
+			font-size: 9pt;
+			display: block;
+			width: inherit;
+			border: none;
+			margin: 0px 5px 6px 5px;
+			padding-bottom: 0px;
+		}
+		div.line {
+			font-family:"Calibri";
+			font-size: 9pt;
+			display: block;
+			width: inherit;
+			border: solid #aaa 1px;
+			margin: 4px 5px 4px 5px;
+			padding: 0px 3px 0px 3px;
+		}
+		div.header1 {
+			font-family:"Calibri";
+			font-size: 10pt;
+			color: white;
+			background-color: #333;
+			width: inherit;
+			border: solid #aaa 1px;
+			min-height: 19px;
+			padding: 0px 3px 1px 3px;
+			margin: 5px 0px 5px 0px;
+		}
+		div.header2 {
+			font-family:"Calibri";
+			font-size: 10pt;
+			color: black;
+			background-color: #cfcfcf;
+			width: inherit;
+			border: solid #bfbfbf 1px;
+			min-height: 19px;
+			padding: 0px 3px 1px 3px;
+			margin: 5px 0px 5px 0px;
+		}
+		table.metrics {
+			font-family:"Calibri";
+			font-size: 9pt;
+			border: solid gray 1px;
+		}
+		table.metrics td{
+			text-align:center;
+			border: solid #aaa 1px;
+		}
+		span.label {
+			font-family:"Calibri";
+			color: black;
+			font-weight: bold;
+		}
+		span.passed {
+			color: green;
+		}
+		span.failed {
+			color: red;
+		}
+		span.warning {
+			color: orange;
+		}
+		span.norun, span.incomplete {
+			color: grey;
+		}
+		span.info {
+			color: #3377ff;
+		}
+		span.done {
+			color: green;
+		}
+		span.status {
+			color: grey;
+		}
+		span.expand, span.collapse {
+			font-family:"Courier";
+			font-size: 10pt;
+			color: grey;
+			font-weight: bold;
+		}
+		a:link {
+			color: #3377ff;
+		}
+		
+		div.footer {
+		   position: fixed;
+		   right: 0;
+		   bottom: 0;
+		   left: 0;
+		   padding: 1rem;
+		   background-color: #efefef;
+		   text-align: left;
+		}
+		
+	</style>
+   </head>
+   <body>
+      <center>
+         <table class="metrics">
+            <tr>
+               <th width="105px">Level</th>
+               <th width="75px">
+                  <span class="passed">Passed</span>
+               </th>
+               <th width="75px">
+                  <span class="failed">Failed</span>
+               </th>
+               <th width="75px">
+                  <span class="warning">Warning</span>
+               </th>
+               <th width="75px">
+                  <span class="incomplete">Incomplete</span>
+               </th>
+               <th width="75px">
+                  <span class="norun">No Run</span>
+               </th>
+               <th width="75px">Total</th>
+            </tr>
+            <tr>
+               <td>Test Scenario</td>
+               <td>1</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>1</td>
+            </tr>
+            <tr>
+               <td>Test Case</td>
+               <td>3</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>3</td>
+            </tr>
+            <tr>
+               <td>Test Steps</td>
+               <td>4</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>0</td>
+               <td>4</td>
+            </tr>
+         </table>
+      </center>
+      <h1>Test Scenario: Test</h1>
+      <div class="box" id="test-summary">
+         <div class="header2">
+            <span class="collapse" href="#">[-]</span>Test Execution Summary<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="line">
+            <span class="label">Time Started</span> : 03/21/2018 02:17 PM</div>
+         <div class="line">
+            <span class="label">Time Ended</span> : 03/21/2018 02:33 PM</div>
+         <div class="line">
+            <span class="label">Time Elapsed</span> : 15.97 mins</div>
+         <div class="line">
+            <span class="label">Browser</span> : chrome 64.0.3282.186</div>
+      </div>
+      <div class="box" id="test-case">
+         <div class="header1">
+            <span class="collapse" href="#">[-]</span>Test Case: PAX Protection HomePage<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="box" id="test-step">
+            <div class="header2">
+               <span class="collapse" href="#">[-]</span> Step: Go to this URL: https://pax-protect-ui-shell.run.aws-usw02-pr.ice.predix.io <span class="status"> | <span class="passed">Passed</span>
+               </span>
+            </div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:17 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | Clear data</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:17 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | Navigate to https://pax-protect-ui-shell.run.aws-usw02-pr.ice.predix.io </div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:17 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Username/SSO ID Input] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:17 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Username/SSO ID Input] Type "502702210"</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:17 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Password Input] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:18 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Password Input] Type **************** </div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:18 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Login - Shared Computer] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:18 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Login - Shared Computer] Click element</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:18 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | not in GE - SSO Authentication Page page</div>
+         </div>
+      </div>
+      <div class="box" id="test-case">
+         <div class="header1">
+            <span class="collapse" href="#">[-]</span>Test Case: Select then solve Cancelled flights in PDS<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="box" id="test-step">
+            <div class="header2">
+               <span class="collapse" href="#">[-]</span> Step: Filter Cancelled flights by clicking the Cancelled tab<span class="status"> | <span class="passed">Passed</span>
+               </span>
+            </div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:18 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Canceled disrupted flight section ] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:18 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Canceled disrupted flight section ] Click element</div>
+         </div>
+         <div class="box" id="test-step">
+            <div class="header2">
+               <span class="collapse" href="#">[-]</span> Step: Select Cancelled flightsb then click Solve<span class="status"> | <span class="passed">Passed</span>
+               </span>
+            </div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-814-20180321-CLT-LAX-0] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-814-20180321-CLT-LAX-0] Click element</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-798-20180321-RND-LAX-0] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-798-20180321-RND-LAX-0] Click element</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-728-20180321-KOA-LAX-0] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-728-20180321-KOA-LAX-0] Click element</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-834-20180321-ALB-LAX-0] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [List View - Flight ID: FL-ZZ-834-20180321-ALB-LAX-0] Click element</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Solve Button] Wait for element to display (10)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Solve Button] Click element</div>
+         </div>
+      </div>
+      <div class="box" id="test-case">
+         <div class="header1">
+            <span class="collapse" href="#">[-]</span>Test Case: Verify Solution Screen List View and Commit Functionality<span class="status"> | <span class="passed">Passed</span>
+            </span>
+         </div>
+         <div class="box" id="test-step">
+            <div class="header2">
+               <span class="collapse" href="#">[-]</span> Step: Verifying All PNRs and Impact Type<span class="status"> | <span class="passed">Passed</span>
+               </span>
+            </div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights Text] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights Text] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Selected Flights Text] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Selected Flights Text] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Details Text] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Details Text] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Impacted Flights] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Total PNRs] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:19 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [Total PNRs] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WYYYUW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WYYYUW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type WYYYUW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BBXFHJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BBXFHJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BBXFHJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HQFRFE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HQFRFE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type HQFRFE] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NTBYDL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NTBYDL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type NTBYDL] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VBIVWP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VBIVWP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type VBIVWP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CIFPFF] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CIFPFF] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type CIFPFF] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LWRDUX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LWRDUX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type LWRDUX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZALIQF] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:20 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZALIQF] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZALIQF] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OPFBNC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OPFBNC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OPFBNC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MYYACQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MYYACQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type MYYACQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CWFAWZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CWFAWZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type CWFAWZ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XQKWIE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XQKWIE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type XQKWIE] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YCKTXV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YCKTXV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YCKTXV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PGTAQC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PGTAQC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PGTAQC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HEQNUL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HEQNUL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type HEQNUL] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: RXKVVU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: RXKVVU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type RXKVVU] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZQADXL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZQADXL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZQADXL] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZNDDIU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZNDDIU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZNDDIU] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MNYUPV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MNYUPV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type MNYUPV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IOJUMH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IOJUMH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type IOJUMH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XTBZEN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:21 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XTBZEN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type XTBZEN] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WKBXLP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WKBXLP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type WKBXLP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ICBQKV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ICBQKV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ICBQKV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YFSHNC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YFSHNC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YFSHNC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: POJYEP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: POJYEP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type POJYEP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UBSGHX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UBSGHX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type UBSGHX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CZTCEG] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CZTCEG] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type CZTCEG] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SKEAPC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SKEAPC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SKEAPC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ARGRSR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ARGRSR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ARGRSR] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DENFLX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DENFLX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type DENFLX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OATKCW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OATKCW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OATKCW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PYIBRH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PYIBRH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PYIBRH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VYTLMU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:22 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VYTLMU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type VYTLMU] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OMFRZN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OMFRZN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OMFRZN] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WCXUWW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WCXUWW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type WCXUWW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BWGKEH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BWGKEH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BWGKEH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VFKWJC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VFKWJC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type VFKWJC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YHQDLD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YHQDLD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YHQDLD] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SVLOMW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SVLOMW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SVLOMW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MANAEX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MANAEX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type MANAEX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KRXQPA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KRXQPA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KRXQPA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OILPWY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OILPWY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OILPWY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XPASEH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XPASEH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type XPASEH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FUVLFW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FUVLFW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FUVLFW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QPIEDJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:23 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QPIEDJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type QPIEDJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EBIWEP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EBIWEP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type EBIWEP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OAASSA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OAASSA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OAASSA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TNZTPF] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TNZTPF] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type TNZTPF] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WGMTRK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WGMTRK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type WGMTRK] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BVFIWQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BVFIWQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BVFIWQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FPARMC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FPARMC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FPARMC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LSVNST] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LSVNST] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type LSVNST] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YQRYOL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YQRYOL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YQRYOL] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZNIHWJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZNIHWJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZNIHWJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LXABRT] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LXABRT] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type LXABRT] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UYUODA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UYUODA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type UYUODA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: POPRQM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:24 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: POPRQM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type POPRQM] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YWTHNC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YWTHNC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YWTHNC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JYWMHN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JYWMHN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JYWMHN] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AFSMCW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AFSMCW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type AFSMCW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OYUHIK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OYUHIK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OYUHIK] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NAXPDI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NAXPDI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type NAXPDI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SIOKRY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SIOKRY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SIOKRY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JCCYHY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JCCYHY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JCCYHY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QNQKSD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QNQKSD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type QNQKSD] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JGYUNT] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JGYUNT] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JGYUNT] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OVWHYV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OVWHYV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OVWHYV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TTQZXN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TTQZXN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type TTQZXN] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ALFKTT] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ALFKTT] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ALFKTT] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HLSZLR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HLSZLR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type HLSZLR] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GCVQDY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GCVQDY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:25 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type GCVQDY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VXSIJC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VXSIJC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type VXSIJC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PFBJZI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PFBJZI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PFBJZI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TVFOUH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TVFOUH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type TVFOUH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FFXTMO] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FFXTMO] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FFXTMO] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FZAGGV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FZAGGV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FZAGGV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZAVWNX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZAVWNX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZAVWNX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BETILE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BETILE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BETILE] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KAJZKW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KAJZKW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KAJZKW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UTEZMP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UTEZMP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type UTEZMP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NFDQZR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NFDQZR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type NFDQZR] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PIEXVB] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PIEXVB] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PIEXVB] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GCOZSS] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GCOZSS] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type GCOZSS] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ACIPWC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ACIPWC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ACIPWC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MDMPXJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MDMPXJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:26 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type MDMPXJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WQCWNC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WQCWNC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type WQCWNC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XESLMP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XESLMP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type XESLMP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YXUZNX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YXUZNX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YXUZNX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KELNMI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KELNMI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KELNMI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SKNTCI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SKNTCI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SKNTCI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GDGMYO] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GDGMYO] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type GDGMYO] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FSTRFT] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FSTRFT] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FSTRFT] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CKQLRP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CKQLRP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type CKQLRP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BROQLA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BROQLA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BROQLA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZGWNKA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZGWNKA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZGWNKA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YMXVOS] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YMXVOS] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YMXVOS] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PBPPEM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PBPPEM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PBPPEM] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CQDPRV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CQDPRV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type CQDPRV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PMYJTD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PMYJTD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PMYJTD] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VNWGCQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:27 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VNWGCQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type VNWGCQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YMRZBZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YMRZBZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YMRZBZ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TGBVHN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TGBVHN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type TGBVHN] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UVICUB] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UVICUB] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type UVICUB] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DAFPOL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DAFPOL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type DAFPOL] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DCBRWH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DCBRWH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type DCBRWH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AMFMNK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AMFMNK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type AMFMNK] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SDTZUF] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SDTZUF] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SDTZUF] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TKPMLV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TKPMLV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type TKPMLV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JHYANV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JHYANV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JHYANV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KEUAHM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KEUAHM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KEUAHM] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VXJVHR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VXJVHR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type VXJVHR] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EPZXGQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EPZXGQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type EPZXGQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WOBYFB] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:28 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WOBYFB] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type WOBYFB] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DVVZKJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DVVZKJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type DVVZKJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BWSXTC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BWSXTC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BWSXTC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XVIUVI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XVIUVI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type XVIUVI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KLPMIJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KLPMIJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KLPMIJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WMXOBU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: WMXOBU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type WMXOBU] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BSWUNW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BSWUNW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BSWUNW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: RQIYZI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: RQIYZI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type RQIYZI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OFDGAD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OFDGAD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OFDGAD] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NRJXFN] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NRJXFN] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type NRJXFN] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UTYWSE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UTYWSE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type UTYWSE] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SCNSEG] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SCNSEG] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SCNSEG] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JYYHVV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JYYHVV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JYYHVV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FRXIAJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FRXIAJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FRXIAJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ECBRQA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ECBRQA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ECBRQA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SYNJQJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:29 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SYNJQJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SYNJQJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YCGTJT] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YCGTJT] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YCGTJT] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TLXSMS] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TLXSMS] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type TLXSMS] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CRTBOV] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: CRTBOV] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type CRTBOV] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SEZBTK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SEZBTK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SEZBTK] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: URPWCM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: URPWCM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type URPWCM] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TDGMVH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: TDGMVH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type TDGMVH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FKXWPY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FKXWPY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FKXWPY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QAPURU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: QAPURU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type QAPURU] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JPHUJI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JPHUJI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JPHUJI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YCJWCS] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YCJWCS] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YCJWCS] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YISSHZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: YISSHZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type YISSHZ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KNOAZY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KNOAZY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KNOAZY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HNXLOZ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HNXLOZ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type HNXLOZ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KJNEEE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KJNEEE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KJNEEE] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZAEBYF] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:30 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZAEBYF] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZAEBYF] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EDNZXK] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EDNZXK] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type EDNZXK] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MFSMAI] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MFSMAI] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type MFSMAI] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BNAECD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: BNAECD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type BNAECD] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LZSIES] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: LZSIES] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type LZSIES] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HRJRXD] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: HRJRXD] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type HRJRXD] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PUJDBO] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PUJDBO] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PUJDBO] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UDAESA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UDAESA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type UDAESA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SURQRA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SURQRA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SURQRA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KAKMIQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KAKMIQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KAKMIQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DGATSY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DGATSY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type DGATSY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NDOKVX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: NDOKVX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type NDOKVX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SEAUNE] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: SEAUNE] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type SEAUNE] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ESCAZQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ESCAZQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ESCAZQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VBITTJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: VBITTJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type VBITTJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OYMOCP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:31 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OYMOCP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OYMOCP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KBJAZR] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: KBJAZR] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type KBJAZR] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZQUHRH] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZQUHRH] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZQUHRH] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FNCHQQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: FNCHQQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type FNCHQQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DMCVBM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DMCVBM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type DMCVBM] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UYPKDL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: UYPKDL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type UYPKDL] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AHSMQJ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: AHSMQJ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type AHSMQJ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OPUUHL] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: OPUUHL] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type OPUUHL] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MENCCW] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: MENCCW] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type MENCCW] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IKFFZY] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IKFFZY] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type IKFFZY] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GDGVRX] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: GDGVRX] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type GDGVRX] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PAPHQC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: PAPHQC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type PAPHQC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DTSMRM] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: DTSMRM] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type DTSMRM] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EMCYLC] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: EMCYLC] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type EMCYLC] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZWFXKP] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZWFXKP] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZWFXKP] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JKVPFQ] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:32 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JKVPFQ] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JKVPFQ] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JHUGZA] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: JHUGZA] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type JHUGZA] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IQTRML] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: IQTRML] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type IQTRML] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZIEUWS] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: ZIEUWS] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type ZIEUWS] Verify that text contains Cancelled</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XPHWWU] Wait for element to display (5)</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Item: XPHWWU] Verify that displayed equals true</div>
+            <div class="line">
+               <span width="100px">03/21/2018 02:33 PM</span> | <b>
+                  <span class="passed">Passed</span>
+               </b> | [PNR Impact Type XPHWWU] Verify that text contains Cancelled</div>
+         </div>
+      </div>
+   </body>
+   <div class="footer">
+      <strong>© 2016 Accenture TCoE Capability. </strong>All Rights Reserved.</div>
+</html>

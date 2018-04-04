@@ -111,7 +111,10 @@ public class US137580_ListView extends TestBase {
                                 ReportLog.addInfo("Can not get response content from service");
                                 ReportLog.assertFailed("Step2 is failed");
                         }
-                }catch(NullPointerException e){
+                }
+                
+                catch(NullPointerException e)
+                {
 
                 }
 

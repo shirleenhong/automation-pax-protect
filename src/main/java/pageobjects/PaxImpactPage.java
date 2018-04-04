@@ -86,7 +86,7 @@ public class PaxImpactPage extends GlobalPage
     		
     		toggleCheckBoxLabel = new Element("Toggle Check Box Label", By.xpath(".//div[@class='container style-scope ppro-checkbox']"));
     		toggleCheckBox = new Element("Toggle Check Box", By.xpath("//div[@class='squarebox style-scope ppro-checkbox']"));
-    		filterButton = new Element("Filter Button", By.xpath(".//div[@class='style-scope px-modal']"));
+    		filterButton = new Element("Filter Button", By.xpath(".//button[@class='filter-btn style-scope ppro-modal-filter-view']"));
     		searchBox = new Element("Search Textbox", By.xpath(".//input[@class='style-scope paper-input']"));
   
     	}

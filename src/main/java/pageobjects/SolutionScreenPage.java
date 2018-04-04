@@ -101,13 +101,15 @@ public class SolutionScreenPage extends GlobalPage {
             public final Element pnrItemCheckBox;
             public final Element pnrCommitButton;
             public final Element commitResponse;
+            public final Element impactType;
 
             public PNRItem (String id)
             {
                 super("PNR Item: " + id, By.xpath(".//ppro-list-item[@id='"+id+"']"));
                 pnrItemCheckBox = new Element("PNR Item Check Box " + id, By.xpath(".//div[@class='squarebox style-scope ppro-checkbox']"), this);
                 pnrCommitButton = new Element("PNR Item Commit Button" + id, By.xpath(".//button[text()='Commit']"), this);
-                commitResponse  = new Element("PNR Item Commit Response" + id, By.xpath(".//span[contains(@class,'ppro-action-btn')]"), this);
+                commitResponse  = new Element("PNR Item Commit Response " + id, By.xpath(".//span[contains(@class,'ppro-action-btn')]"), this);
+                impactType  = new Element("PNR Impact Type " + id, By.xpath(".//div[@class='impact  style-scope ppro-disruption-delay']"), this);
 
             }
         }

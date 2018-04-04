@@ -75,8 +75,8 @@ public class US152680_FilteringInPDS extends TestBase {
             FilteringWindowPage.filteringWindow.impactType.verifyDisplayed(true, 5);
             FilteringWindowPage.filteringWindow.cancelButton.verifyDisplayed(true, 5);
             FilteringWindowPage.filteringWindow.cancelButton.highlight();
-            FilteringWindowPage.filteringWindow.appplyButton.verifyDisplayed(true, 5);
-            FilteringWindowPage.filteringWindow.appplyButton.highlight();
+            FilteringWindowPage.filteringWindow.applyButton.verifyDisplayed(true, 5);
+            FilteringWindowPage.filteringWindow.applyButton.highlight();
         }
         
         public static void Step2()
@@ -94,7 +94,7 @@ public class US152680_FilteringInPDS extends TestBase {
             ReportLog.setTestStep("Filtering by Impact Type");
 
             FilteringWindowPage.filteringWindow.cancelledOption.click();
-            FilteringWindowPage.filteringWindow.appplyButton.click();
+            FilteringWindowPage.filteringWindow.applyButton.click();
             
             responseContent = backendAPI.getPayload("Positive Test", "GET/disruptions");
 
@@ -150,7 +150,7 @@ public class US152680_FilteringInPDS extends TestBase {
             FilteringWindowPage.filteringWindow.cancelledOption.click();
             FilteringWindowPage.filteringWindow.deselectCancelledOption.click();
             FilteringWindowPage.filteringWindow.delayedOption.click();
-            FilteringWindowPage.filteringWindow.appplyButton.click();
+            FilteringWindowPage.filteringWindow.applyButton.click();
             
             ReportLog.setTestStep("Verify Delayed Flights");
             

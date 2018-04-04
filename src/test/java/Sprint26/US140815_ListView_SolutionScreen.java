@@ -115,19 +115,19 @@ public class US140815_ListView_SolutionScreen extends TestBase {
                 SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).verifyDisplayed(true, 5);
                 SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).highlight();
                 SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.highlight();
-                if (!SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.getCssValue("cursor").equals("not-allowed") && !oneCommitDone){
-                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.click();
-                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.verifyDisplayed(true,5);
-                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.highlight();
-                    if (SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.getText().equals("REBOOKED")){
-                        ReportLog.assertTrue(true, "Pnr commit successfully");
-                        oneCommitDone = true;
-                    }else{
-                        ReportLog.assertFailed("Pnr commit failed");
-                    }
-                }else{
-                    ReportLog.addInfo("Button disabled");
-                }
+//                if (!SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.getCssValue("cursor").equals("not-allowed") && !oneCommitDone){
+//                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).pnrCommitButton.click();
+//                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.verifyDisplayed(true,5);
+//                    SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.highlight();
+//                    if (SolutionScreenPage.pnrListView.pnrItem(confirmationNumber).commitResponse.getText().equals("REBOOKED")){
+//                        ReportLog.assertTrue(true, "Pnr commit successfully");
+//                        oneCommitDone = true;
+//                    }else{
+//                        ReportLog.assertFailed("Pnr commit failed");
+//                    }
+//                }else{
+//                    ReportLog.addInfo("Button disabled");
+//                }
 
             }
 
